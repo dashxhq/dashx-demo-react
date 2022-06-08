@@ -24,6 +24,7 @@ const Input = ({
         type={type}
         value={value}
         required={required}
+        autoComplete="off"
       />
     </div>
   )
