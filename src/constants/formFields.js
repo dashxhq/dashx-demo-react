@@ -3,29 +3,25 @@ const registerFields = [
     label: "First Name",
     placeholder: "First Name",
     type: "text",
-    name: "firstName",
-    required: true
+    name: "firstName"
   },
   {
     label: "Last Name",
     placeholder: "Last Name",
     type: "text",
-    name: "lastName",
-    required: true
+    name: "lastName"
   },
   {
     label: "Email",
     placeholder: "Email",
     type: "email",
-    name: "email",
-    required: true
+    name: "email"
   },
   {
     label: "Phone",
     placeholder: "Phone",
     type: "text",
-    name: "phone",
-    required: true
+    name: "phone"
   },
 ]
 
@@ -34,15 +30,13 @@ const loginFields = [
     label: "Email",
     placeholder: "Email",
     type: "email",
-    name: "email",
-    required: true
+    name: "email"
   },
   {
     label: "Password",
     placeholder: "Password",
     type: "password",
-    name: "password",
-    required: true
+    name: "password"
   },
 ]
 

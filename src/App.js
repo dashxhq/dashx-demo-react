@@ -10,7 +10,7 @@ import LoginForm from './components/forms/LoginForm';
 const App = () => {
   return (
     <div
-      className="h-screen py-12 px-4 sm:px-6 lg:px-8 font-poppins"
+      className="h-full m-auto sm:px-6 lg:px-8 font-poppins"
     >
       <BrowserRouter>
         <Routes>

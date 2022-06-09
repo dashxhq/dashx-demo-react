@@ -1,68 +1,81 @@
 import React, { useState } from 'react';
-import { registerFields } from '../../constants/formFields';
-import Input from '../Input';
+import * as Yup from 'yup';
+import { Formik, Form } from 'formik';
 import Button from '../Button';
 import FormHeader from '../FormHeader';
+import { registerFields } from '../../constants/formFields';
+import Input from '../Input';
+import parseError from '../../lib/parseError';
+import AlertBox from '../AlertBox';
+import InfoBox from '../InfoBox';
 
-import logo from '../../assets/dashx-logo.svg'
 import dashx from '../../lib/dashx';
+import logo from "../../assets/dashx-logo.svg"
 
 const classes = {
-  pageBody: "h-full flex bg-gray-100",
+  pageBody: "flex h-screen",
   formContainer: "w-full max-w-lg m-auto bg-white rounded-lg border border-primaryBorder shadow-md py-10 px-8"
 }
 
-const initialState = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  phone: ""
-}
-
 const RegisterForm = () => {
-  const [ registerFormState, setRegisterFormState ] = useState(initialState)
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
   
-  const handleChange = ({ target: { name, value } }) => {
-    setRegisterFormState({ ...registerFormState, [name]: value })
-  }
-  
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    await dashx?.track('User Sign up', registerFormState)
-    setRegisterFormState(initialState)
-    const response = await dashx?.identify(registerFormState);
+  const onSubmitForm = async(formValues, resetForm) => {
+    try {
+      const response = await dashx?.identify(formValues);
+      if(response) {
+        resetForm();
+      }
+    } catch (error) {
+      const errorMessage = parseError(error);
+      setError(errorMessage);
+    }
   }
   
   return (
     <div className={classes.pageBody}>
       <div className={classes.formContainer}>
-        <FormHeader logo={logo} heading="Sign Up for an account" />
-        <form onSubmit={handleSubmit}>
-          {
-            registerFields.map(({
-              label,
-              type,
-              placeholder,
-              name,
-              required
-            }, index) => (
-              <Input
-                key={index}
-                label={label}
-                type={type}
-                name={name}
-                placeholder={placeholder}
-                handleChange={handleChange}
-                value={registerFormState[name]}
-                required={required}
-              />
-            ))
+        {error && (<AlertBox alertMessage={error} setError={setError} />)}
+        <FormHeader heading="Sign up for an account" logo={logo} />
+        <Formik
+          initialValues={{
+            firstName: '',
+            lastName: '',
+            email: '',
+            phone: ''
+          }}
+          validationSchema={
+            Yup.object({
+              firstName: Yup.string()
+                .required('First Name is required'),
+              lastName: Yup.string()
+                .required('Last Name is required'),
+              email: Yup.string()
+                .email('Invalid email address')
+                .required('Email is required'),
+            })
           }
-          <Button type="submit" label="SIGN UP" />
-        </form>
+          onSubmit={async (values, { setSubmitting, resetForm }) => {
+            await onSubmitForm(values, resetForm);
+            setSubmitting(false)
+          }}
+        >
+          <Form>
+            {registerFields.map((fieldProps, index) => (
+                <Input
+                  key={index}
+                  label={fieldProps?.label}
+                  {...fieldProps}
+                />
+              ))}
+            {!success && (<InfoBox infoMessage="Please add your country code as prefix" />)}
+            <Button type="submit" label="Sign Up" />
+          </Form>
+        </Formik>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default RegisterForm;
