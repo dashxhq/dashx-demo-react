@@ -6,4 +6,4 @@ const dashx = DashX({
   targetEnvironment: process.env.REACT_APP_DASHX_TARGET_ENVIRONMENT
 })
 
-export default dashx;
+export default dashx

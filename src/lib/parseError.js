@@ -1,6 +1,6 @@
 const parseError = (errorObj) => {
-  const { extensions: { fieldErrors } = {} } = errorObj[0] || {};
-  return fieldErrors.join('');
+  const { extensions: { fieldErrors } = {} } = errorObj[0] || {}
+  return fieldErrors.join('')
 }
 
-export default parseError;
+export default parseError

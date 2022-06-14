@@ -1,25 +1,25 @@
-import React, { useState } from 'react';
-import * as Yup from 'yup';
-import { Formik, Form } from 'formik';
-import Button from '../Button';
-import FormHeader from '../FormHeader';
-import { loginFields } from '../../constants/formFields';
-import Input from '../Input';
-import parseError from '../../lib/parseError';
-import AlertBox from '../AlertBox';
+import React, { useState } from 'react'
+import * as Yup from 'yup'
+import { Formik, Form } from 'formik'
+import Button from '../Button'
+import FormHeader from '../FormHeader'
+import { loginFields } from '../../constants/formFields'
+import Input from '../Input'
+import parseError from '../../lib/parseError'
+import AlertBox from '../AlertBox'
 
-import dashx from '../../lib/dashx';
-import logo from "../../assets/dashx-logo.svg"
+import dashx from '../../lib/dashx'
+import logo from '../../assets/dashx-logo.svg'
 
 const classes = {
-  pageBody: "flex h-screen",
-  formContainer: "w-full max-w-lg m-auto bg-white rounded-lg border border-primaryBorder shadow-md py-10 px-8"
+  pageBody: 'flex h-screen',
+  formContainer: 'w-full max-w-lg m-auto bg-white rounded-lg border border-primaryBorder shadow-md py-10 px-8'
 }
 
 const LoginForm = () => {
-  const [success, setSuccess] = useState("");
-  const [error, setError] = useState("");
-  
+  const [ success, setSuccess ] = useState('')
+  const [ error, setError ] = useState('')
+
   return (
     <div className={classes.pageBody}>
       <div className={classes.formContainer}>
@@ -55,7 +55,7 @@ const LoginForm = () => {
         </Formik>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default LoginForm;
+export default LoginForm
