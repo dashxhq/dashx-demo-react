@@ -10,6 +10,7 @@ import AlertBox from '../AlertBox'
 
 import dashx from '../../lib/dashx'
 import logo from '../../assets/dashx-logo.svg'
+import InfoBox from '../InfoBox'
 
 const classes = {
   pageBody: 'flex h-screen',
@@ -17,7 +18,7 @@ const classes = {
 }
 
 const RegisterForm = () => {
-  // const [ success, setSuccess ] = useState('')
+  const [ success ] = useState('')
   const [ error, setError ] = useState('')
 
   const onSubmitForm = async (formValues, resetForm) => {
@@ -68,7 +69,7 @@ const RegisterForm = () => {
                 {...fieldProps}
               />
             ))}
-            {/* {!success && (<InfoBox infoMessage="Please add your country code as prefix" />)} */}
+            {!success && (<InfoBox infoMessage="Please add your country code as prefix" />)}
             <Button type="submit" label="Sign Up" />
           </Form>
         </Formik>
