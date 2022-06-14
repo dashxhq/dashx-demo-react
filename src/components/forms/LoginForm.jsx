@@ -5,10 +5,8 @@ import Button from '../Button'
 import FormHeader from '../FormHeader'
 import { loginFields } from '../../constants/formFields'
 import Input from '../Input'
-import parseError from '../../lib/parseError'
 import AlertBox from '../AlertBox'
 
-import dashx from '../../lib/dashx'
 import logo from '../../assets/dashx-logo.svg'
 
 const classes = {
@@ -17,7 +15,7 @@ const classes = {
 }
 
 const LoginForm = () => {
-  const [ success, setSuccess ] = useState('')
+  // const [ success, setSuccess ] = useState('')
   const [ error, setError ] = useState('')
 
   return (
@@ -38,14 +36,14 @@ const LoginForm = () => {
               password: Yup.string().required('Password is required')
             })
           }
-          onSubmit={async (values, { setSubmitting, resetForm }) => {
+          onSubmit={async (values, { setSubmitting }) => {
             setSubmitting(false)
           }}
         >
           <Form>
-            {loginFields.map((fieldProps, index) => (
+            {loginFields.map((fieldProps) => (
               <Input
-                key={index}
+                key={fieldProps?.label}
                 label={fieldProps?.label}
                 {...fieldProps}
               />

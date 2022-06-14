@@ -7,7 +7,6 @@ import { registerFields } from '../../constants/formFields'
 import Input from '../Input'
 import parseError from '../../lib/parseError'
 import AlertBox from '../AlertBox'
-import InfoBox from '../InfoBox'
 
 import dashx from '../../lib/dashx'
 import logo from '../../assets/dashx-logo.svg'
@@ -18,7 +17,7 @@ const classes = {
 }
 
 const RegisterForm = () => {
-  const [ success, setSuccess ] = useState('')
+  // const [ success, setSuccess ] = useState('')
   const [ error, setError ] = useState('')
 
   const onSubmitForm = async (formValues, resetForm) => {
@@ -62,14 +61,14 @@ const RegisterForm = () => {
           }}
         >
           <Form>
-            {registerFields.map((fieldProps, index) => (
+            {registerFields.map((fieldProps) => (
               <Input
-                key={index}
+                key={fieldProps?.label}
                 label={fieldProps?.label}
                 {...fieldProps}
               />
             ))}
-            {!success && (<InfoBox infoMessage="Please add your country code as prefix" />)}
+            {/* {!success && (<InfoBox infoMessage="Please add your country code as prefix" />)} */}
             <Button type="submit" label="Sign Up" />
           </Form>
         </Formik>
