@@ -5,7 +5,7 @@ import { useLocalStorage } from './hooks/useLocalStorage'
 
 const Navbar = () => {
   const { user, setUser } = useAuth()
-  const [ _, __, resetLocalStorage ] = useLocalStorage([], '')
+  const [ value, __, resetLocalStorage ] = useLocalStorage([], '')
 
   return (
     <div className="w-full p-2 bg-amber-100 flex gap-4 underline text-blue-700">
