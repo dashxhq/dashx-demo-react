@@ -1,11 +1,8 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import RegisterForm from '../components/forms/RegisterForm'
-import { CurrentUserProvider } from '../components/contexts/CurrentUserProvider'
 
-const Register = () => {
-  return (
-    <RegisterForm />
-  )
-}
+const Register = () => (
+  <RegisterForm />
+)
 
 export default Register

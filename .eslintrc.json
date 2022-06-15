@@ -21,6 +21,7 @@
         "no-shadow": "off",
         "array-bracket-spacing": [ "error", "always" ],
         "comma-dangle": [ "error", "never" ],
+        "camelcase": "off",
         "import/exports-last": "error",
         "import/extensions": "off",
         "import/prefer-default-export": "off",

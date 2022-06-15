@@ -6,12 +6,7 @@ const classes = {
 }
 const Button = ({ type = 'button', label, handleSubmit, loading }) => (
   // eslint-disable-next-line react/button-has-type
-  <button
-    className={classes.button}
-    type={type}
-    onClick={handleSubmit}
-    disabled={loading}
-  >
+  <button className={classes.button} type={type} onClick={handleSubmit} disabled={loading}>
     { loading ? <Loader /> : label }
   </button>
 )

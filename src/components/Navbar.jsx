@@ -12,6 +12,7 @@ const Navbar = () => {
       <Link to="/dashboard">DashBoard</Link>
       {user ? (
         <>
+          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
           <div
             onClick={() => {
               resetLocalStorage([ 'jwt', 'dashxToken' ])

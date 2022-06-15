@@ -21,6 +21,7 @@ const UpdateProfileForm = () => {
   const [ loading, setLoading ] = useState(false)
   const { update } = useAuth()
   const [ value ] = useLocalStorage('jwt')
+  // eslint-disable-next-line camelcase
   const { first_name, last_name, email } = jwt(value)
 
   const handleUpdate = async (formValues) => {
@@ -49,11 +50,7 @@ const UpdateProfileForm = () => {
       <div className={classes.formContainer}>
         <FormHeader heading="Update Profile" logo={logo} />
         <Formik
-          initialValues={{
-            firstName: first_name,
-            lastName: last_name,
-            email
-          }}
+          initialValues={{ firstName: first_name, lastName: last_name, email }}
           validationSchema={
             Yup.object({
               firstName: Yup.string()
