@@ -1,45 +1,43 @@
 import React, { useState } from 'react'
+import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
-import { Formik, Form } from 'formik'
-import { useNavigate } from 'react-router-dom'
-import Button from '../Button'
+import jwt from 'jwt-decode'
 import FormHeader from '../FormHeader'
-import { registerFields } from '../../constants/formFields'
-import Input from '../Input'
-import AlertBox from '../AlertBox'
-
 import logo from '../../assets/dashx-logo.svg'
+import { updateFormFields } from '../../constants/formFields'
+import Input from '../Input'
+import Button from '../Button'
+import AlertBox from '../AlertBox'
 import { useAuth } from '../contexts/CurrentUserProvider'
+import { useLocalStorage } from '../hooks/useLocalStorage'
 
 const classes = {
   pageBody: 'flex h-screen',
   formContainer: 'w-full max-w-lg m-auto bg-white rounded-lg border border-primaryBorder shadow-md py-10 px-8'
 }
 
-const RegisterForm = () => {
+const UpdateProfileForm = () => {
   const [ error, setError ] = useState('')
   const [ loading, setLoading ] = useState(false)
-  const navigate = useNavigate()
-  const { register } = useAuth()
+  const { update } = useAuth()
+  const [ value ] = useLocalStorage('jwt')
+  const { first_name, last_name, email } = jwt(value)
 
-  const onSubmitForm = async (formValues, resetForm) => {
+  const handleUpdate = async (formValues) => {
     setError('')
-    const { email, firstName, lastName, password } = formValues
+    const { email, firstName, lastName } = formValues
     const requestBody = {
       first_name: firstName,
       last_name: lastName,
-      email,
-      password
+      email
     }
     setLoading(true)
     try {
-      const { status } = await register(requestBody)
-      if (status === 201) {
-        navigate('/dashboard', { replace: true })
-        resetForm()
-      }
+      const { data } = await update(requestBody)
+      console.log(data, 'updateData')
     } catch (error) {
-      const errorMessage = error.response.data.message
+      console.log(error, 'updateError')
+      const errorMessage = error.response?.data?.message || error.response?.data
       setError(errorMessage)
     } finally {
       setLoading(false)
@@ -49,13 +47,12 @@ const RegisterForm = () => {
   return (
     <div className={classes.pageBody}>
       <div className={classes.formContainer}>
-        <FormHeader heading="Sign up for an account" logo={logo} />
+        <FormHeader heading="Update Profile" logo={logo} />
         <Formik
           initialValues={{
-            firstName: '',
-            lastName: '',
-            email: '',
-            password: ''
+            firstName: first_name,
+            lastName: last_name,
+            email
           }}
           validationSchema={
             Yup.object({
@@ -65,28 +62,24 @@ const RegisterForm = () => {
                 .required('Last Name is required'),
               email: Yup.string()
                 .email('Invalid email address')
-                .required('Email is required'),
-              password: Yup.string()
-                .required('Password is required')
+                .required('Email is required')
             })
           }
           onSubmit={async (values, { setSubmitting, resetForm }) => {
-            await onSubmitForm(values, resetForm)
+            await handleUpdate(values, resetForm)
             setSubmitting(false)
           }}
         >
           <Form>
-            {registerFields.map((fieldProps) => (
+            {updateFormFields.map((fieldProps) => (
               <Input
                 key={fieldProps?.label}
                 label={fieldProps?.label}
                 {...fieldProps}
               />
             ))}
-            <Button type="submit" label="Submit" loading={loading} />
-            {error && (
-              <AlertBox alertMessage={error} />
-            )}
+            <Button type="submit" label="Update" loading={loading} />
+            {error && (<AlertBox alertMessage={error} />)}
           </Form>
         </Formik>
       </div>
@@ -94,4 +87,4 @@ const RegisterForm = () => {
   )
 }
 
-export default RegisterForm
+export default UpdateProfileForm

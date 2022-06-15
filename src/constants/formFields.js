@@ -18,10 +18,10 @@ const registerFields = [
     name: 'email'
   },
   {
-    label: 'Phone',
-    placeholder: 'Phone',
-    type: 'text',
-    name: 'phone'
+    label: 'Password',
+    placeholder: 'Password',
+    type: 'password',
+    name: 'password'
   }
 ]
 
@@ -40,4 +40,25 @@ const loginFields = [
   }
 ]
 
-export { registerFields, loginFields }
+const updateFormFields = [
+  {
+    label: 'First Name',
+    placeholder: 'First Name',
+    type: 'text',
+    name: 'firstName'
+  },
+  {
+    label: 'Last Name',
+    placeholder: 'Last Name',
+    type: 'text',
+    name: 'lastName'
+  },
+  {
+    label: 'Email',
+    placeholder: 'Email',
+    type: 'email',
+    name: 'email'
+  }
+]
+
+export { registerFields, loginFields, updateFormFields }

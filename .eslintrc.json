@@ -23,12 +23,16 @@
         "comma-dangle": [ "error", "never" ],
         "import/exports-last": "error",
         "import/extensions": "off",
+        "import/prefer-default-export": "off",
         "import/first": "error",
+        "no-unused-vars": "warn",
+        "object-curly-newline": "off",
         "react/jsx-one-expression-per-line": [ "off" ],
         "react/jsx-props-no-spreading": [ "off" ],
         "react/no-unused-prop-types": [ "off" ],
         "react/prop-types": [ "off" ],
         "react/require-default-props": [ "off" ],
+
         "react/jsx-filename-extension": [ "error", { "extensions": [ ".jsx", ".js" ] } ],
         "semi": [ "error", "never" ]
     }

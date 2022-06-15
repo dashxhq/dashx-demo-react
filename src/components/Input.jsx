@@ -7,13 +7,14 @@ const classes = {
 
 const Input = (props) => {
   const [ field ] = useField(props)
-  const { name, label, placeholder } = props
+  const { name, label, placeholder, type } = props
   return (
     <div className="my-5">
       <label htmlFor={name} className="text-lg">{label}</label>
       <input
         className={classes.input}
         placeholder={placeholder}
+        type={type}
         {...field}
       />
       <ErrorMessage name={name} component="div" className="font-thin text-red-500" />

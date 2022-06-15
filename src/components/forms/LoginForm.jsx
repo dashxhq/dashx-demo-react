@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate, Navigate } from 'react-router-dom'
 import * as Yup from 'yup'
 import { Formik, Form } from 'formik'
 import Button from '../Button'
@@ -8,6 +9,7 @@ import Input from '../Input'
 import AlertBox from '../AlertBox'
 
 import logo from '../../assets/dashx-logo.svg'
+import { useAuth } from '../contexts/CurrentUserProvider'
 
 const classes = {
   pageBody: 'flex h-screen',
@@ -15,14 +17,39 @@ const classes = {
 }
 
 const LoginForm = () => {
-  // const [ success, setSuccess ] = useState('')
   const [ error, setError ] = useState('')
+  const [ loading, setLoading ] = useState(false)
+  const { login, user } = useAuth()
+
+  const navigate = useNavigate()
+
+  const handleLogin = async (formValues, resetForm) => {
+    setError('')
+    const { email, password } = formValues
+    const requestBody = { email, password }
+    setLoading(true)
+    try {
+      const { status } = await login(requestBody)
+      if (status === 200) {
+        navigate('/dashboard', { replace: true })
+        resetForm()
+      }
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || error.response?.data
+      setError(errorMessage)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  if (user) {
+    return <Navigate to="/dashboard" replace />
+  }
 
   return (
     <div className={classes.pageBody}>
       <div className={classes.formContainer}>
-        {error && (<AlertBox alertMessage={error} setError={setError} />)}
-        <FormHeader heading="Sign up for an account" logo={logo} />
+        <FormHeader heading="Sign in" logo={logo} />
         <Formik
           initialValues={{
             email: '',
@@ -36,7 +63,8 @@ const LoginForm = () => {
               password: Yup.string().required('Password is required')
             })
           }
-          onSubmit={async (values, { setSubmitting }) => {
+          onSubmit={async (values, { setSubmitting, resetForm }) => {
+            await handleLogin(values, resetForm)
             setSubmitting(false)
           }}
         >
@@ -48,7 +76,8 @@ const LoginForm = () => {
                 {...fieldProps}
               />
             ))}
-            <Button type="submit" label="Sign Up" />
+            <Button type="submit" label="Login" loading={loading} />
+            {error && (<AlertBox alertMessage={error} />)}
           </Form>
         </Formik>
       </div>
