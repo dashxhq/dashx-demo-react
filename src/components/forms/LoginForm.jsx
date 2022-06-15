@@ -12,7 +12,7 @@ import logo from '../../assets/dashx-logo.svg'
 import { useAuth } from '../contexts/CurrentUserProvider'
 
 const classes = {
-  pageBody: 'flex h-screen',
+  pageBody: 'flex',
   formContainer: 'w-full max-w-lg m-auto bg-white rounded-lg border border-primaryBorder shadow-md py-10 px-8'
 }
 
@@ -25,9 +25,11 @@ const LoginForm = () => {
 
   const handleLogin = async (formValues, resetForm) => {
     setError('')
+    setLoading(true)
+
     const { email, password } = formValues
     const requestBody = { email, password }
-    setLoading(true)
+
     try {
       const { status } = await login(requestBody)
       if (status === 200) {

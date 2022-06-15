@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
-import jwt from 'jwt-decode'
 import FormHeader from '../FormHeader'
 import logo from '../../assets/dashx-logo.svg'
 import { updateFormFields } from '../../constants/formFields'
@@ -9,7 +8,6 @@ import Input from '../Input'
 import Button from '../Button'
 import AlertBox from '../AlertBox'
 import { useAuth } from '../contexts/CurrentUserProvider'
-import { useLocalStorage } from '../hooks/useLocalStorage'
 
 const classes = {
   pageBody: 'flex h-screen',
@@ -19,23 +17,22 @@ const classes = {
 const UpdateProfileForm = () => {
   const [ error, setError ] = useState('')
   const [ loading, setLoading ] = useState(false)
-  const { update } = useAuth()
-  const [ value ] = useLocalStorage('jwt')
-  // eslint-disable-next-line camelcase
-  const { first_name, last_name, email } = jwt(value)
+  const { user, update } = useAuth()
+  const { first_name, last_name, email } = user
 
   const handleUpdate = async (formValues) => {
     setError('')
+    setLoading(true)
+
     const { email, firstName, lastName } = formValues
     const requestBody = {
       first_name: firstName,
       last_name: lastName,
       email
     }
-    setLoading(true)
+
     try {
-      const { data } = await update(requestBody)
-      console.log(data, 'updateData')
+      const { data, status } = await update(requestBody)
     } catch (error) {
       console.log(error, 'updateError')
       const errorMessage = error.response?.data?.message || error.response?.data

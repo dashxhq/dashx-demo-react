@@ -13,22 +13,30 @@ const CurrentUserProvider = ({ children }) => {
 
   const login = async (loginFields) => {
     const { data: { data } = {}, status } = await api.post('/login', loginFields)
-    const { session: { dashxToken, id } = {} } = jwt(data?.token) || {}
-    dashx?.setIdentity(String(id), dashxToken)
-    setJwtToken(data?.token)
-    setDashToken(dashxToken)
-    setUser(data)
+
+    if (status === 200) {
+      const { session: { dashxToken, id } = {} } = jwt(data?.token) || {}
+      dashx?.setIdentity(String(id), dashxToken)
+      setJwtToken(data?.token)
+      setDashToken(dashxToken)
+      setUser(data)
+    }
+
     return { data, status }
   }
 
   const update = async (updateFields) => {
     const headers = {
       headers: {
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${jwtToken}`
       }
     }
-    const { data: { data } = {}, status } = await api.put('/update/profile', updateFields, headers)
-    return { data, status }
+    const { status } = await api.patch('/update-profile', updateFields, headers)
+    if (status === 204) {
+      setUser(updateFields)
+    }
+    return { status }
   }
 
   const register = async (registerFields) => {

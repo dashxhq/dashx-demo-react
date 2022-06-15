@@ -12,7 +12,7 @@ import logo from '../../assets/dashx-logo.svg'
 import { useAuth } from '../contexts/CurrentUserProvider'
 
 const classes = {
-  pageBody: 'flex h-screen',
+  pageBody: 'flex',
   formContainer: 'w-full max-w-lg m-auto bg-white rounded-lg border border-primaryBorder shadow-md py-10 px-8'
 }
 
@@ -24,6 +24,8 @@ const RegisterForm = () => {
 
   const onSubmitForm = async (formValues, resetForm) => {
     setError('')
+    setLoading(true)
+
     const { email, firstName, lastName, password } = formValues
     const requestBody = {
       first_name: firstName,
@@ -31,7 +33,7 @@ const RegisterForm = () => {
       email,
       password
     }
-    setLoading(true)
+
     try {
       const { status } = await register(requestBody)
       if (status === 201) {
