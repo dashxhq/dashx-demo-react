@@ -10,6 +10,7 @@ export default function Navigation() {
 
   return (
     <>
+      {/* eslint-disable-next-line no-mixed-operators */}
       {(!user) || (user && (!isDashboard)) && (
         <Navbar />
       )}
