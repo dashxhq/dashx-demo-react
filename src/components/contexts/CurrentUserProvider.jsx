@@ -44,6 +44,10 @@ const CurrentUserProvider = ({ children }) => {
     return { data, status }
   }
 
+  const logOut = () => {
+
+  }
+
   return (
     <CurrentUserContext.Provider value={{ user, login, update, register, setUser }}>
       {children}

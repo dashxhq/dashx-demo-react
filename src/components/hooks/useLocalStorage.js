@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
-export const useLocalStorage = (key, initialValue) => {
-  const { localStorage } = window
+const { localStorage } = window
 
+export const useLocalStorage = (key, initialValue) => {
   const getValue = () => {
     if (typeof window === 'undefined') {
       return initialValue
@@ -14,12 +14,6 @@ export const useLocalStorage = (key, initialValue) => {
       console.log(error, 'localStorageError')
       return initialValue
     }
-  }
-
-  const resetLocalStorage = (keys) => {
-    keys.forEach((key) => {
-      localStorage.removeItem(key)
-    })
   }
 
   const [ value, setStoredValue ] = useState(getValue())
@@ -35,5 +29,11 @@ export const useLocalStorage = (key, initialValue) => {
     setStoredValue(value)
   }
 
-  return [ value, setValue, resetLocalStorage ]
+  return [ value, setValue ]
+}
+
+export const resetLocalStorage = (keys) => {
+  keys.forEach((key) => {
+    localStorage.removeItem(key)
+  })
 }

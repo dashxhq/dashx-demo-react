@@ -10,7 +10,7 @@ import AlertBox from '../AlertBox'
 import { useAuth } from '../contexts/CurrentUserProvider'
 
 const classes = {
-  pageBody: 'flex h-screen',
+  pageBody: 'flex',
   formContainer: 'w-full max-w-lg m-auto bg-white rounded-lg border border-primaryBorder shadow-md py-10 px-8'
 }
 
@@ -32,7 +32,7 @@ const UpdateProfileForm = () => {
     }
 
     try {
-      const { data, status } = await update(requestBody)
+      await update(requestBody)
     } catch (error) {
       console.log(error, 'updateError')
       const errorMessage = error.response?.data?.message || error.response?.data

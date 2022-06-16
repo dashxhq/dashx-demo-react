@@ -6,7 +6,6 @@ import Redirect from './components/Redirect'
 import CurrentUserProvider from './components/contexts/CurrentUserProvider'
 import Register from './pages/Register'
 import RequireAuth from './components/RequireAuth'
-import Navbar from './components/Navbar'
 import UpdateProfileForm from './components/forms/UpdateProfileForm'
 import Navigation from './components/Navigation'
 

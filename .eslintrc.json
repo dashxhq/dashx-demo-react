@@ -16,6 +16,7 @@
     },
     "plugins": [ "react" ],
     "rules": {
+        "react/button-has-type": "off",
         "no-shadow": "off",
         "array-bracket-spacing": [ "error", "always" ],
         "comma-dangle": [ "error", "never" ],
