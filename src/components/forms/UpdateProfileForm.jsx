@@ -79,7 +79,7 @@ const UpdateProfileForm = () => {
                     {...fieldProps}
                   />
                 ))}
-                <Button type="submit" label="Update" loading={loading} />
+                <Button type="submit" label="Update" loading={loading} message="Updating" />
                 {error && (<AlertBox alertMessage={error} />)}
                 {success && (<SuccessBox successMessage={successMessage} />)}
               </Form>
