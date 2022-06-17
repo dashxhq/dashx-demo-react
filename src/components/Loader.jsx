@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Loader = ({message}) => (
+const Loader = ({ message }) => (
   <div className="flex justify-center items-center">
     <svg
       role="status"
