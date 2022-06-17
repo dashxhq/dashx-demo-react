@@ -1,52 +1,50 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import LoginForm from './components/forms/LoginForm'
-import Dashboard from './pages/Dashboard'
 import Redirect from './components/Redirect'
-import CurrentUserProvider from './components/contexts/CurrentUserProvider'
 import Register from './pages/Register'
-import RequireAuth from './components/RequireAuth'
 import UpdateProfileForm from './components/forms/UpdateProfileForm'
-import Navigation from './components/Navigation'
+import { useAuth } from './components/contexts/CurrentUserProvider'
+import DashboardComponent from './components/Dashboard/DashboardComponent'
 
-const App = () => (
-  <div className="h-full font-poppins">
-    <CurrentUserProvider>
-      <BrowserRouter>
-        <Navigation />
-        <Routes>
-          <Route exact path="/" element={<Redirect />} />
-          <Route
-            exact
-            path="login"
-            element={(
-              <LoginForm />
-            )}
-          />
-          <Route
-            exact
-            path="dashboard"
-            element={(
-              <RequireAuth>
-                <Dashboard />
-              </RequireAuth>
-            )}
-          />
-          <Route
-            exact
-            path="/update/profile"
-            element={(
-              <RequireAuth>
-                <UpdateProfileForm />
-              </RequireAuth>
-            )}
-          />
-          <Route exact path="register" element={<Register />} />
-        </Routes>
-      </BrowserRouter>
-    </CurrentUserProvider>
-  </div>
+const DashboardRoutes = () => (
+  <DashboardComponent>
+    <Routes>
+      <Route exact path="/update/profile" element={<UpdateProfileForm />} />
+    </Routes>
+  </DashboardComponent>
 )
+
+const RoutesWrapper = () => (
+  <Routes>
+    <Route exact path="/" element={<Redirect />} />
+    <Route
+      exact
+      path="login"
+      element={(
+        <LoginForm />
+      )}
+    />
+    <Route exact path="register" element={<Register />} />
+  </Routes>
+)
+
+const App = () => {
+  const { user } = useAuth()
+  const token = localStorage.getItem('jwt')
+
+  return (
+    <div className="h-full font-poppins">
+      <BrowserRouter>
+        {token && user ? (
+          <DashboardRoutes />
+        ) : (
+          <RoutesWrapper />
+        )}
+      </BrowserRouter>
+    </div>
+  )
+}
 
 export default App
 

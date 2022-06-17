@@ -4,6 +4,7 @@ import { useAuth } from './contexts/CurrentUserProvider'
 
 const RequireAuth = ({ children }) => {
   const { user } = useAuth()
+  const token = window.localStorage.getItem('jwt')
 
   if (!user) {
     return <Navigate to="/login" replace />

@@ -1,15 +1,17 @@
 import React from 'react'
 import { useAuth } from './contexts/CurrentUserProvider'
 import LoginForm from './forms/LoginForm'
-import Dashboard from '../pages/Dashboard'
+import DashboardComponent from './Dashboard/DashboardComponent'
 
 const Redirect = () => {
   const { user } = useAuth()
+  const token = localStorage.getItem('jwt')
 
-  if (!user) {
+  if (!user && !token) {
     return <LoginForm />
   }
-  return <Dashboard />
+
+  return <DashboardComponent />
 }
 
 export default Redirect
