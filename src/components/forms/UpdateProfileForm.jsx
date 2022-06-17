@@ -1,22 +1,23 @@
 import React, { useState } from 'react'
 import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
-import FormHeader from '../FormHeader'
-import logo from '../../assets/dashx-logo.svg'
 import { updateFormFields } from '../../constants/formFields'
 import Input from '../Input'
 import Button from '../Button'
 import AlertBox from '../AlertBox'
 import { useAuth } from '../contexts/CurrentUserProvider'
+import SuccessBox from '../SuccessBox'
 
 const classes = {
-  pageBody: 'flex',
-  formContainer: 'w-full max-w-lg m-auto bg-white rounded-lg border border-primaryBorder shadow-md py-10 px-8'
+  pageBody: 'min-h-full w-full py-12',
+  formContainer: 'bg-white flex-col sm:flex'
 }
 
 const UpdateProfileForm = () => {
   const [ error, setError ] = useState('')
   const [ loading, setLoading ] = useState(false)
+  const [ success, setSuccess ] = useState(false)
+  const [ successMessage, setSuccessMessage ] = useState(false)
   const { user, update } = useAuth()
   const { first_name, last_name, email } = user
 
@@ -32,9 +33,13 @@ const UpdateProfileForm = () => {
     }
 
     try {
-      await update(requestBody)
+      const { message } = await update(requestBody)
+      setSuccess(true)
+      setSuccessMessage(message)
+      setTimeout(() => {
+        setSuccess(false)
+      }, 5000)
     } catch (error) {
-      console.log(error, 'updateError')
       const errorMessage = error.response?.data?.message || error.response?.data
       setError(errorMessage)
     } finally {
@@ -45,37 +50,42 @@ const UpdateProfileForm = () => {
   return (
     <div className={classes.pageBody}>
       <div className={classes.formContainer}>
-        <FormHeader heading="Update Profile" logo={logo} />
-        <Formik
-          initialValues={{ firstName: first_name, lastName: last_name, email }}
-          validationSchema={
-            Yup.object({
-              firstName: Yup.string()
-                .required('First Name is required'),
-              lastName: Yup.string()
-                .required('Last Name is required'),
-              email: Yup.string()
-                .email('Invalid email address')
-                .required('Email is required')
-            })
-          }
-          onSubmit={async (values, { setSubmitting, resetForm }) => {
-            await handleUpdate(values, resetForm)
-            setSubmitting(false)
-          }}
-        >
-          <Form>
-            {updateFormFields.map((fieldProps) => (
-              <Input
-                key={fieldProps?.label}
-                label={fieldProps?.label}
-                {...fieldProps}
-              />
-            ))}
-            <Button type="submit" label="Update" loading={loading} />
-            {error && (<AlertBox alertMessage={error} />)}
-          </Form>
-        </Formik>
+        <h2 className="mt-6 text-left sm:text-left text-3xl font-extrabold text-gray-900">Edit Profile</h2>
+        <div className="sm:w-full sm:max-w-md">
+          <div className="py-8 pt-0 mb-0">
+            <Formik
+              initialValues={{ firstName: first_name, lastName: last_name, email }}
+              validationSchema={
+                Yup.object({
+                  firstName: Yup.string()
+                    .required('First Name is required'),
+                  lastName: Yup.string()
+                    .required('Last Name is required'),
+                  email: Yup.string()
+                    .email('Invalid email address')
+                    .required('Email is required')
+                })
+              }
+              onSubmit={async (values, { setSubmitting, resetForm }) => {
+                await handleUpdate(values, resetForm)
+                setSubmitting(false)
+              }}
+            >
+              <Form>
+                {updateFormFields.map((fieldProps) => (
+                  <Input
+                    key={fieldProps?.label}
+                    label={fieldProps?.label}
+                    {...fieldProps}
+                  />
+                ))}
+                <Button type="submit" label="Update" loading={loading} />
+                {error && (<AlertBox alertMessage={error} />)}
+                {success && (<SuccessBox successMessage={successMessage} />)}
+              </Form>
+            </Formik>
+          </div>
+        </div>
       </div>
     </div>
   )
