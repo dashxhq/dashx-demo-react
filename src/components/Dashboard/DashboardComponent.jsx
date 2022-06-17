@@ -36,13 +36,11 @@ const Avatar = ({ letter, name, email }) => (
 
 const DashboardComponent = ({ children }) => {
   const [ sidebarOpen, setSidebarOpen ] = useState(false)
-  const {
-    user: { first_name, last_name, email } = {},
-    setUser
-  } = useAuth() || JSON.parse(localStorage.getItem('user'))
-  const avatarLetter = first_name[0].toUpperCase()
+  const { user, setUser } = useAuth() || JSON.parse(localStorage.getItem('user'))
+  const avatarLetter = user?.first_name[0].toUpperCase()
+  const email = user?.email
   const navigate = useNavigate()
-  const userName = `${first_name} ${last_name}`
+  const userName = `${user?.first_name} ${user?.last_name}`
 
   const logOut = () => {
     localStorage.removeItem('jwt')
