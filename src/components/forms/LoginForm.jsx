@@ -82,7 +82,7 @@ const LoginForm = () => {
                       {...fieldProps}
                     />
                   ))}
-                  <Button type="submit" label="Login" loading={loading} />
+                  <Button type="submit" label="Login" loading={loading} message="Logging in" />
                   <Button type="submit" variant="outlined" loading={false}>
                     <Link to="/register">
                       Register

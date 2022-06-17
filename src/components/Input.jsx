@@ -2,7 +2,7 @@ import React from 'react'
 import { ErrorMessage, useField } from 'formik'
 
 const classes = {
-  input: 'appearance-none block w-full px-3 py-2 border border-gray-500 rounded-md shadow-sm bg-gray-100 placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
+  input: 'appearance-none block w-full px-3 py-2 border border-gray-400 rounded-md shadow-sm bg-gray-100 placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
 }
 
 const Input = (props) => {

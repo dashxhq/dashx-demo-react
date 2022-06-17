@@ -94,7 +94,7 @@ const RegisterForm = () => {
                       {...fieldProps}
                     />
                   ))}
-                  <Button type="submit" label="Register" loading={loading} />
+                  <Button type="submit" label="Register" loading={loading} message="Signing up" />
                   <Button type="submit" variant="outlined" loading={false}>
                     <Link to="/login">
                       Login
