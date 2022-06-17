@@ -1,7 +1,13 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { useAuth } from './contexts/CurrentUserProvider'
-import logo from '../assets/dashx-logo.svg'
+import { Disclosure } from '@headlessui/react'
+import { MenuIcon, XIcon } from '@heroicons/react/outline'
+import { Link, useLocation } from 'react-router-dom'
+import DashxLogoSVG from './SVG/DashxLogoSVG'
+
+const classes = {
+  navItemCurrent: 'border-indigo-500 inline-flex items-center px-6 rounded text-sm font-bold',
+  navItemDefault: 'border-transparent hover:border-gray-300 inline-flex items-center font-medium'
+}
 
 const navItems = [
   {
@@ -14,90 +20,64 @@ const navItems = [
   }
 ]
 
-const classes = {
-  navItem: 'hover:bg-gray-700 text-white px-3 py-2 rounded-md text-sm font-medium'
-}
-
 const Navbar = () => {
-  const [ open, setOpen ] = useState(false)
-  const { user } = useAuth()
+  const [ current, setCurrent ] = useState(false)
+  const { pathname } = useLocation()
 
   return (
-    <nav className="bg-gray-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <div className="flex items-center">
-            <div className="flex-shrink-0">
-              <Link to="/">
-                <img
-                  className="h-12 w-24 bg-indigo-600 p-2 rounded-md cursor-pointer"
-                  src={logo}
-                  alt="Workflow"
-                />
-              </Link>
+    <Disclosure as="nav" className="shadow-md shadow-gray-500">
+      {({ open }) => (
+        <>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex h-16">
+              <div className="flex justify-between w-full">
+                <div className="flex-shrink-0 flex items-center">
+                  <DashxLogoSVG width="40px" height="40px" />
+                </div>
+                <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
+                  {navItems.map(({ path, label }) => (
+                    <div
+                      className={pathname === path ? classes.navItemCurrent : classes.navItemDefault}
+                      key={path}
+                    >
+                      <Link to={path} onClick={() => setCurrent(!current)}>
+                        {label}
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="-mr-2 flex items-center sm:hidden">
+                <Disclosure.Button
+                  className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+                >
+                  <span className="sr-only">Open main menu</span>
+                  {open ? (
+                    <XIcon className="block h-6 w-6" aria-hidden="true" />
+                  ) : (
+                    <MenuIcon className="block h-6 w-6" aria-hidden="true" />
+                  )}
+                </Disclosure.Button>
+              </div>
             </div>
           </div>
-          <div className="hidden md:block">
-            <div className="ml-10 flex justify-end space-x-4">
-              {!user && navItems.map(({ path, label }) => (
-                <Link to={path} key={path} className={classes.navItem}>
-                  {label}
+          <Disclosure.Panel className="sm:hidden">
+            <div className="pt-2 pb-3 space-y-1">
+              {navItems.map(({ path, label }) => (
+                <Link key={path} to={path}>
+                  <Disclosure.Button
+                    as="a"
+                    className="bg-transparent text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+                  >
+                    {label}
+                  </Disclosure.Button>
                 </Link>
               ))}
             </div>
-          </div>
-          <div className="-mr-2 flex md:hidden">
-            <button
-              onClick={() => setOpen(!open)}
-              type="button"
-              className="bg-gray-900 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-              aria-controls="mobile-menu"
-              aria-expanded="false"
-            >
-              <span className="sr-only">Open main menu</span>
-              {!open ? (
-                <svg
-                  className="block h-6 w-6"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
-              ) : (
-                <svg
-                  className="block h-6 w-6"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              )}
-            </button>
-          </div>
-        </div>
-      </div>
-      {open ? (
-        <div className="md:hidden" id="mobile-menu">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3" />
-        </div>
-      ) : null}
-    </nav>
+          </Disclosure.Panel>
+        </>
+      )}
+    </Disclosure>
   )
 }
 
