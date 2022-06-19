@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import * as Yup from 'yup'
 import { Form, Formik } from 'formik'
 import { Link, useNavigate } from 'react-router-dom'
-import { loginFields } from '../../constants/formFields'
+import { loginFields, registerFields } from '../../constants/formFields'
 import Input from '../Input'
 import Button from '../Button'
 import AlertBox from '../AlertBox'
 import { useAuth } from '../contexts/CurrentUserProvider'
 import loginImg from '../../assets/loginvector.png'
 import dashLogo from '../../assets/dashx-logo.svg'
+import DashXLogo from '../../assets/dashx-logo.svg'
 
 const LoginForm = () => {
   const [ error, setError ] = useState('')
@@ -39,23 +40,20 @@ const LoginForm = () => {
   }
 
   return (
-    <div className="bg-indigo-50">
-      <div className="h-screen flex items-center py-12 sm:px-6 lg:px-8">
-        <div className="w-1/2 hidden sm:max-w-screen-2xl md:hidden lg:block xl:block">
-          <img
-            width="100%"
-            src={loginImg}
-            style={{ maxWidth: '100%', height: '100%' }}
-            alt="Login"
-          />
-        </div>
-        <div className="pt-12 pb-3 sm:p-0 m-auto sm:mx-auto sm:w-full sm:max-w-lg">
-          <div className="flex justify-center items-center mb-3">
-            <img src={dashLogo} style={{ width: '40%', height: '100%' }} alt="DashxLogo" />
-          </div>
-          <h2 className="text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
+    <div>
+      <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+        <div className="sm:mx-auto sm:w-full sm:max-w-md rounded bg-white shadow shadow-md pt-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-md">
-            <div className="py-6 px-4 sm:px-10">
+            <div className="flex justify-center gap-6 items-center">
+              <img src={DashXLogo} width="30px" height="30px" alt="DashX Logo" />
+              <span className="text-2xl font-bold">Demo App</span>
+            </div>
+            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+              Sign in
+            </h2>
+          </div>
+          <div className="mt-6 sm:mx-auto sm:w-full sm:max-w-md">
+            <div className="py-8 px-4 sm:px-10">
               <Formik
                 initialValues={{
                   email: '',
@@ -66,11 +64,13 @@ const LoginForm = () => {
                     email: Yup.string()
                       .email('Invalid email address')
                       .required('Email is required'),
-                    password: Yup.string().required('Password is required')
+                    password: Yup.string()
+                      .required('Password is required')
                   })
                 }
                 onSubmit={async (values, { setSubmitting, resetForm }) => {
-                  await handleLogin(values, resetForm)
+                  console.log(values, 'formValues')
+                  // await handleLogin(values, resetForm)
                   setSubmitting(false)
                 }}
               >
@@ -83,11 +83,9 @@ const LoginForm = () => {
                     />
                   ))}
                   <Button type="submit" label="Login" loading={loading} message="Logging in" />
-                  <Button type="submit" variant="outlined" loading={false}>
-                    <Link to="/register">
-                      Register
-                    </Link>
-                  </Button>
+                  <Link to="/register">
+                    <Button type="submit" label="Register" variant="outlined" loading={false} />
+                  </Link>
                   {error && (<AlertBox alertMessage={error} />)}
                 </Form>
               </Formik>
@@ -96,7 +94,6 @@ const LoginForm = () => {
         </div>
       </div>
     </div>
-
   )
 }
 

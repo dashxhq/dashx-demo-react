@@ -34,7 +34,7 @@ const App = () => {
   const token = localStorage.getItem('jwt')
 
   return (
-    <div className="h-full font-poppins">
+    <div className="h-screen font-poppins">
       <BrowserRouter>
         {token && user ? (
           <DashboardRoutes />
