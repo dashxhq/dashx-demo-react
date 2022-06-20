@@ -6,15 +6,16 @@ const classes = {
 }
 
 const Input = (props) => {
-  const [ field ] = useField(props)
+  const [ field, meta ] = useField(props)
   const { name, label, type } = props
+  const errorClass = meta.touched && meta.error ? 'error' : ''
 
   return (
     <div className="mb-6">
       <label htmlFor={name} className="block text-sm font-medium text-gray-700">{label}</label>
       <div className="mt-1">
         <input
-          className={classes.input}
+          className={`${errorClass ? 'border border-red-500' : ''} ${classes.input}`}
           type={type}
           {...field}
         />

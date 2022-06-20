@@ -2,18 +2,16 @@ import React, { useState } from 'react'
 import * as Yup from 'yup'
 import { Form, Formik } from 'formik'
 import { Link, useNavigate } from 'react-router-dom'
-import { loginFields, registerFields } from '../../constants/formFields'
+import { loginFields } from '../../constants/formFields'
 import Input from '../Input'
 import Button from '../Button'
 import AlertBox from '../AlertBox'
 import { useAuth } from '../contexts/CurrentUserProvider'
-import loginImg from '../../assets/loginvector.png'
-import dashLogo from '../../assets/dashx-logo.svg'
-import DashXLogo from '../../assets/dashx-logo.svg'
+import DashXLogo from '../../assets/dashxlogo.svg'
 
 const LoginForm = () => {
-  const [ error, setError ] = useState('')
-  const [ loading, setLoading ] = useState(false)
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
   const { login } = useAuth()
 
   const navigate = useNavigate()
@@ -28,7 +26,7 @@ const LoginForm = () => {
     try {
       const { status } = await login(requestBody)
       if (status === 200) {
-        navigate('/dashboard', { replace: true })
+        navigate('/dashboard')
         resetForm()
       }
     } catch (error) {
@@ -48,9 +46,7 @@ const LoginForm = () => {
               <img src={DashXLogo} width="30px" height="30px" alt="DashX Logo" />
               <span className="text-2xl font-bold">Demo App</span>
             </div>
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-              Sign in
-            </h2>
+            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in</h2>
           </div>
           <div className="mt-6 sm:mx-auto sm:w-full sm:max-w-md">
             <div className="py-8 px-4 sm:px-10">
@@ -59,34 +55,25 @@ const LoginForm = () => {
                   email: '',
                   password: ''
                 }}
-                validationSchema={
-                  Yup.object({
-                    email: Yup.string()
-                      .email('Invalid email address')
-                      .required('Email is required'),
-                    password: Yup.string()
-                      .required('Password is required')
-                  })
-                }
+                validationSchema={Yup.object({
+                  email: Yup.string().email('Invalid email address').required('Email is required'),
+                  password: Yup.string().required('Password is required')
+                })}
                 onSubmit={async (values, { setSubmitting, resetForm }) => {
                   console.log(values, 'formValues')
-                  // await handleLogin(values, resetForm)
+                  await handleLogin(values, resetForm)
                   setSubmitting(false)
                 }}
               >
                 <Form>
                   {loginFields.map((fieldProps) => (
-                    <Input
-                      key={fieldProps?.label}
-                      label={fieldProps?.label}
-                      {...fieldProps}
-                    />
+                    <Input key={fieldProps?.label} label={fieldProps?.label} {...fieldProps} />
                   ))}
                   <Button type="submit" label="Login" loading={loading} message="Logging in" />
                   <Link to="/register">
                     <Button type="submit" label="Register" variant="outlined" loading={false} />
                   </Link>
-                  {error && (<AlertBox alertMessage={error} />)}
+                  {error && <AlertBox alertMessage={error} />}
                 </Form>
               </Formik>
             </div>
