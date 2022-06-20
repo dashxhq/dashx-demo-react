@@ -57,6 +57,7 @@ const CurrentUserProvider = ({ children }) => {
     localStorage.removeItem('user')
     localStorage.removeItem('dashxToken')
     setUser(null)
+    navigate('/')
   }
 
   return (
