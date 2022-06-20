@@ -26,7 +26,7 @@ const LoginForm = () => {
     try {
       const { status } = await login(requestBody)
       if (status === 200) {
-        navigate('/dashboard')
+        navigate('/dashboard', { replace: false })
         resetForm()
       }
     } catch (error) {
@@ -42,11 +42,11 @@ const LoginForm = () => {
       <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md rounded bg-white shadow shadow-md pt-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-md">
-            <div className="flex justify-center gap-6 items-center">
+            <div className="flex justify-center items-center">
               <img src={DashXLogo} width="30px" height="30px" alt="DashX Logo" />
-              <span className="text-2xl font-bold">Demo App</span>
+              <span className="text-2xl font-bold ml-4">Demo App</span>
             </div>
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in</h2>
+            <h2 className="mt-6 text-center text-2xl font-extrabold text-gray-900">Sign in</h2>
           </div>
           <div className="mt-6 sm:mx-auto sm:w-full sm:max-w-md">
             <div className="py-8 px-4 sm:px-10">
@@ -60,7 +60,6 @@ const LoginForm = () => {
                   password: Yup.string().required('Password is required')
                 })}
                 onSubmit={async (values, { setSubmitting, resetForm }) => {
-                  console.log(values, 'formValues')
                   await handleLogin(values, resetForm)
                   setSubmitting(false)
                 }}
@@ -69,9 +68,9 @@ const LoginForm = () => {
                   {loginFields.map((fieldProps) => (
                     <Input key={fieldProps?.label} label={fieldProps?.label} {...fieldProps} />
                   ))}
-                  <Button type="submit" label="Login" loading={loading} message="Logging in" />
+                  <Button type="submit" label="Login" loading={loading} message="Logging in" classes="mt-8" />
                   <Link to="/register">
-                    <Button type="submit" label="Register" variant="outlined" loading={false} />
+                    <Button type="submit" label="Register" variant="outlined" loading={false} classes="mt-3" />
                   </Link>
                   {error && <AlertBox alertMessage={error} />}
                 </Form>

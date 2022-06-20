@@ -1,13 +1,19 @@
 import React, { createContext, useContext, useState } from 'react'
 import jwt from 'jwt-decode'
+import { useNavigate } from 'react-router-dom'
 import api from '../../lib/api'
 import dashx from '../../lib/dashx'
 
 const CurrentUserContext = createContext(null)
 
+const setItem = (key, value) => {
+  localStorage.setItem(key, value)
+}
+
 const CurrentUserProvider = ({ children }) => {
-  const [ user, setUser ] = useState(null)
+  const [user, setUser] = useState(null)
   const jwtToken = localStorage.getItem('jwt')
+  const navigate = useNavigate()
 
   const login = async (loginFields) => {
     const { data: { data } = {}, status } = await api.post('/login', loginFields)
@@ -16,9 +22,10 @@ const CurrentUserProvider = ({ children }) => {
       const { session: { dashxToken, id } = {} } = jwt(data?.token) || {}
       dashx?.setIdentity(String(id), dashxToken)
       setUser(data)
-      localStorage.setItem('jwt', data?.token)
-      localStorage.setItem('user', JSON.stringify(data))
-      localStorage.setItem('dashxToken', dashxToken)
+      setItem('jwt', data?.token)
+      setItem('user', JSON.stringify(data))
+      setItem('dashxToken', dashxToken)
+      navigate('/dashboard', { replace: true })
     }
 
     return { data, status }
@@ -28,10 +35,12 @@ const CurrentUserProvider = ({ children }) => {
     const headers = {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${jwtToken}`
-      }
+        Authorization: `Bearer ${jwtToken}`,
+      },
     }
-    const { data: { message, status } } = await api.patch('/update-profile', updateFields, headers)
+    const {
+      data: { message, status },
+    } = await api.patch('/update-profile', updateFields, headers)
     if (status === 200) {
       setUser(updateFields)
     }
@@ -43,8 +52,15 @@ const CurrentUserProvider = ({ children }) => {
     return { data, status }
   }
 
+  const logOut = () => {
+    localStorage.removeItem('jwt')
+    localStorage.removeItem('user')
+    localStorage.removeItem('dashxToken')
+    setUser(null)
+  }
+
   return (
-    <CurrentUserContext.Provider value={{ user, login, update, register, setUser }}>
+    <CurrentUserContext.Provider value={{ user, login, update, register, setUser, logOut }}>
       {children}
     </CurrentUserContext.Provider>
   )

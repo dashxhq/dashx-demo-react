@@ -9,7 +9,7 @@ import { useAuth } from '../contexts/CurrentUserProvider'
 import SuccessBox from '../SuccessBox'
 
 const classes = {
-  pageBody: 'min-h-full w-full py-12',
+  pageBody: 'min-h-full w-full pt-0 pb-12',
   formContainer: 'bg-white flex-col sm:flex'
 }
 
@@ -51,7 +51,7 @@ const UpdateProfileForm = () => {
     <div className={classes.pageBody}>
       <div className={classes.formContainer}>
         <h2 className="mt-6 text-left sm:text-left text-3xl font-extrabold text-gray-900">Edit Profile</h2>
-        <div className="sm:w-full sm:max-w-md">
+        <div className="sm:w-full sm:max-w-md mt-8">
           <div className="py-8 pt-0 mb-0">
             <Formik
               initialValues={{ firstName: first_name, lastName: last_name, email }}
