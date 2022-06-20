@@ -1,13 +1,15 @@
 import React from 'react'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useLocation } from 'react-router-dom'
 import { useAuth } from './contexts/CurrentUserProvider'
 
 const RequireAuth = ({ children }) => {
   const { user } = useAuth()
-  const token = window.localStorage.getItem('jwt')
+  const location = useLocation()
+
+  console.log(user, 'userData')
 
   if (!user) {
-    return <Navigate to="/login" replace />
+    return <Navigate to="/login" state={{ from: location }} replace />
   }
 
   return children
