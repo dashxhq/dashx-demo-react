@@ -19,7 +19,7 @@ const UpdateProfileForm = () => {
   const [success, setSuccess] = useState(false)
   const [successMessage, setSuccessMessage] = useState(false)
   const { user, update } = useAuth()
-  const { first_name, last_name, email } = user
+  const { first_name, last_name, email } = user || JSON.parse(localStorage.getItem('user'))
 
   const handleUpdate = async (formValues) => {
     setError('')
@@ -51,6 +51,8 @@ const UpdateProfileForm = () => {
     <div className={classes.pageBody}>
       <div className={classes.formContainer}>
         <h2 className="mt-6 text-left sm:text-left text-2xl font-semibold text-gray-900">Edit Profile</h2>
+        {error && <AlertBox alertMessage={error} />}
+        {success && <SuccessBox successMessage={successMessage} />}
         <div className="sm:w-full sm:max-w-md mt-8">
           <div className="py-8 pt-0 mb-0">
             <Formik
@@ -70,8 +72,6 @@ const UpdateProfileForm = () => {
                   <Input key={fieldProps?.label} label={fieldProps?.label} {...fieldProps} />
                 ))}
                 <Button type="submit" label="Update" loading={loading} message="Updating" />
-                {error && <AlertBox alertMessage={error} />}
-                {success && <SuccessBox successMessage={successMessage} />}
               </Form>
             </Formik>
           </div>

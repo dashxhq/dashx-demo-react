@@ -3,7 +3,7 @@ import * as Yup from 'yup'
 import { Formik, Form } from 'formik'
 import { Link, useNavigate } from 'react-router-dom'
 import Button from '../Button'
-import { loginFields, registerFields } from '../../constants/formFields'
+import { registerFields } from '../../constants/formFields'
 import Input from '../Input'
 import AlertBox from '../AlertBox'
 
