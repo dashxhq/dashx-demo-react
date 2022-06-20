@@ -10,14 +10,14 @@ import SuccessBox from '../SuccessBox'
 
 const classes = {
   pageBody: 'min-h-full w-full pt-0 pb-12',
-  formContainer: 'bg-white flex-col sm:flex'
+  formContainer: 'flex-col sm:flex'
 }
 
 const UpdateProfileForm = () => {
-  const [ error, setError ] = useState('')
-  const [ loading, setLoading ] = useState(false)
-  const [ success, setSuccess ] = useState(false)
-  const [ successMessage, setSuccessMessage ] = useState(false)
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [success, setSuccess] = useState(false)
+  const [successMessage, setSuccessMessage] = useState(false)
   const { user, update } = useAuth()
   const { first_name, last_name, email } = user
 
@@ -50,22 +50,16 @@ const UpdateProfileForm = () => {
   return (
     <div className={classes.pageBody}>
       <div className={classes.formContainer}>
-        <h2 className="mt-6 text-left sm:text-left text-3xl font-extrabold text-gray-900">Edit Profile</h2>
+        <h2 className="mt-6 text-left sm:text-left text-2xl font-semibold text-gray-900">Edit Profile</h2>
         <div className="sm:w-full sm:max-w-md mt-8">
           <div className="py-8 pt-0 mb-0">
             <Formik
               initialValues={{ firstName: first_name, lastName: last_name, email }}
-              validationSchema={
-                Yup.object({
-                  firstName: Yup.string()
-                    .required('First Name is required'),
-                  lastName: Yup.string()
-                    .required('Last Name is required'),
-                  email: Yup.string()
-                    .email('Invalid email address')
-                    .required('Email is required')
-                })
-              }
+              validationSchema={Yup.object({
+                firstName: Yup.string().required('First Name is required'),
+                lastName: Yup.string().required('Last Name is required'),
+                email: Yup.string().email('Invalid email address').required('Email is required')
+              })}
               onSubmit={async (values, { setSubmitting, resetForm }) => {
                 await handleUpdate(values, resetForm)
                 setSubmitting(false)
@@ -73,15 +67,11 @@ const UpdateProfileForm = () => {
             >
               <Form>
                 {updateFormFields.map((fieldProps) => (
-                  <Input
-                    key={fieldProps?.label}
-                    label={fieldProps?.label}
-                    {...fieldProps}
-                  />
+                  <Input key={fieldProps?.label} label={fieldProps?.label} {...fieldProps} />
                 ))}
                 <Button type="submit" label="Update" loading={loading} message="Updating" />
-                {error && (<AlertBox alertMessage={error} />)}
-                {success && (<SuccessBox successMessage={successMessage} />)}
+                {error && <AlertBox alertMessage={error} />}
+                {success && <SuccessBox successMessage={successMessage} />}
               </Form>
             </Formik>
           </div>

@@ -46,7 +46,7 @@ const LoginForm = () => {
               <img src={DashXLogo} width="30px" height="30px" alt="DashX Logo" />
               <span className="text-2xl font-bold ml-4">Demo App</span>
             </div>
-            <h2 className="mt-6 text-center text-2xl font-extrabold text-gray-900">Sign in</h2>
+            <h2 className="mt-6 text-center text-2xl font-medium text-gray-900">Sign in</h2>
           </div>
           <div className="mt-6 sm:mx-auto sm:w-full sm:max-w-md">
             <div className="py-8 px-4 sm:px-10">

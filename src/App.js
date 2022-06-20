@@ -10,6 +10,7 @@ import DashboardPage from './pages/DashboardPage'
 import DashboardHome from './components/Dashboard/DashboardHome'
 import Billing from './components/Dashboard/Billing'
 import Bookmarks from './components/Dashboard/Bookmarks'
+import Settings from './components/Dashboard/Settings'
 
 const App = () => {
   const { user, setUser } = useAuth()
@@ -27,7 +28,7 @@ const App = () => {
   }, [user])
 
   return (
-    <div className="h-screen font-poppins">
+    <div className="h-screen font-poppins bg-gray-100">
       <Routes>
         <Route element={<Layout />}>
           <Route exact path="/" element={<RequireAuth />} />
@@ -45,6 +46,7 @@ const App = () => {
             <Route path="update-profile" element={<UpdateProfileForm />} />
             <Route path="bookmarks" element={<Bookmarks />} />
             <Route path="billing" element={<Billing />} />
+            <Route path="settings" element={<Settings />} />
           </Route>
         </Route>
       </Routes>
