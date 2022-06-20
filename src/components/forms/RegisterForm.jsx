@@ -3,7 +3,7 @@ import * as Yup from 'yup'
 import { Formik, Form } from 'formik'
 import { Link, useNavigate } from 'react-router-dom'
 import Button from '../Button'
-import { registerFields } from '../../constants/formFields'
+import { loginFields, registerFields } from '../../constants/formFields'
 import Input from '../Input'
 import AlertBox from '../AlertBox'
 
@@ -44,50 +44,72 @@ const RegisterForm = () => {
 
   return (
     <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md rounded bg-white shadow shadow-md pt-8">
+      {/* <div className="sm:mx-auto sm:w-full sm:max-w-md"> */}
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <div className="flex justify-center items-center">
-            <img src={DashXLogo} width="30px" height="30px" alt="DashX Logo" />
-            <span className="text-2xl font-bold ml-4">Demo App</span>
+            <img src={DashXLogo} className="h-12 w-12" alt="DashX Logo" />
           </div>
-          <h2 className="mt-6 text-center text-2xl font-medium text-gray-900">Sign up for an account</h2>
+          <h2 className="mt-6 mb-6 text-center text-3xl font-extrabold text-gray-900">
+            Register for an account
+          </h2>
+          {error && <AlertBox alertMessage={error} />}
         </div>
-        <div className="mt-6 sm:mx-auto sm:w-full sm:max-w-md">
-          <div className="py-8 px-4 sm:px-10">
-            <Formik
-              initialValues={{
-                firstName: '',
-                lastName: '',
-                email: '',
-                password: ''
-              }}
-              validationSchema={Yup.object({
-                firstName: Yup.string().required('First Name is required'),
-                lastName: Yup.string().required('Last Name is required'),
-                email: Yup.string().email('Invalid email address').required('Email is required'),
-                password: Yup.string().required('Password is required')
-              })}
-              onSubmit={async (values, { setSubmitting, resetForm }) => {
-                await handleRegister(values, resetForm)
-                setSubmitting(false)
-              }}
-            >
-              <Form>
-                {registerFields.map((fieldProps) => (
-                  <Input key={fieldProps?.label} label={fieldProps?.label} {...fieldProps} />
-                ))}
-                <div className="mt-7">
-                  <Button type="submit" label="Register" loading={loading} message="Signing up" />
-                  <Link to="/login">
-                    <Button type="submit" label="Login" variant="outlined" loading={false} classes="mt-3" />
-                  </Link>
-                </div>
-                {error && <AlertBox alertMessage={error} />}
-              </Form>
-            </Formik>
+        <div className="sm:mx-auto sm:w-full sm:max-w-md rounded bg-white shadow shadow-md">
+          <div className="sm:mx-auto sm:w-full sm:max-w-md">
+            <div className="py-8 px-4 sm:px-10">
+              <Formik
+                initialValues={{
+                  firstName: '',
+                  lastName: '',
+                  email: '',
+                  password: ''
+                }}
+                validationSchema={Yup.object({
+                  firstName: Yup.string().required('First Name is required'),
+                  lastName: Yup.string().required('Last Name is required'),
+                  email: Yup.string().email('Invalid email address').required('Email is required'),
+                  password: Yup.string().required('Password is required')
+                })}
+                onSubmit={async (values, { setSubmitting, resetForm }) => {
+                  await handleRegister(values, resetForm)
+                  setSubmitting(false)
+                }}
+              >
+                <Form>
+                  {registerFields.map((fieldProps) => (
+                    <Input key={fieldProps?.label} label={fieldProps?.label} {...fieldProps} />
+                  ))}
+                  <div className="mt-7">
+                    <Button type="submit" label="Register" loading={loading} message="Signing up" />
+                    <Link to="/login">
+                      <Button type="submit" label="Login" variant="outlined" loading={false} classes="mt-3" />
+                    </Link>
+                  </div>
+                  <div className="mt-5 flex items-center justify-between">
+                    <div className="flex items-center">
+                      <input
+                        id="remember-me"
+                        name="remember-me"
+                        type="checkbox"
+                        className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                      />
+                      <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+                        Remember me
+                      </label>
+                    </div>
+
+                    <div className="text-sm">
+                      <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+                        Forgot your password?
+                      </a>
+                    </div>
+                  </div>
+                </Form>
+              </Formik>
+            </div>
           </div>
         </div>
-      </div>
+      {/* </div> */}
     </div>
   )
 }
