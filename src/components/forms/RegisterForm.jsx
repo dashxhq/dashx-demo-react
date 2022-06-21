@@ -44,7 +44,6 @@ const RegisterForm = () => {
 
   return (
     <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      {/* <div className="sm:mx-auto sm:w-full sm:max-w-md"> */}
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <div className="flex justify-center items-center">
             <img src={DashXLogo} className="h-12 w-12" alt="DashX Logo" />
@@ -99,9 +98,9 @@ const RegisterForm = () => {
                     </div>
 
                     <div className="text-sm">
-                      <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+                      <Link to="/forgot-password" className="font-medium text-indigo-600 hover:text-indigo-500">
                         Forgot your password?
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </Form>
@@ -109,7 +108,6 @@ const RegisterForm = () => {
             </div>
           </div>
         </div>
-      {/* </div> */}
     </div>
   )
 }

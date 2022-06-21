@@ -9,7 +9,7 @@ import { useAuth } from '../contexts/CurrentUserProvider'
 import SuccessBox from '../SuccessBox'
 
 const classes = {
-  pageBody: 'min-h-full w-full pt-0 pb-12',
+  pageBody: 'min-h-full w-full pb-12',
   formContainer: 'flex-col sm:flex'
 }
 
@@ -50,7 +50,7 @@ const UpdateProfileForm = () => {
   return (
     <div className={classes.pageBody}>
       <div className={classes.formContainer}>
-        <h2 className="mt-6 text-left sm:text-left text-2xl font-semibold text-gray-900">Edit Profile</h2>
+        <h2 className="text-left sm:text-left text-2xl font-semibold text-gray-900">Edit Profile</h2>
         {error && <AlertBox alertMessage={error} />}
         {success && <SuccessBox successMessage={successMessage} />}
         <div className="sm:w-full sm:max-w-md mt-8">
