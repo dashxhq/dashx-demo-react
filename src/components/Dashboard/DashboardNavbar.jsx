@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { SearchIcon } from '@heroicons/react/solid'
 import { BellIcon, MenuAlt2Icon } from '@heroicons/react/outline'
 import { Menu, Transition } from '@headlessui/react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { useAuth } from '../contexts/CurrentUserProvider'
 
 const userNavigation = [
@@ -10,7 +10,11 @@ const userNavigation = [
   { name: 'Settings', href: '/settings' }
 ]
 
-const DashboardNavbar = ({ setSidebarOpen, setPath }) => {
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
+}
+
+const DashboardNavbar = ({ setSidebarOpen }) => {
   const { logOut } = useAuth()
 
   return (
@@ -81,11 +85,17 @@ const DashboardNavbar = ({ setSidebarOpen, setPath }) => {
                       className='block px-4 py-2 text-sm text-gray-700 w-full text-left hover:bg-gray-100'
                     >
                       {({ active }) => (
-                        <button
-                          onClick={() => setPath(item.href)}
+                        <NavLink
+                          key={item.name}
+                          to={item.href}
+                          className={
+                            ({ isActive }) => classNames(
+                              isActive ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                            )
+                          }
                         >
                           {item.name}
-                        </button>
+                        </NavLink>
                       )}
                     </Menu.Item>
                   ))}

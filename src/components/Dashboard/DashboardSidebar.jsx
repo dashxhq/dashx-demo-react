@@ -2,6 +2,7 @@ import React, { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { HomeIcon, XIcon, BookmarkIcon, CurrencyDollarIcon } from '@heroicons/react/outline'
 import DashxLogoSVG from '../SVG/DashxLogoSVG'
+import { Link, NavLink } from 'react-router-dom';
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: HomeIcon, current: false },
@@ -13,20 +14,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-const DashboardSidebar = ({ setSidebarOpen, sidebarOpen, setPath, path }) => {
-
-  const Render = ({ to, children, classes, inactiveClass, href, ...rest }) => {
-    return (
-      <div
-        className={`${href === path ? classes : inactiveClass}
-            group flex items-center px-2 py-2 text-sm font-medium rounded-md cursor-pointer`}
-        {...rest}
-      >
-        {children}
-      </div>
-    )
-  }
-
+const DashboardSidebar = ({ setSidebarOpen, sidebarOpen }) => {
   return (
     <div>
       <Transition.Root show={sidebarOpen} as={Fragment}>
@@ -81,14 +69,17 @@ const DashboardSidebar = ({ setSidebarOpen, sidebarOpen, setPath, path }) => {
                 <div className="mt-5 flex-1 h-0 overflow-y-auto">
                   <nav className="px-2 space-y-1">
                     {navigation.map((item) => (
-                      <Render
+                      <NavLink
                         key={item.name}
-                        href={item.href}
-                        classes="bg-gray-900 text-white"
-                        inactiveClass="text-gray-300 hover:bg-gray-700 hover:text-white"
+                        to={item.href}
+                        className={
+                          ({ isActive }) => classNames(
+                            isActive ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                            'group items-center flex px-2 rounded-md text-base font-medium py-2'
+                          )
+                        }
                         onClick={() => {
                           setSidebarOpen(!sidebarOpen)
-                          setPath(item.href)
                         }}
                       >
                         <item.icon
@@ -99,7 +90,7 @@ const DashboardSidebar = ({ setSidebarOpen, sidebarOpen, setPath, path }) => {
                           aria-hidden="true"
                         />
                         {item.name}
-                      </Render>
+                      </NavLink>
                     ))}
                   </nav>
                 </div>
@@ -113,22 +104,25 @@ const DashboardSidebar = ({ setSidebarOpen, sidebarOpen, setPath, path }) => {
       </Transition.Root>
       <div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
         <div className="flex-1 flex flex-col min-h-0 bg-gray-800">
-          <div
+          <Link
+            to="/dashboard"
             className="flex gap-6 items-center cursor-pointer h-16 flex-shrink-0 px-4 bg-gray-900"
-            onClick={() => setPath('/dashboard')}
           >
             <DashxLogoSVG width="30px" height="30px" fill="#ffffff" />
             <span className="text-xl text-white font-bold">Demo App</span>
-          </div>
+          </Link>
           <div className="flex-1 flex flex-col overflow-y-auto">
             <nav className="flex-1 px-2 py-4 space-y-1">
               {navigation.map((item) => (
-                <Render
+                <NavLink
                   key={item.name}
-                  href={item.href}
-                  onClick={() => setPath(item.href)}
-                  classes="bg-gray-900 text-white"
-                  inactiveClass="text-gray-300 hover:bg-gray-700 hover:text-white"
+                  to={item.href}
+                  className={
+                    ({ isActive }) => classNames(
+                      isActive ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                      'flex px-2 rounded-md text-base font-medium py-2'
+                    )
+                  }
                 >
                   <item.icon
                     className={classNames(
@@ -138,7 +132,7 @@ const DashboardSidebar = ({ setSidebarOpen, sidebarOpen, setPath, path }) => {
                     aria-hidden="true"
                   />
                   {item.name}
-                </Render>
+                </NavLink>
               ))}
             </nav>
           </div>
