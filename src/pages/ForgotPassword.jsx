@@ -25,13 +25,13 @@ const ForgotPassword = () => {
           <img src={DashXLogo} className="h-12 w-12" alt="DashX Logo" />
         </div>
         <h2 className="mt-6 mb-6 text-center text-3xl font-extrabold text-gray-900">Forgot Password</h2>
-        <p className="mt-6 mb-6 text-center text-md font-medium text-gray-900">
+        <p className="mt-6 mb-6 px-2 min-w-xs m-auto text-center text-md font-medium text-gray-900">
           Enter the email address associated with your account
         </p>
         {/* {error && <AlertBox alertMessage={error} />} */}
       </div>
       <div className="sm:mx-auto sm:w-full mb-4 sm:max-w-md rounded bg-white shadow shadow-md">
-        <div className="py-8 sm:px-8">
+        <div className="py-8 px-4 sm:px-8">
           <Formik
             initialValues={{
               email: '',
