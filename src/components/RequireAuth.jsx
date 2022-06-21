@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react'
 import { Navigate, useLocation } from 'react-router-dom'
-import { useAuth } from './contexts/CurrentUserProvider'
 
-const RequireAuth = ({ children }) => {
-  const { user, setUser } = useAuth()
+const RequireAuth = ({ children, user, setUser }) => {
   const location = useLocation()
   const userData = localStorage.getItem('user')
 
@@ -11,18 +9,16 @@ const RequireAuth = ({ children }) => {
     const userData = localStorage.getItem('user')
 
     if (userData) {
-      console.log(JSON.parse(userData), 'userData - require auth')
       setUser(JSON.parse(userData))
     }
 
   }, [])
 
   if (!userData && !user) {
-    console.log(user, 'in-user')
     return <Navigate to="/login" state={{ from: location }} replace />
   }
 
-  return children
+  return children || <Navigate to="/dashboard" />
 }
 
 export default RequireAuth

@@ -10,30 +10,27 @@ import DashboardHome from './components/Dashboard/DashboardHome'
 import Billing from './components/Dashboard/Billing'
 import Bookmarks from './components/Dashboard/Bookmarks'
 import Settings from './components/Dashboard/Settings'
+import { useAuth } from './components/contexts/CurrentUserProvider'
 
 const App = () => {
+  const { user, setUser } = useAuth()
+
   return (
     <div className="h-screen font-poppins bg-gray-50">
       <Routes>
         <Route element={<Layout />}>
-          <Route exact path="/" element={<RequireAuth />} />
+          <Route exact path="/" element={<RequireAuth setUser={setUser} user={user} />} />
           <Route exact path="login" element={<LoginForm />} />
           <Route exact path="register" element={<RegisterForm />} />
           <Route
             exact
             path="dashboard"
             element={
-              <RequireAuth>
+              <RequireAuth user={user} setUser={setUser}>
                 <DashboardPage />
               </RequireAuth>
             }
-          >
-            <Route exact path="/dashboard" element={<DashboardHome />} />
-            <Route exact path="update-profile" element={<UpdateProfileForm />} />
-            <Route exact path="bookmarks" element={<Bookmarks />} />
-            <Route exact path="billing" element={<Billing />} />
-            <Route exact path="settings" element={<Settings />} />
-          </Route>
+          />
         </Route>
       </Routes>
     </div>

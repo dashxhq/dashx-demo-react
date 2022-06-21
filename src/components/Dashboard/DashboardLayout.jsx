@@ -6,12 +6,14 @@ import DashboardContent from './DashboardContent'
 
 export default function DashboardLayout({ children }) {
   const [ sidebarOpen, setSidebarOpen ] = useState(false)
+  const [path, setPath]  = useState('/dashboard')
 
   return (
     <div>
-      <DashboardSidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-      <DashboardNavbar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-      <DashboardContent>
+      <DashboardSidebar path={path} setPath={setPath} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+      <DashboardNavbar sidebarOpen={sidebarOpen} setPath={setPath} setSidebarOpen={setSidebarOpen} />
+      {/* <Outlet /> */}
+      <DashboardContent path={path}>
         {children || (<Outlet />)}
       </DashboardContent>
     </div>

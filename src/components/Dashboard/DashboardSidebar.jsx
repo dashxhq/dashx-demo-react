@@ -1,37 +1,32 @@
 import React, { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { HomeIcon, XIcon, BookmarkIcon, CurrencyDollarIcon } from '@heroicons/react/outline'
-import { NavLink as BaseNavLink, useLocation } from 'react-router-dom'
 import DashxLogoSVG from '../SVG/DashxLogoSVG'
 
 const navigation = [
-  { name: 'Dashboard', href: '', icon: HomeIcon, current: false },
-  { name: 'Bookmarks', href: 'bookmarks', icon: BookmarkIcon, current: false },
-  { name: 'Billing', href: 'billing', icon: CurrencyDollarIcon, current: false }
+  { name: 'Dashboard', href: '/dashboard', icon: HomeIcon, current: false },
+  { name: 'Bookmarks', href: '/bookmarks', icon: BookmarkIcon, current: false },
+  { name: 'Billing', href: '/billing', icon: CurrencyDollarIcon, current: false }
 ]
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-const NavLink = ({ to, children, classes, inactiveClass, ...rest }) => {
-  const { pathname } = useLocation()
-  const active = pathname === `/dashboard/${to}` ? 'active' : ''
+export default function DashboardSidebar({ setSidebarOpen, sidebarOpen, setPath, path }) {
 
-  return (
-    <BaseNavLink
-      to={to}
-      className={`${
-        active ? classes : inactiveClass
-      } group flex items-center px-2 py-2 text-sm font-medium rounded-md `}
-      {...rest}
-    >
-      {children}
-    </BaseNavLink>
-  )
-}
+  const Render = ({ to, children, classes, inactiveClass, href, ...rest }) => {
+    return (
+      <div
+        className={`${href === path ? classes : inactiveClass}
+            group flex items-center px-2 py-2 text-sm font-medium rounded-md cursor-pointer`}
+        {...rest}
+      >
+        {children}
+      </div>
+    )
+  }
 
-export default function DashboardSidebar({ setSidebarOpen, sidebarOpen }) {
   return (
     <div>
       <Transition.Root show={sidebarOpen} as={Fragment}>
@@ -86,21 +81,15 @@ export default function DashboardSidebar({ setSidebarOpen, sidebarOpen }) {
                 <div className="mt-5 flex-1 h-0 overflow-y-auto">
                   <nav className="px-2 space-y-1">
                     {navigation.map((item) => (
-                      <NavLink
+                      <Render
                         key={item.name}
-                        to={item.href}
-                        /* className={({ isActive }) => classNames(
-                          isActive ? 'bg-gray-900 text-white ' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                          'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
-                        )} */
-                        /* classes={
-                          `${isActive
-                            ? 'bg-gray-900 text-white'
-                            : 'text-gray-300 hover:bg-gray-700 hover:text-white'} group flex items-center px-2 py-2 text-sm font-medium rounded-md`
-                        } */
+                        href={item.href}
                         classes="bg-gray-900 text-white"
                         inactiveClass="text-gray-300 hover:bg-gray-700 hover:text-white"
-                        onClick={() => setSidebarOpen(!sidebarOpen)}
+                        onClick={() => {
+                          setSidebarOpen(!sidebarOpen)
+                          setPath(item.href)
+                        }}
                       >
                         <item.icon
                           className={classNames(
@@ -110,7 +99,7 @@ export default function DashboardSidebar({ setSidebarOpen, sidebarOpen }) {
                           aria-hidden="true"
                         />
                         {item.name}
-                      </NavLink>
+                      </Render>
                     ))}
                   </nav>
                 </div>
@@ -132,18 +121,10 @@ export default function DashboardSidebar({ setSidebarOpen, sidebarOpen }) {
           <div className="flex-1 flex flex-col overflow-y-auto">
             <nav className="flex-1 px-2 py-4 space-y-1">
               {navigation.map((item) => (
-                <NavLink
+                <Render
                   key={item.name}
-                  to={item.href}
-                  /* className={({ isActive }) => classNames(
-                    isActive ? 'bg-gray-900 text-white ' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                    'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
-                  )} */
-                  /* classes={
-                    `${isActive
-                      ? 'bg-gray-900 text-white'
-                      : 'text-gray-300 hover:bg-gray-700 hover:text-white'} group flex items-center px-2 py-2 text-sm font-medium rounded-md`
-                  } */
+                  href={item.href}
+                  onClick={() => setPath(item.href)}
                   classes="bg-gray-900 text-white"
                   inactiveClass="text-gray-300 hover:bg-gray-700 hover:text-white"
                 >
@@ -155,7 +136,7 @@ export default function DashboardSidebar({ setSidebarOpen, sidebarOpen }) {
                     aria-hidden="true"
                   />
                   {item.name}
-                </NavLink>
+                </Render>
               ))}
             </nav>
           </div>

@@ -6,15 +6,15 @@ import { Link } from 'react-router-dom'
 import { useAuth } from '../contexts/CurrentUserProvider'
 
 const userNavigation = [
-  { name: 'Profile', href: 'update-profile' },
-  { name: 'Settings', href: 'settings' }
+  { name: 'Profile', href: '/update-profile' },
+  { name: 'Settings', href: '/settings' }
 ]
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-const DashboardNavbar = ({ setSidebarOpen }) => {
+const DashboardNavbar = ({ setSidebarOpen, setPath }) => {
   const { logOut } = useAuth()
 
   return (
@@ -80,22 +80,21 @@ const DashboardNavbar = ({ setSidebarOpen }) => {
               >
                 <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                   {userNavigation.map((item) => (
-                    <Menu.Item key={item.name}>
+                    <Menu.Item
+                      key={item.name}
+                      className='block px-4 py-2 text-sm text-gray-700 w-full text-left hover:bg-gray-100'
+                    >
                       {({ active }) => (
-                        <Link
-                          className={classNames(
-                            active ? 'bg-gray-100' : '',
-                            'block px-4 py-2 text-sm text-gray-700'
-                          )}
-                          to={item.href}
+                        <button
+                          onClick={() => setPath(item.href)}
                         >
                           {item.name}
-                        </Link>
+                        </button>
                       )}
                     </Menu.Item>
                   ))}
                   <button
-                    className="block px-4 py-2 w-full text-sm text-gray-700 text-left hover:bg-gray-100"
+                    className="block px-4 py-2 flex text-sm text-gray-700 w-full text-left hover:bg-gray-100"
                     onClick={logOut}
                   >
                     <Link to="#">
