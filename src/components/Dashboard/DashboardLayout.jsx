@@ -12,7 +12,6 @@ export default function DashboardLayout({ children }) {
     <div>
       <DashboardSidebar path={path} setPath={setPath} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
       <DashboardNavbar sidebarOpen={sidebarOpen} setPath={setPath} setSidebarOpen={setSidebarOpen} />
-      {/* <Outlet /> */}
       <DashboardContent path={path}>
         {children || (<Outlet />)}
       </DashboardContent>

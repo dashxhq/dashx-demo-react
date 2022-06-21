@@ -13,7 +13,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function DashboardSidebar({ setSidebarOpen, sidebarOpen, setPath, path }) {
+const DashboardSidebar = ({ setSidebarOpen, sidebarOpen, setPath, path }) => {
 
   const Render = ({ to, children, classes, inactiveClass, href, ...rest }) => {
     return (
@@ -74,7 +74,7 @@ export default function DashboardSidebar({ setSidebarOpen, sidebarOpen, setPath,
                     </button>
                   </div>
                 </Transition.Child>
-                <div className="flex px-4 gap-6 items-center">
+                <div className="flex px-4 gap-6 items-center cursor-pointer">
                   <DashxLogoSVG width="30px" height="30px" fill="#ffffff" />
                   <span className="text-xl text-white font-bold">Demo App</span>
                 </div>
@@ -112,9 +112,11 @@ export default function DashboardSidebar({ setSidebarOpen, sidebarOpen, setPath,
         </Dialog>
       </Transition.Root>
       <div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
-        {/* Sidebar component, swap this element with another sidebar if you like */}
         <div className="flex-1 flex flex-col min-h-0 bg-gray-800">
-          <div className="flex gap-6 items-center h-16 flex-shrink-0 px-4 bg-gray-900">
+          <div
+            className="flex gap-6 items-center cursor-pointer h-16 flex-shrink-0 px-4 bg-gray-900"
+            onClick={() => setPath('/dashboard')}
+          >
             <DashxLogoSVG width="30px" height="30px" fill="#ffffff" />
             <span className="text-xl text-white font-bold">Demo App</span>
           </div>
@@ -145,3 +147,5 @@ export default function DashboardSidebar({ setSidebarOpen, sidebarOpen, setPath,
     </div>
   )
 }
+
+export default DashboardSidebar

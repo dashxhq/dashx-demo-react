@@ -10,10 +10,6 @@ const userNavigation = [
   { name: 'Settings', href: '/settings' }
 ]
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
-
 const DashboardNavbar = ({ setSidebarOpen, setPath }) => {
   const { logOut } = useAuth()
 
