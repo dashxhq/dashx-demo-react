@@ -31,7 +31,7 @@ const RegisterForm = () => {
     try {
       const { status } = await register(requestBody)
       if (status === 201) {
-        navigate('/dashboard', { replace: true })
+        navigate('/login', { replace: true })
         resetForm()
       }
     } catch (error) {
