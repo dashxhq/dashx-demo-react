@@ -4,7 +4,7 @@ import DashboardSidebar from './DashboardSidebar'
 import DashboardNavbar from './DashboardNavbar'
 import DashboardContent from './DashboardContent'
 
-export default function DashboardLayout({ children }) {
+export default function DashboardLayout() {
   const [ sidebarOpen, setSidebarOpen ] = useState(false)
 
   return (
@@ -12,7 +12,7 @@ export default function DashboardLayout({ children }) {
       <DashboardSidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
       <DashboardNavbar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
       <DashboardContent>
-        {children || (<Outlet />)}
+        <Outlet />
       </DashboardContent>
     </div>
   )
