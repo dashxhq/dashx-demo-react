@@ -35,7 +35,7 @@ const RegisterForm = () => {
         resetForm()
       }
     } catch (error) {
-      const errorMessage = error.response.data.message
+      const errorMessage = error?.response?.data?.message || error?.message
       setError(errorMessage)
     } finally {
       setLoading(false)

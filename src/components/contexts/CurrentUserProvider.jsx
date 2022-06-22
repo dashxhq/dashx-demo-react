@@ -48,7 +48,7 @@ const CurrentUserProvider = ({ children }) => {
   }
 
   const register = async (registerFields) => {
-    const { data: { data } = {}, status } = await api.put('/register', registerFields)
+    const { data: { data } = {}, status } = await api.post('/register', registerFields)
     return { data, status }
   }
 
