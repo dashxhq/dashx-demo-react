@@ -11,6 +11,7 @@ import DashboardLayout from './components/layouts/DashboardLayout'
 import Bookmarks from './pages/dashboard/Bookmarks'
 import Billing from './pages/dashboard/Billing'
 import Settings from './pages/dashboard/Settings'
+import NotFound from './pages/NotFound'
 
 const App = () => {
   const { user, setUser } = useAuth()
@@ -28,19 +29,21 @@ const App = () => {
   return (
     <div className="h-screen font-poppins bg-gray-50">
       <Routes>
+        <Route path="*" element={<NotFound />} />
         <Route path="/" element={<Redirect />} />
         <Route element={<RequireAuth setUser={setUser} user={user} />}>
           <Route element={<DashboardLayout />}>
-            <Route exact path="dashboard" element={<DashboardHome />} />
-            <Route exact path="update-profile" element={<UpdateProfile />} />
-            <Route exact path="bookmarks" element={<Bookmarks />} />
-            <Route exact path="billing" element={<Billing />} />
-            <Route exact path="settings" element={<Settings />} />
+            <Route path="dashboard" element={<DashboardHome />} />
+            <Route path="update-profile" element={<UpdateProfile />} />
+            <Route path="bookmarks" element={<Bookmarks />} />
+            <Route path="billing" element={<Billing />} />
+            <Route path="settings" element={<Settings />} />
           </Route>
         </Route>
-        <Route exact path="login" element={<Login />} />
-        <Route exact path="forgot-password" element={<ForgotPassword />} />
-        <Route exact path="register" element={<Register />} />
+
+        <Route path="login" element={<Login />} />
+        <Route path="forgot-password" element={<ForgotPassword />} />
+        <Route path="register" element={<Register />} />
       </Routes>
     </div>
   )
