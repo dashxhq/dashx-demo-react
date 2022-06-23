@@ -21,7 +21,7 @@ const navItems = [
 ]
 
 const Navbar = () => {
-  const [ current, setCurrent ] = useState(false)
+  const [current, setCurrent] = useState(false)
   const { pathname } = useLocation()
 
   return (
@@ -37,7 +37,9 @@ const Navbar = () => {
                 <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                   {navItems.map(({ path, label }) => (
                     <div
-                      className={pathname === path ? classes.navItemCurrent : classes.navItemDefault}
+                      className={
+                        pathname === path ? classes.navItemCurrent : classes.navItemDefault
+                      }
                       key={path}
                     >
                       <Link to={path} onClick={() => setCurrent(!current)}>
@@ -48,9 +50,7 @@ const Navbar = () => {
                 </div>
               </div>
               <div className="-mr-2 flex items-center sm:hidden">
-                <Disclosure.Button
-                  className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
-                >
+                <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
                     <XIcon className="block h-6 w-6" aria-hidden="true" />

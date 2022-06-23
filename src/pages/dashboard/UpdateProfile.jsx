@@ -2,18 +2,18 @@ import React, { useState } from 'react'
 import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
 import { updateFormFields } from '../../constants/formFields'
-import Input from '../Input'
-import Button from '../Button'
-import AlertBox from '../AlertBox'
-import { useAuth } from '../contexts/CurrentUserProvider'
-import SuccessBox from '../SuccessBox'
+import Input from '../../components/Input'
+import Button from '../../components/Button'
+import AlertBox from '../../components/AlertBox'
+import { useAuth } from '../../components/contexts/CurrentUserProvider'
+import SuccessBox from '../../components/SuccessBox'
 
 const classes = {
   pageBody: 'min-h-full w-full pb-12',
   formContainer: 'flex-col sm:flex'
 }
 
-const UpdateProfileForm = () => {
+const UpdateProfile = () => {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
@@ -50,13 +50,19 @@ const UpdateProfileForm = () => {
   return (
     <div className={classes.pageBody}>
       <div className={classes.formContainer}>
-        <h2 className="text-left sm:text-left text-2xl font-semibold text-gray-900">Edit Profile</h2>
+        <h2 className="text-left sm:text-left text-2xl font-semibold text-gray-900">
+          Edit Profile
+        </h2>
         {error && <AlertBox alertMessage={error} />}
         {success && <SuccessBox successMessage={successMessage} />}
         <div className="sm:w-full sm:max-w-md mt-8">
           <div className="py-8 pt-0 mb-0">
             <Formik
-              initialValues={{ firstName: first_name, lastName: last_name, email }}
+              initialValues={{
+                firstName: first_name,
+                lastName: last_name,
+                email
+              }}
               validationSchema={Yup.object({
                 firstName: Yup.string().required('First Name is required'),
                 lastName: Yup.string().required('Last Name is required'),
@@ -81,4 +87,4 @@ const UpdateProfileForm = () => {
   )
 }
 
-export default UpdateProfileForm
+export default UpdateProfile

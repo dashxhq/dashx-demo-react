@@ -1,4 +1,5 @@
 import React from 'react'
+import { Outlet } from 'react-router-dom'
 
 const DashboardContent = ({ children }) => {
   return (
@@ -6,7 +7,7 @@ const DashboardContent = ({ children }) => {
       <main className="flex-1 h-screen">
         <div className="py-6">
           <div className="max-w-7xl px-4 sm:px-6 md:px-8">
-            {children}
+            <Outlet />
           </div>
         </div>
       </main>

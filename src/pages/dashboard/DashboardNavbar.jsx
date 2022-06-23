@@ -3,7 +3,7 @@ import { SearchIcon } from '@heroicons/react/solid'
 import { BellIcon, MenuAlt2Icon } from '@heroicons/react/outline'
 import { Menu, Transition } from '@headlessui/react'
 import { Link, NavLink } from 'react-router-dom'
-import { useAuth } from '../contexts/CurrentUserProvider'
+import { useAuth } from '../../components/contexts/CurrentUserProvider'
 
 const userNavigation = [
   { name: 'Profile', href: '/update-profile' },
@@ -30,7 +30,11 @@ const DashboardNavbar = ({ setSidebarOpen }) => {
         </button>
         <div className="flex-1 px-4 flex justify-between">
           <div className="flex-1 flex">
-            <form className="w-full flex md:ml-0" action="#" method="GET">
+            <form
+              className="w-full flex md:ml-0"
+              action="src/pages/dashboard/DashboardNavbar#"
+              method="GET"
+            >
               <label htmlFor="search-field" className="sr-only">
                 Search
               </label>
@@ -82,15 +86,17 @@ const DashboardNavbar = ({ setSidebarOpen }) => {
                   {userNavigation.map((item) => (
                     <Menu.Item
                       key={item.name}
-                      className='block px-4 py-2 text-sm text-gray-700 w-full text-left hover:bg-gray-100'
+                      className="block px-4 py-2 text-sm text-gray-700 w-full text-left hover:bg-gray-100"
                     >
                       {({ active }) => (
                         <NavLink
                           key={item.name}
                           to={item.href}
-                          className={
-                            ({ isActive }) => classNames(
-                              isActive ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                          className={({ isActive }) =>
+                            classNames(
+                              isActive
+                                ? 'bg-gray-900 text-white'
+                                : 'text-gray-300 hover:bg-gray-700 hover:text-white'
                             )
                           }
                         >
@@ -103,9 +109,7 @@ const DashboardNavbar = ({ setSidebarOpen }) => {
                     className="block px-4 py-2 flex text-sm text-gray-700 w-full text-left hover:bg-gray-100"
                     onClick={logOut}
                   >
-                    <Link to="#">
-                      Logout
-                    </Link>
+                    <Link to="#">Logout</Link>
                   </button>
                 </Menu.Items>
               </Transition>

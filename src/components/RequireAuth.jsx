@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
-import { Navigate, useLocation } from 'react-router-dom'
+import { Navigate, Outlet, useLocation } from 'react-router-dom'
 
-const RequireAuth = ({ children, user, setUser }) => {
+const RequireAuth = ({ user, setUser }) => {
   const location = useLocation()
   const userData = localStorage.getItem('user')
 
@@ -11,14 +11,13 @@ const RequireAuth = ({ children, user, setUser }) => {
     if (userData) {
       setUser(JSON.parse(userData))
     }
-
   }, [])
 
   if (!userData && !user) {
     return <Navigate to="/login" state={{ from: location }} replace />
   }
 
-  return children || <Navigate to="/dashboard" />
+  return <Outlet />
 }
 
 export default RequireAuth

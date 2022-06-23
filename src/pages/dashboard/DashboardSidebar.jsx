@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { HomeIcon, XIcon, BookmarkIcon, CurrencyDollarIcon } from '@heroicons/react/outline'
-import DashxLogoSVG from '../SVG/DashxLogoSVG'
+import DashxLogoSVG from '../../components/SVG/DashxLogoSVG'
 import { Link, NavLink } from 'react-router-dom'
 
 const navigation = [
@@ -74,7 +74,9 @@ const DashboardSidebar = ({ setSidebarOpen, sidebarOpen }) => {
                         to={item.href}
                         className={({ isActive }) =>
                           classNames(
-                            isActive ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                            isActive
+                              ? 'bg-gray-900 text-white'
+                              : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                             'group items-center flex px-2 rounded-md text-base font-medium py-2'
                           )
                         }
@@ -84,7 +86,9 @@ const DashboardSidebar = ({ setSidebarOpen, sidebarOpen }) => {
                       >
                         <item.icon
                           className={classNames(
-                            item.current ? 'text-gray-300' : 'text-gray-400 group-hover:text-gray-300',
+                            item.current
+                              ? 'text-gray-300'
+                              : 'text-gray-400 group-hover:text-gray-300',
                             'mr-3 flex-shrink-0 h-6 w-6'
                           )}
                           aria-hidden="true"
@@ -104,7 +108,10 @@ const DashboardSidebar = ({ setSidebarOpen, sidebarOpen }) => {
       </Transition.Root>
       <div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
         <div className="flex-1 flex flex-col min-h-0 bg-gray-800">
-          <Link to="/dashboard" className="flex gap-6 items-center cursor-pointer h-16 flex-shrink-0 px-4 bg-gray-900">
+          <Link
+            to="/dashboard"
+            className="flex gap-6 items-center cursor-pointer h-16 flex-shrink-0 px-4 bg-gray-900"
+          >
             <DashxLogoSVG width="30px" height="30px" fill="#ffffff" />
             <span className="text-xl text-white font-bold">Demo App</span>
           </Link>
@@ -116,7 +123,9 @@ const DashboardSidebar = ({ setSidebarOpen, sidebarOpen }) => {
                   to={item.href}
                   className={({ isActive }) =>
                     classNames(
-                      isActive ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                      isActive
+                        ? 'bg-gray-900 text-white'
+                        : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                       'flex px-2 rounded-md text-base font-medium py-2'
                     )
                   }

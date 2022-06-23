@@ -35,11 +35,11 @@ const CurrentUserProvider = ({ children }) => {
     const headers = {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${jwtToken}`,
-      },
+        Authorization: `Bearer ${jwtToken}`
+      }
     }
     const {
-      data: { message, status },
+      data: { message, status }
     } = await api.patch('/update-profile', updateFields, headers)
     if (status === 200) {
       setUser(updateFields)
