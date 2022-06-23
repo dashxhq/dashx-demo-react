@@ -2,12 +2,12 @@ import React, { useState } from 'react'
 import * as Yup from 'yup'
 import { Form, Formik } from 'formik'
 import { Link, useNavigate } from 'react-router-dom'
-import { loginFields } from '../../constants/formFields'
-import Input from '../Input'
-import Button from '../Button'
-import AlertBox from '../AlertBox'
-import { useAuth } from '../contexts/CurrentUserProvider'
-import DashXLogo from '../../assets/dashxlogo.svg'
+import { loginFields } from '../constants/formFields'
+import Input from '../components/Input'
+import Button from '../components/Button'
+import AlertBox from '../components/AlertBox'
+import { useAuth } from '../components/contexts/CurrentUserProvider'
+import DashXLogo from '../assets/dashxlogo.svg'
 
 const LoginForm = () => {
   const [error, setError] = useState('')

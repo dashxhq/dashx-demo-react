@@ -1,85 +1,46 @@
 import React from 'react'
-import { Route, Routes } from 'react-router-dom'
-import LoginForm from './components/forms/LoginForm'
-import RegisterForm from './components/forms/RegisterForm'
+import { Route, Routes, Navigate } from 'react-router-dom'
+import Login from './pages/Login'
+import Register from './pages/Register'
 import RequireAuth from './components/RequireAuth'
-import Layout from './components/Layout'
-import DashboardPage from './pages/DashboardPage'
 import { useAuth } from './components/contexts/CurrentUserProvider'
 import ForgotPassword from './pages/ForgotPassword'
-import DashboardHome from './components/Dashboard/DashboardHome';
-import UpdateProfileForm from './components/forms/UpdateProfileForm';
-import DashboardLayout from './components/Dashboard/DashboardLayout';
-import Bookmarks from './components/Dashboard/Bookmarks';
-import Billing from './components/Dashboard/Billing';
-import Settings from './components/Dashboard/Settings';
+import DashboardHome from './pages/dashboard/DashboardHome'
+import UpdateProfile from './pages/dashboard/UpdateProfile'
+import DashboardLayout from './components/layouts/DashboardLayout'
+import Bookmarks from './pages/dashboard/Bookmarks'
+import Billing from './pages/dashboard/Billing'
+import Settings from './pages/dashboard/Settings'
 
 const App = () => {
   const { user, setUser } = useAuth()
 
+  const Redirect = () => {
+    const userData = localStorage.getItem('user')
+
+    if (!userData && !user) {
+      return <Navigate to="/login" replace />
+    }
+
+    return <Navigate to="/dashboard" replace />
+  }
+
   return (
     <div className="h-screen font-poppins bg-gray-50">
       <Routes>
-        <Route element={<Layout />}>
-          <Route exact path="/" element={<RequireAuth setUser={setUser} user={user} />} />
-          <Route exact path="login" element={<LoginForm />} />
-          <Route exact path="forgot-password" element={<ForgotPassword />} />
-          <Route exact path="register" element={<RegisterForm />} />
-          <Route
-            path="dashboard"
-            element={
-              <RequireAuth user={user} setUser={setUser}>
-                <DashboardPage />
-              </RequireAuth>
-            }
-          >
-            <Route index element={<DashboardHome />} />
+        <Route path="/" element={<Redirect />} />
+        <Route element={<RequireAuth setUser={setUser} user={user} />}>
+          <Route element={<DashboardLayout />}>
+            <Route exact path="dashboard" element={<DashboardHome />} />
+            <Route exact path="update-profile" element={<UpdateProfile />} />
+            <Route exact path="bookmarks" element={<Bookmarks />} />
+            <Route exact path="billing" element={<Billing />} />
+            <Route exact path="settings" element={<Settings />} />
           </Route>
-          <Route
-            exact
-            path="update-profile"
-            element={
-              <RequireAuth user={user} setUser={setUser}>
-                <DashboardLayout>
-                  <UpdateProfileForm />
-                </DashboardLayout>
-              </RequireAuth>
-            }
-          />
-          <Route
-            exact
-            path="bookmarks"
-            element={
-              <RequireAuth user={user} setUser={setUser}>
-                <DashboardLayout>
-                  <Bookmarks />
-                </DashboardLayout>
-              </RequireAuth>
-            }
-          />
-          <Route
-            exact
-            path="billing"
-            element={
-              <RequireAuth user={user} setUser={setUser}>
-                <DashboardLayout>
-                  <Billing />
-                </DashboardLayout>
-              </RequireAuth>
-            }
-          />
-          <Route
-            exact
-            path="settings"
-            element={
-              <RequireAuth user={user} setUser={setUser}>
-                <DashboardLayout>
-                  <Settings />
-                </DashboardLayout>
-              </RequireAuth>
-            }
-          />
         </Route>
+        <Route exact path="login" element={<Login />} />
+        <Route exact path="forgot-password" element={<ForgotPassword />} />
+        <Route exact path="register" element={<Register />} />
       </Routes>
     </div>
   )
