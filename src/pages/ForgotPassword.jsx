@@ -25,6 +25,9 @@ const ForgotPassword = () => {
 
   const handleSubmit = async (values, resetForm) => {
     setLoading(true)
+    setSuccessMessage('')
+    setError('')
+
     try{
       const { data: { message } = {}, status } = await api.post('/forgot-password', values)
       if (status === 200) {
@@ -51,10 +54,10 @@ const ForgotPassword = () => {
         <p className="mt-6 mb-6 px-2 min-w-xs m-auto text-center text-md font-medium text-gray-900">
           Enter the email address associated with your account
         </p>
+        {successMessage && (<SuccessBox successMessage={successMessage} />)}
+        {error && (<AlertBox alertMessage={error} />)}
       </div>
-      {successMessage && (<SuccessBox successMessage={successMessage} />)}
-      {error && (<AlertBox alertMessage={error} />)}
-      <div className="sm:mx-auto sm:w-full mb-4 sm:max-w-md rounded bg-white shadow shadow-md">
+      <div className="sm:mx-auto sm:w-full mb-4 mt-4 sm:max-w-md rounded bg-white shadow shadow-md">
         <div className="py-8 px-4 sm:px-8">
           <Formik
             initialValues={{
