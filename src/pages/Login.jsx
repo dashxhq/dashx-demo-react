@@ -1,15 +1,20 @@
 import React, { useState } from 'react'
-import * as Yup from 'yup'
-import { Form, Formik } from 'formik'
 import { Link, useNavigate } from 'react-router-dom'
+
+import * as Yup from 'yup'
+import jwtDecode from 'jwt-decode'
+import { Form, Formik } from 'formik'
+
 import Input from '../components/Input'
 import Button from '../components/Button'
 import AlertBox from '../components/AlertBox'
 import { useAuth } from '../contexts/CurrentUserProvider'
+
 import dashx from '../lib/dashx'
 import api from '../lib/api'
-import jwtDecode from 'jwt-decode'
+
 import { loginFields } from '../constants/formFields'
+
 import DashXLogo from '../assets/dashx_logo_black.png'
 
 const Login = () => {
@@ -52,7 +57,7 @@ const Login = () => {
     <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center items-center">
-          <img src={DashXLogo} className="h-12 w-12" alt="DashXLogo" />
+          <img src={DashXLogo} className="h-12 w-12" alt="DashX Logo" />
         </div>
         <h2 className="mt-6 mb-6 text-center text-3xl font-extrabold text-gray-900">
           Login to your account
