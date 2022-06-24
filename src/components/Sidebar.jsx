@@ -14,7 +14,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-const DashboardSidebar = ({ setSidebarOpen, sidebarOpen }) => {
+const Sidebar = ({ setSidebarOpen, sidebarOpen }) => {
   return (
     <div>
       <Transition.Root show={sidebarOpen} as={Fragment}>
@@ -148,4 +148,4 @@ const DashboardSidebar = ({ setSidebarOpen, sidebarOpen }) => {
   )
 }
 
-export default DashboardSidebar
+export default Sidebar
