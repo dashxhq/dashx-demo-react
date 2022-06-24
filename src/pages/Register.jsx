@@ -3,18 +3,16 @@ import * as Yup from 'yup'
 import { Formik, Form } from 'formik'
 import { Link, useNavigate } from 'react-router-dom'
 import Button from '../components/Button'
-import { registerFields } from '../constants/formFields'
 import Input from '../components/Input'
 import AlertBox from '../components/AlertBox'
-
-import { useAuth } from '../components/contexts/CurrentUserProvider'
-import DashXLogo from '../assets/dashxlogo.svg'
+import api from '../lib/api'
+import { registerFields } from '../constants/formFields'
+import DashXLogo from '../assets/dashx_logo_black.png'
 
 const Register = () => {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
-  const { register } = useAuth()
 
   const handleRegister = async (formValues, resetForm) => {
     setError('')
@@ -29,7 +27,7 @@ const Register = () => {
     }
 
     try {
-      const { status } = await register(requestBody)
+      const { status } = await api.post('/register', requestBody)
       if (status === 201) {
         navigate('/login', { replace: true })
         resetForm()

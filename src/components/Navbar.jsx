@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { SearchIcon } from '@heroicons/react/solid'
 import { BellIcon, MenuAlt2Icon } from '@heroicons/react/outline'
 import { Menu, Transition } from '@headlessui/react'
-import { Link, NavLink } from 'react-router-dom'
-import { useAuth } from '../../components/contexts/CurrentUserProvider'
+import { useAuth } from '../contexts/CurrentUserProvider'
 
 const userNavigation = [
   { name: 'Profile', href: '/update-profile' },
@@ -14,8 +14,17 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-const DashboardNavbar = ({ setSidebarOpen }) => {
-  const { logOut } = useAuth()
+const Navbar = ({ setSidebarOpen }) => {
+  const navigate = useNavigate()
+  const { setUser } = useAuth()
+
+  const logOut = () => {
+    localStorage.removeItem('jwtToken')
+    localStorage.removeItem('user')
+    localStorage.removeItem('dashxToken')
+    setUser(null)
+    navigate('/')
+  }
 
   return (
     <div className="md:pl-64 flex flex-col">
@@ -30,11 +39,7 @@ const DashboardNavbar = ({ setSidebarOpen }) => {
         </button>
         <div className="flex-1 px-4 flex justify-between">
           <div className="flex-1 flex">
-            <form
-              className="w-full flex md:ml-0"
-              action=""
-              method="GET"
-            >
+            <form className="w-full flex md:ml-0" action="src/components/Navbar" method="GET">
               <label htmlFor="search-field" className="sr-only">
                 Search
               </label>
@@ -61,7 +66,6 @@ const DashboardNavbar = ({ setSidebarOpen }) => {
               <BellIcon className="h-6 w-6" aria-hidden="true" />
             </button>
 
-            {/* Profile dropdown */}
             <Menu as="div" className="ml-3 relative">
               <div>
                 <Menu.Button className="max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
@@ -88,7 +92,7 @@ const DashboardNavbar = ({ setSidebarOpen }) => {
                       key={item.name}
                       className="block px-4 py-2 text-sm text-gray-700 w-full text-left hover:bg-gray-100"
                     >
-                      {({ active }) => (
+                      {() => (
                         <NavLink
                           key={item.name}
                           to={item.href}
@@ -121,4 +125,4 @@ const DashboardNavbar = ({ setSidebarOpen }) => {
   )
 }
 
-export default DashboardNavbar
+export default Navbar

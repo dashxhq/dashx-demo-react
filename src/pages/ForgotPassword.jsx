@@ -1,10 +1,10 @@
 import React from 'react'
-import Input from '../components/Input'
-import * as Yup from 'yup'
-import { Form, Formik } from 'formik'
-import Button from '../components/Button'
-import DashXLogo from '../assets/dashxlogo.svg'
 import { Link } from 'react-router-dom'
+import { Form, Formik } from 'formik'
+import * as Yup from 'yup'
+import Button from '../components/Button'
+import Input from '../components/Input'
+import DashXLogo from '../assets/dashx_logo_black.png'
 
 const field = {
   name: 'email',
@@ -29,7 +29,6 @@ const ForgotPassword = () => {
         <p className="mt-6 mb-6 px-2 min-w-xs m-auto text-center text-md font-medium text-gray-900">
           Enter the email address associated with your account
         </p>
-        {/* {error && <AlertBox alertMessage={error} />} */}
       </div>
       <div className="sm:mx-auto sm:w-full mb-4 sm:max-w-md rounded bg-white shadow shadow-md">
         <div className="py-8 px-4 sm:px-8">

@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { HomeIcon, XIcon, BookmarkIcon, CurrencyDollarIcon } from '@heroicons/react/outline'
-import DashxLogoSVG from '../../components/SVG/DashxLogoSVG'
+import DashXLogoWhite from '../assets/dashx_logo_white.png'
 import { Link, NavLink } from 'react-router-dom'
 
 const navigation = [
@@ -62,10 +62,12 @@ const Sidebar = ({ setSidebarOpen, sidebarOpen }) => {
                     </button>
                   </div>
                 </Transition.Child>
-                <div className="flex px-4 gap-6 items-center cursor-pointer">
-                  <DashxLogoSVG width="30px" height="30px" fill="#ffffff" />
-                  <span className="text-xl text-white font-bold">Demo App</span>
-                </div>
+                <Link to="/dashboard">
+                  <div className="flex px-4 gap-6 items-center cursor-pointer">
+                    <img src={DashXLogoWhite} alt="DashXLogoWhite" width="30px" height="30px" />
+                    <span className="text-xl text-white font-bold">Demo App</span>
+                  </div>
+                </Link>
                 <div className="mt-5 flex-1 h-0 overflow-y-auto">
                   <nav className="px-2 space-y-1">
                     {navigation.map((item) => (
@@ -100,9 +102,7 @@ const Sidebar = ({ setSidebarOpen, sidebarOpen }) => {
                 </div>
               </Dialog.Panel>
             </Transition.Child>
-            <div className="flex-shrink-0 w-14" aria-hidden="true">
-              {/* Dummy element to force sidebar to shrink to fit close icon */}
-            </div>
+            <div className="flex-shrink-0 w-14" aria-hidden="true"></div>
           </div>
         </Dialog>
       </Transition.Root>
@@ -112,7 +112,7 @@ const Sidebar = ({ setSidebarOpen, sidebarOpen }) => {
             to="/dashboard"
             className="flex gap-6 items-center cursor-pointer h-16 flex-shrink-0 px-4 bg-gray-900"
           >
-            <DashxLogoSVG width="30px" height="30px" fill="#ffffff" />
+            <img src={DashXLogoWhite} alt="DashXLogoWhite" width="30px" height="30px" />
             <span className="text-xl text-white font-bold">Demo App</span>
           </Link>
           <div className="flex-1 flex flex-col overflow-y-auto">

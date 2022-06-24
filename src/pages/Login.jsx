@@ -2,17 +2,20 @@ import React, { useState } from 'react'
 import * as Yup from 'yup'
 import { Form, Formik } from 'formik'
 import { Link, useNavigate } from 'react-router-dom'
-import { loginFields } from '../constants/formFields'
 import Input from '../components/Input'
 import Button from '../components/Button'
 import AlertBox from '../components/AlertBox'
-import { useAuth } from '../components/contexts/CurrentUserProvider'
-import DashXLogo from '../assets/dashxlogo.svg'
+import { useAuth } from '../contexts/CurrentUserProvider'
+import dashx from '../lib/dashx'
+import api from '../lib/api'
+import jwtDecode from 'jwt-decode'
+import { loginFields } from '../constants/formFields'
+import DashXLogo from '../assets/dashx_logo_black.png'
 
 const Login = () => {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const { login } = useAuth()
+  const { setUser } = useAuth()
 
   const navigate = useNavigate()
 
@@ -24,13 +27,21 @@ const Login = () => {
     const requestBody = { email, password }
 
     try {
-      const { status } = await login(requestBody)
-      if (status === 200) {
-        navigate('/dashboard', { replace: false })
+      const { data: { token } = {}, status } = await api.post('/login', requestBody)
+
+      if (status === 200 && token) {
+        const decodedUser = jwtDecode(token)
+        const { dashx_token, user } = decodedUser || {}
+        dashx.setIdentity(String(user?.id), dashx_token)
+        setUser(user)
+        localStorage.setItem('jwtToken', token)
+        localStorage.setItem('user', JSON.stringify(user))
+        localStorage.setItem('dashxToken', dashx_token)
+        navigate('/dashboard', { replace: true })
         resetForm()
       }
     } catch (error) {
-      const errorMessage = error.response?.data?.message || error.response?.data || error?.message
+      const errorMessage = error.response?.data?.message || error?.message
       setError(errorMessage)
     } finally {
       setLoading(false)
@@ -41,7 +52,7 @@ const Login = () => {
     <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center items-center">
-          <img src={DashXLogo} className="h-12 w-12" alt="DashX Logo" />
+          <img src={DashXLogo} className="h-12 w-12" alt="DashXLogo" />
         </div>
         <h2 className="mt-6 mb-6 text-center text-3xl font-extrabold text-gray-900">
           Login to your account

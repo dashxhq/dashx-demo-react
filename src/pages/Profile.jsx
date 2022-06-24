@@ -1,25 +1,27 @@
 import React, { useState } from 'react'
 import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
-import { updateFormFields } from '../../constants/formFields'
-import Input from '../../components/Input'
-import Button from '../../components/Button'
-import AlertBox from '../../components/AlertBox'
-import { useAuth } from '../../components/contexts/CurrentUserProvider'
-import SuccessBox from '../../components/SuccessBox'
+import Input from '../components/Input'
+import Button from '../components/Button'
+import AlertBox from '../components/AlertBox'
+import SuccessBox from '../components/SuccessBox'
+import { useAuth } from '../contexts/CurrentUserProvider'
+import api from '../lib/api'
+import { updateFormFields } from '../constants/formFields'
 
 const classes = {
   pageBody: 'min-h-full w-full pb-12',
   formContainer: 'flex-col sm:flex'
 }
 
-const UpdateProfile = () => {
+const Profile = () => {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [successMessage, setSuccessMessage] = useState(false)
-  const { user, update } = useAuth()
-  const { first_name, last_name, email } = user || JSON.parse(localStorage.getItem('user'))
+  const { user, setUser } = useAuth()
+  const { first_name, last_name, email } = user || {}
+  const jwtToken = localStorage.getItem('jwtToken')
 
   const handleUpdate = async (formValues) => {
     setError('')
@@ -33,12 +35,25 @@ const UpdateProfile = () => {
     }
 
     try {
-      const { message } = await update(requestBody)
+      const headers = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${jwtToken}`
+        }
+      }
+      const { data: { message, user } = {}, status } = await api.patch(
+        '/update-profile',
+        requestBody,
+        headers
+      )
+      if (status === 200) {
+        setUser(user)
+      }
       setSuccess(true)
       setSuccessMessage(message)
       setTimeout(() => {
         setSuccess(false)
-      }, 5000)
+      }, 2000)
     } catch (error) {
       const errorMessage = error.response?.data?.message || error.response?.data
       setError(errorMessage)
@@ -87,4 +102,4 @@ const UpdateProfile = () => {
   )
 }
 
-export default UpdateProfile
+export default Profile

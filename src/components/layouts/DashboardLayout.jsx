@@ -1,19 +1,19 @@
 import React, { useState } from 'react'
 import { Outlet } from 'react-router-dom'
-import DashboardSidebar from '../../pages/dashboard/DashboardSidebar'
-import DashboardNavbar from '../../pages/dashboard/DashboardNavbar'
-import DashboardContent from '../../pages/dashboard/DashboardContent'
+import Content from '../../pages/Content'
+import Sidebar from '../Sidebar'
+import Navbar from '../Navbar'
 
-export default function DashboardLayout({ children }) {
+export default function DashboardLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
     <div>
-      <DashboardSidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-      <DashboardNavbar setSidebarOpen={setSidebarOpen} />
-      <DashboardContent>
+      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+      <Navbar setSidebarOpen={setSidebarOpen} />
+      <Content>
         <Outlet />
-      </DashboardContent>
+      </Content>
     </div>
   )
 }
