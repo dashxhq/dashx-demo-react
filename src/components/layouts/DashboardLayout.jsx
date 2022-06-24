@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Outlet } from 'react-router-dom'
+
 import Content from '../../pages/Content'
+
 import Sidebar from '../Sidebar'
 import Navbar from '../Navbar'
 

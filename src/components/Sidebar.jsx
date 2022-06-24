@@ -1,8 +1,10 @@
 import React, { Fragment } from 'react'
+import { Link, NavLink } from 'react-router-dom'
+
 import { Dialog, Transition } from '@headlessui/react'
 import { HomeIcon, XIcon, BookmarkIcon, CurrencyDollarIcon } from '@heroicons/react/outline'
+
 import DashXLogoWhite from '../assets/dashx_logo_white.png'
-import { Link, NavLink } from 'react-router-dom'
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: HomeIcon, current: false },
@@ -64,7 +66,7 @@ const Sidebar = ({ setSidebarOpen, sidebarOpen }) => {
                 </Transition.Child>
                 <Link to="/dashboard">
                   <div className="flex px-4 gap-6 items-center cursor-pointer">
-                    <img src={DashXLogoWhite} alt="DashXLogoWhite" width="30px" height="30px" />
+                    <img src={DashXLogoWhite} alt="DashX Logo White" width="30px" height="30px" />
                     <span className="text-xl text-white font-bold">Demo App</span>
                   </div>
                 </Link>
@@ -112,7 +114,7 @@ const Sidebar = ({ setSidebarOpen, sidebarOpen }) => {
             to="/dashboard"
             className="flex gap-6 items-center cursor-pointer h-16 flex-shrink-0 px-4 bg-gray-900"
           >
-            <img src={DashXLogoWhite} alt="DashXLogoWhite" width="30px" height="30px" />
+            <img src={DashXLogoWhite} alt="DashX Logo White" width="30px" height="30px" />
             <span className="text-xl text-white font-bold">Demo App</span>
           </Link>
           <div className="flex-1 flex flex-col overflow-y-auto">

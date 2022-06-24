@@ -1,12 +1,17 @@
 import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+
 import * as Yup from 'yup'
 import { Formik, Form } from 'formik'
-import { Link, useNavigate } from 'react-router-dom'
+
 import Button from '../components/Button'
 import Input from '../components/Input'
 import AlertBox from '../components/AlertBox'
+
 import api from '../lib/api'
+
 import { registerFields } from '../constants/formFields'
+
 import DashXLogo from '../assets/dashx_logo_black.png'
 
 const Register = () => {

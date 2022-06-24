@@ -1,12 +1,16 @@
 import React, { useState } from 'react'
+
 import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
+
 import Input from '../components/Input'
 import Button from '../components/Button'
 import AlertBox from '../components/AlertBox'
 import SuccessBox from '../components/SuccessBox'
 import { useAuth } from '../contexts/CurrentUserProvider'
+
 import api from '../lib/api'
+
 import { updateFormFields } from '../constants/formFields'
 
 const classes = {

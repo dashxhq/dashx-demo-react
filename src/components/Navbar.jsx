@@ -1,8 +1,10 @@
 import React, { Fragment } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
+
 import { SearchIcon } from '@heroicons/react/solid'
 import { BellIcon, MenuAlt2Icon } from '@heroicons/react/outline'
 import { Menu, Transition } from '@headlessui/react'
+
 import { useAuth } from '../contexts/CurrentUserProvider'
 
 const userNavigation = [

@@ -1,13 +1,15 @@
 import React from 'react'
 import { Route, Routes, Navigate } from 'react-router-dom'
+
 import Login from './pages/Login'
 import Register from './pages/Register'
 import ForgotPassword from './pages/ForgotPassword'
-import DashboardHome from './pages/DashboardHome'
+import Home from './pages/Home'
 import Profile from './pages/Profile'
 import Bookmarks from './pages/Bookmarks'
 import Billing from './pages/Billing'
 import Settings from './pages/Settings'
+
 import DashboardLayout from './components/layouts/DashboardLayout'
 import RequireAuth from './components/RequireAuth'
 import { useAuth } from './contexts/CurrentUserProvider'
@@ -31,7 +33,7 @@ const App = () => {
         <Route path="/" element={<Redirect />} />
         <Route element={<RequireAuth setUser={setUser} user={user} />}>
           <Route element={<DashboardLayout />}>
-            <Route path="dashboard" element={<DashboardHome />} />
+            <Route path="dashboard" element={<Home />} />
             <Route path="update-profile" element={<Profile />} />
             <Route path="bookmarks" element={<Bookmarks />} />
             <Route path="billing" element={<Billing />} />

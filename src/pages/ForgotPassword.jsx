@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
+
 import Button from '../components/Button'
 import Input from '../components/Input'
+import AlertBox from '../components/AlertBox'
+import SuccessBox from '../components/SuccessBox'
+
+import api from '../lib/api'
+
 import DashXLogo from '../assets/dashx_logo_black.png'
 
 const field = {
@@ -13,8 +19,24 @@ const field = {
 }
 
 const ForgotPassword = () => {
+  const [loading, setLoading] = useState(false)
+  const [successMessage, setSuccessMessage] = useState('')
+  const [error, setError] = useState('')
+
   const handleSubmit = async (values, resetForm) => {
-    console.log(values)
+    setLoading(true)
+    try{
+      const { data: { message } = {}, status } = await api.post('/forgot-password', values)
+      if (status === 200) {
+        setSuccessMessage(message)
+        resetForm()
+      }
+    } catch (error) {
+      const errorMessage = error?.response?.data?.message || 'Something went wrong, please try later'
+      setError(errorMessage)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -30,6 +52,8 @@ const ForgotPassword = () => {
           Enter the email address associated with your account
         </p>
       </div>
+      {successMessage && (<SuccessBox successMessage={successMessage} />)}
+      {error && (<AlertBox alertMessage={error} />)}
       <div className="sm:mx-auto sm:w-full mb-4 sm:max-w-md rounded bg-white shadow shadow-md">
         <div className="py-8 px-4 sm:px-8">
           <Formik
@@ -46,7 +70,7 @@ const ForgotPassword = () => {
           >
             <Form>
               <Input label={field.label} {...field} />
-              <Button type="submit" label="Submit" />
+              <Button type="submit" label="Submit" loading={loading} />
             </Form>
           </Formik>
         </div>
