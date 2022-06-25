@@ -6,11 +6,13 @@ const CurrentUserProvider = ({ children }) => {
   const [user, setUser] = useState(null)
 
   return (
-    <CurrentUserContext.Provider value={{ user, setUser }}>{children}</CurrentUserContext.Provider>
+    <CurrentUserContext.Provider value={{ user, setUser }}>
+      {children}
+    </CurrentUserContext.Provider>
   )
 }
 
-const useAuth = () => useContext(CurrentUserContext)
+const useCurrentUserContext = () => useContext(CurrentUserContext)
 
-export { useAuth }
+export { useCurrentUserContext }
 export default CurrentUserProvider

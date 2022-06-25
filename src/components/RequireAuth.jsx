@@ -6,15 +6,13 @@ const RequireAuth = ({ user, setUser }) => {
   const userData = localStorage.getItem('user')
 
   useEffect(() => {
-    const userData = localStorage.getItem('user')
-
     if (userData) {
       setUser(JSON.parse(userData))
     }
   }, [])
 
   if (!userData && !user) {
-    return <Navigate to="/login" state={{ from: location }} replace />
+    return <Navigate to="/login" state={{ from: location.pathname }} replace />
   }
 
   return <Outlet />

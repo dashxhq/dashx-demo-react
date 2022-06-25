@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import reportWebVitals from './reportWebVitals'
 
 import App from './App'
-import CurrentUserProvider from './contexts/CurrentUserProvider'
+import CurrentUserProvider from './contexts/CurrentUserContext'
 
 import './index.css'
 
