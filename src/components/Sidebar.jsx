@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 
 import { Dialog, Transition } from '@headlessui/react'
 import { HomeIcon, XIcon, BookmarkIcon, CurrencyDollarIcon } from '@heroicons/react/outline'
@@ -7,7 +7,7 @@ import { HomeIcon, XIcon, BookmarkIcon, CurrencyDollarIcon } from '@heroicons/re
 import DashXLogoWhite from '../assets/dashx_logo_white.png'
 
 const navigation = [
-  { name: 'Dashboard', href: '/dashboard', icon: HomeIcon, current: false },
+  { name: 'Home', href: '/', icon: HomeIcon, current: false },
   { name: 'Bookmarks', href: '/bookmarks', icon: BookmarkIcon, current: false },
   { name: 'Billing', href: '/billing', icon: CurrencyDollarIcon, current: false }
 ]
@@ -17,6 +17,8 @@ function classNames(...classes) {
 }
 
 const Sidebar = ({ setSidebarOpen, sidebarOpen }) => {
+  const navigate = useNavigate()
+
   return (
     <div>
       <Transition.Root show={sidebarOpen} as={Fragment}>
@@ -64,12 +66,17 @@ const Sidebar = ({ setSidebarOpen, sidebarOpen }) => {
                     </button>
                   </div>
                 </Transition.Child>
-                <Link to="/dashboard">
+                <div
+                  onClick={() => {
+                    navigate('/')
+                    setSidebarOpen(false)
+                  }}
+                >
                   <div className="flex px-4 gap-6 items-center cursor-pointer">
                     <img src={DashXLogoWhite} alt="DashX Logo White" width="30px" height="30px" />
                     <span className="text-xl text-white font-bold">Demo App</span>
                   </div>
-                </Link>
+                </div>
                 <div className="mt-5 flex-1 h-0 overflow-y-auto">
                   <nav className="px-2 space-y-1">
                     {navigation.map((item) => (
@@ -111,7 +118,7 @@ const Sidebar = ({ setSidebarOpen, sidebarOpen }) => {
       <div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
         <div className="flex-1 flex flex-col min-h-0 bg-gray-800">
           <Link
-            to="/dashboard"
+            to="/"
             className="flex gap-6 items-center cursor-pointer h-16 flex-shrink-0 px-4 bg-gray-900"
           >
             <img src={DashXLogoWhite} alt="DashX Logo White" width="30px" height="30px" />
