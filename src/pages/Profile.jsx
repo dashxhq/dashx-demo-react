@@ -7,25 +7,18 @@ import Input from '../components/Input'
 import Button from '../components/Button'
 import AlertBox from '../components/AlertBox'
 import SuccessBox from '../components/SuccessBox'
-import { useAuth } from '../contexts/CurrentUserProvider'
+import { useCurrentUserContext } from '../contexts/CurrentUserContext'
 
 import api from '../lib/api'
-
-import { updateFormFields } from '../constants/formFields'
-
-const classes = {
-  pageBody: 'min-h-full w-full pb-12',
-  formContainer: 'flex-col sm:flex'
-}
 
 const Profile = () => {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const [success, setSuccess] = useState(false)
-  const [successMessage, setSuccessMessage] = useState(false)
-  const { user, setUser } = useAuth()
+  const [successMessage, setSuccessMessage] = useState('')
+
+  const { user, setUser } = useCurrentUserContext()
   const { first_name, last_name, email } = user || {}
-  const jwtToken = localStorage.getItem('jwtToken')
+  const jwtToken = localStorage.getItem('jwt-token')
 
   const handleUpdate = async (formValues) => {
     setError('')
@@ -52,12 +45,11 @@ const Profile = () => {
       )
       if (status === 200) {
         setUser(user)
+        setSuccessMessage(message)
+        setTimeout(() => {
+          setSuccessMessage('')
+        }, 2000)
       }
-      setSuccess(true)
-      setSuccessMessage(message)
-      setTimeout(() => {
-        setSuccess(false)
-      }, 2000)
     } catch (error) {
       const errorMessage = error.response?.data?.message || error.response?.data
       setError(errorMessage)
@@ -67,14 +59,14 @@ const Profile = () => {
   }
 
   return (
-    <div className={classes.pageBody}>
-      <div className={classes.formContainer}>
+    <div className="min-h-full w-full pb-12">
+      <div className="flex-col sm:flex">
         <h2 className="text-left sm:text-left text-2xl font-semibold text-gray-900">
           Edit Profile
         </h2>
-        {error && <AlertBox alertMessage={error} />}
-        {success && <SuccessBox successMessage={successMessage} />}
-        <div className="sm:w-full sm:max-w-md mt-8">
+        <div className="sm:w-full sm:max-w-md mt-6">
+          {error && <AlertBox alertMessage={error} />}
+          {successMessage && <SuccessBox successMessage={successMessage} />}
           <div className="py-8 pt-0 mb-0">
             <Formik
               initialValues={{
@@ -93,9 +85,21 @@ const Profile = () => {
               }}
             >
               <Form>
-                {updateFormFields.map((fieldProps) => (
-                  <Input key={fieldProps?.label} label={fieldProps?.label} {...fieldProps} />
-                ))}
+                <Input
+                  label="First Name"
+                  type="text"
+                  name="firstName"
+                />
+                <Input
+                  label="Last Name"
+                  type="text"
+                  name="lastName"
+                />
+                <Input
+                  label="Email"
+                  type="email"
+                  name="email"
+                />
                 <Button type="submit" label="Update" loading={loading} message="Updating" />
               </Form>
             </Formik>

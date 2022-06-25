@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, Navigate, useLocation } from 'react-router-dom'
 
 import * as Yup from 'yup'
 import jwtDecode from 'jwt-decode'
@@ -8,21 +8,23 @@ import { Form, Formik } from 'formik'
 import Input from '../components/Input'
 import Button from '../components/Button'
 import AlertBox from '../components/AlertBox'
-import { useAuth } from '../contexts/CurrentUserProvider'
+import { useCurrentUserContext } from '../contexts/CurrentUserContext'
 
-import dashx from '../lib/dashx'
 import api from '../lib/api'
-
-import { loginFields } from '../constants/formFields'
+import dashx from '../lib/dashx'
+import checkAuth from '../lib/checkAuth'
 
 import DashXLogo from '../assets/dashx_logo_black.png'
 
 const Login = () => {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const { setUser } = useAuth()
+  const { setUser } = useCurrentUserContext()
+  const isAuthenticated = checkAuth()
 
   const navigate = useNavigate()
+  const location = useLocation()
+  const redirectPath = location.state?.from || '/'
 
   const handleLogin = async (formValues, resetForm) => {
     setError('')
@@ -37,12 +39,12 @@ const Login = () => {
       if (status === 200 && token) {
         const decodedUser = jwtDecode(token)
         const { dashx_token, user } = decodedUser || {}
-        dashx.setIdentity(String(user?.id), dashx_token)
+        dashx.setIdentity(String(user.id), dashx_token)
         setUser(user)
-        localStorage.setItem('jwtToken', token)
+        localStorage.setItem('jwt-token', token)
         localStorage.setItem('user', JSON.stringify(user))
-        localStorage.setItem('dashxToken', dashx_token)
-        navigate('/dashboard', { replace: true })
+        localStorage.setItem('dashx-token', dashx_token)
+        navigate(redirectPath, { replace: true })
         resetForm()
       }
     } catch (error) {
@@ -51,6 +53,10 @@ const Login = () => {
     } finally {
       setLoading(false)
     }
+  }
+
+  if (isAuthenticated) {
+    return <Navigate to={redirectPath} replace />
   }
 
   return (
@@ -82,25 +88,54 @@ const Login = () => {
               }}
             >
               <Form>
-                {loginFields.map((fieldProps) => (
-                  <Input key={fieldProps?.label} label={fieldProps?.label} {...fieldProps} />
-                ))}
-                <Button
-                  type="submit"
-                  label="Login"
-                  loading={loading}
-                  message="Logging in"
-                  classes="mt-8"
+                <Input
+                  label="Email"
+                  type="email"
+                  name="email"
                 />
-                <Link to="/register">
+                <Input
+                  label="Password"
+                  type="password"
+                  name="password"
+                />
+                <div className="mt-6 flex items-center justify-between">
+                  <div className="flex items-center">
+                    <input
+                      id="remember-me"
+                      name="remember-me"
+                      type="checkbox"
+                      className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                    />
+                    <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+                      Remember me
+                    </label>
+                  </div>
+
+                  <div className="text-sm">
+                    <Link
+                      to="/forgot-password"
+                      className="font-medium text-indigo-600 hover:text-indigo-500"
+                    >
+                      Forgot your password?
+                    </Link>
+                  </div>
+                </div>
+                <div className="mt-7">
                   <Button
                     type="submit"
-                    label="Register"
-                    variant="outlined"
-                    loading={false}
-                    classes="mt-3"
+                    label="Login"
+                    loading={loading}
+                    message="Logging in"
                   />
-                </Link>
+                  <Link to="/register">
+                    <Button
+                      label="Register"
+                      variant="outlined"
+                      loading={false}
+                      classes="mt-3"
+                    />
+                  </Link>
+                </div>
               </Form>
             </Formik>
           </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 
 import * as Yup from 'yup'
 import { Formik, Form } from 'formik'
@@ -9,14 +9,15 @@ import Input from '../components/Input'
 import AlertBox from '../components/AlertBox'
 
 import api from '../lib/api'
-
-import { registerFields } from '../constants/formFields'
+import checkAuth from '../lib/checkAuth'
 
 import DashXLogo from '../assets/dashx_logo_black.png'
 
 const Register = () => {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const isAuthenticated = checkAuth()
+
   const navigate = useNavigate()
 
   const handleRegister = async (formValues, resetForm) => {
@@ -38,11 +39,15 @@ const Register = () => {
         resetForm()
       }
     } catch (error) {
-      const errorMessage = error?.response?.data?.message || error?.message
+      const errorMessage = error.response?.data?.message || error?.message
       setError(errorMessage)
     } finally {
       setLoading(false)
     }
+  }
+
+  if (isAuthenticated) {
+    return <Navigate to="/" replace />
   }
 
   return (
@@ -78,42 +83,36 @@ const Register = () => {
               }}
             >
               <Form>
-                {registerFields.map((fieldProps) => (
-                  <Input key={fieldProps?.label} label={fieldProps?.label} {...fieldProps} />
-                ))}
+                <Input
+                  label="First Name"
+                  type="text"
+                  name="firstName"
+                />
+                <Input
+                  label="Last Name"
+                  type="text"
+                  name="lastName"
+                />
+                <Input
+                  label="Email"
+                  type="email"
+                  name="email"
+                />
+                <Input
+                  label="Password"
+                  type="password"
+                  name="password"
+                />
                 <div className="mt-7">
                   <Button type="submit" label="Register" loading={loading} message="Signing up" />
                   <Link to="/login">
                     <Button
-                      type="submit"
                       label="Login"
                       variant="outlined"
                       loading={false}
                       classes="mt-3"
                     />
                   </Link>
-                </div>
-                <div className="mt-5 flex items-center justify-between">
-                  <div className="flex items-center">
-                    <input
-                      id="remember-me"
-                      name="remember-me"
-                      type="checkbox"
-                      className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                    />
-                    <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                      Remember me
-                    </label>
-                  </div>
-
-                  <div className="text-sm">
-                    <Link
-                      to="/forgot-password"
-                      className="font-medium text-indigo-600 hover:text-indigo-500"
-                    >
-                      Forgot your password?
-                    </Link>
-                  </div>
                 </div>
               </Form>
             </Formik>
