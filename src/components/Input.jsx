@@ -1,10 +1,8 @@
 import React from 'react'
 import { ErrorMessage, useField } from 'formik'
 
-const classes = {
-  input:
-    'appearance-none block w-full py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
-}
+const inputClass =
+  'appearance-none block w-full py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
 
 const Input = (props) => {
   const [field, meta] = useField(props)
@@ -18,7 +16,10 @@ const Input = (props) => {
       </label>
       <div className="mt-1">
         <input
-          className={`${errorClass ? 'border border-red-500' : ''} ${classes.input}`}
+          className={`
+            ${inputClass}
+            ${errorClass ? 'border border-red-500' : ''}
+          `}
           type={type}
           {...field}
         />
