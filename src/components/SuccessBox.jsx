@@ -1,8 +1,11 @@
 import React from 'react'
 
 const SuccessBox = ({ successMessage }) => (
-  <div role="alert" className="relative">
-    <h3 className="text-green-700 bg-green-200 p-3 mt-6 max-w-md rounded">{successMessage}</h3>
+  <div
+    className="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800 my-2"
+    role="alert"
+  >
+    <span className="font-medium">{successMessage}</span>
   </div>
 )
 
