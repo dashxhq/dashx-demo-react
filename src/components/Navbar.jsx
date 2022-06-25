@@ -5,7 +5,7 @@ import { SearchIcon } from '@heroicons/react/solid'
 import { BellIcon, MenuAlt2Icon } from '@heroicons/react/outline'
 import { Menu, Transition } from '@headlessui/react'
 
-import { useAuth } from '../contexts/CurrentUserProvider'
+import { useCurrentUserContext } from '../contexts/CurrentUserContext'
 
 const userNavigation = [
   { name: 'Profile', href: '/update-profile' },
@@ -18,12 +18,12 @@ function classNames(...classes) {
 
 const Navbar = ({ setSidebarOpen }) => {
   const navigate = useNavigate()
-  const { setUser } = useAuth()
+  const { setUser } = useCurrentUserContext()
 
   const logOut = () => {
-    localStorage.removeItem('jwtToken')
+    localStorage.removeItem('jwt-token')
     localStorage.removeItem('user')
-    localStorage.removeItem('dashxToken')
+    localStorage.removeItem('dashx-token')
     setUser(null)
     navigate('/')
   }
