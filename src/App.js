@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Routes, Navigate } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 
 import Login from './pages/Login'
 import Register from './pages/Register'
@@ -12,28 +12,17 @@ import Settings from './pages/Settings'
 
 import DashboardLayout from './components/layouts/DashboardLayout'
 import RequireAuth from './components/RequireAuth'
-import { useAuth } from './contexts/CurrentUserProvider'
+import { useCurrentUserContext } from './contexts/CurrentUserContext'
 
 const App = () => {
-  const { user, setUser } = useAuth()
-
-  const Redirect = () => {
-    const userData = localStorage.getItem('user')
-
-    if (!userData && !user) {
-      return <Navigate to="/login" replace />
-    }
-
-    return <Navigate to="/dashboard" replace />
-  }
+  const { user, setUser } = useCurrentUserContext()
 
   return (
     <div className="h-screen font-poppins bg-gray-50">
       <Routes>
-        <Route path="/" element={<Redirect />} />
         <Route element={<RequireAuth setUser={setUser} user={user} />}>
           <Route element={<DashboardLayout />}>
-            <Route path="dashboard" element={<Home />} />
+            <Route index path="/" element={<Home />} />
             <Route path="update-profile" element={<Profile />} />
             <Route path="bookmarks" element={<Bookmarks />} />
             <Route path="billing" element={<Billing />} />
