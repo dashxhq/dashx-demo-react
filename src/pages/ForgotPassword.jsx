@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
 
@@ -9,37 +9,38 @@ import AlertBox from '../components/AlertBox'
 import SuccessBox from '../components/SuccessBox'
 
 import api from '../lib/api'
+import checkAuth from '../lib/checkAuth'
 
 import DashXLogo from '../assets/dashx_logo_black.png'
-
-const field = {
-  name: 'email',
-  label: 'Email',
-  type: 'email'
-}
 
 const ForgotPassword = () => {
   const [loading, setLoading] = useState(false)
   const [successMessage, setSuccessMessage] = useState('')
   const [error, setError] = useState('')
+  const isAuthenticated = checkAuth()
 
   const handleSubmit = async (values, resetForm) => {
     setLoading(true)
     setSuccessMessage('')
     setError('')
 
-    try{
+    try {
       const { data: { message } = {}, status } = await api.post('/forgot-password', values)
       if (status === 200) {
         setSuccessMessage(message)
         resetForm()
       }
     } catch (error) {
-      const errorMessage = error?.response?.data?.message || 'Something went wrong, please try later'
+      const errorMessage =
+        error?.response?.data?.message || 'Something went wrong, please try later'
       setError(errorMessage)
     } finally {
       setLoading(false)
     }
+  }
+
+  if (isAuthenticated) {
+    return <Navigate to="/" replace />
   }
 
   return (
@@ -51,36 +52,37 @@ const ForgotPassword = () => {
         <h2 className="mt-6 mb-6 text-center text-3xl font-extrabold text-gray-900">
           Forgot Password
         </h2>
-        <p className="mt-6 mb-6 px-2 min-w-xs m-auto text-center text-md font-medium text-gray-900">
-          Enter the email address associated with your account
-        </p>
-        {successMessage && (<SuccessBox successMessage={successMessage} />)}
-        {error && (<AlertBox alertMessage={error} />)}
+        {error && <AlertBox alertMessage={error} />}
       </div>
-      <div className="sm:mx-auto sm:w-full mb-4 mt-4 sm:max-w-md rounded bg-white shadow shadow-md">
-        <div className="py-8 px-4 sm:px-8">
-          <Formik
-            initialValues={{
-              email: ''
-            }}
-            validationSchema={Yup.object({
-              email: Yup.string().email('Invalid email address').required('Email is required')
-            })}
-            onSubmit={async (values, { setSubmitting, resetForm }) => {
-              await handleSubmit(values, resetForm)
-              setSubmitting(false)
-            }}
-          >
-            <Form>
-              <Input label={field.label} {...field} />
-              <Button type="submit" label="Submit" loading={loading} />
-            </Form>
-          </Formik>
+      <div className="sm:mx-auto sm:w-full mb-4 mt-4 sm:max-w-md rounded bg-white shadow shadow-md p-9">
+        {successMessage && <SuccessBox successMessage={successMessage} classes="text-center" />}
+        {!successMessage && (
+          <div>
+            <Formik
+              initialValues={{
+                email: ''
+              }}
+              validationSchema={Yup.object({
+                email: Yup.string().email('Invalid email address').required('Email is required')
+              })}
+              onSubmit={async (values, { setSubmitting, resetForm }) => {
+                await handleSubmit(values, resetForm)
+                setSubmitting(false)
+              }}
+            >
+              <Form>
+                <Input label="Email" type="email" name="email" />
+                <Button type="submit" label="Submit" loading={loading} />
+              </Form>
+            </Formik>
+          </div>
+        )}
+        <div className="text-sm text-center pt-6">
+          <Link to="/login" className="font-medium text-indigo-600 hover:text-indigo-500">
+            Back to Login
+          </Link>
         </div>
       </div>
-      <Link to="/login">
-        <p className="underline text-indigo-700 text-md font-medium text-center">Back to Login</p>
-      </Link>
     </div>
   )
 }
