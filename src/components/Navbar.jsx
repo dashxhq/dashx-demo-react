@@ -23,7 +23,6 @@ const Navbar = ({ setSidebarOpen }) => {
   const logOut = () => {
     localStorage.removeItem('jwt-token')
     localStorage.removeItem('user')
-    localStorage.removeItem('dashx-token')
     setUser(null)
     navigate('/')
   }

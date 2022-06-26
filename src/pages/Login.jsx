@@ -43,7 +43,6 @@ const Login = () => {
         setUser(user)
         localStorage.setItem('jwt-token', token)
         localStorage.setItem('user', JSON.stringify(user))
-        localStorage.setItem('dashx-token', dashx_token)
         navigate(redirectPath, { replace: true })
         resetForm()
       }
