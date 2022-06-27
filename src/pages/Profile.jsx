@@ -45,6 +45,7 @@ const Profile = () => {
       )
       if (status === 200) {
         setUser(user)
+        localStorage.setItem('user', JSON.stringify(user))
         setSuccessMessage(message)
         setTimeout(() => {
           setSuccessMessage('')
@@ -85,21 +86,9 @@ const Profile = () => {
               }}
             >
               <Form>
-                <Input
-                  label="First Name"
-                  type="text"
-                  name="firstName"
-                />
-                <Input
-                  label="Last Name"
-                  type="text"
-                  name="lastName"
-                />
-                <Input
-                  label="Email"
-                  type="email"
-                  name="email"
-                />
+                <Input label="First Name" type="text" name="firstName" />
+                <Input label="Last Name" type="text" name="lastName" />
+                <Input label="Email" type="email" name="email" />
                 <Button type="submit" label="Update" loading={loading} message="Updating" />
               </Form>
             </Formik>
