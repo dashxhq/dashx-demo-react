@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useNavigate, Navigate, useLocation } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 
 import * as Yup from 'yup'
 import jwtDecode from 'jwt-decode'
@@ -12,7 +12,6 @@ import { useCurrentUserContext } from '../contexts/CurrentUserContext'
 
 import api from '../lib/api'
 import dashx from '../lib/dashx'
-import checkAuth from '../lib/checkAuth'
 
 import DashXLogo from '../assets/dashx_logo_black.png'
 
@@ -20,7 +19,6 @@ const Login = () => {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const { setUser } = useCurrentUserContext()
-  const isAuthenticated = checkAuth()
 
   const navigate = useNavigate()
   const location = useLocation()
@@ -54,10 +52,6 @@ const Login = () => {
     }
   }
 
-  if (isAuthenticated) {
-    return <Navigate to={redirectPath} replace />
-  }
-
   return (
     <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -87,16 +81,9 @@ const Login = () => {
               }}
             >
               <Form>
-                <Input
-                  label="Email"
-                  type="email"
-                  name="email"
-                />
-                <Input
-                  label="Password"
-                  type="password"
-                  name="password"
-                />
+                <Input label="Email" type="email" name="email" />
+                <Input label="Password" type="password" name="password" />
+
                 <div className="mt-6 flex items-center justify-between">
                   <div className="flex items-center">
                     <input
@@ -120,19 +107,9 @@ const Login = () => {
                   </div>
                 </div>
                 <div className="mt-7">
-                  <Button
-                    type="submit"
-                    label="Login"
-                    loading={loading}
-                    message="Logging in"
-                  />
+                  <Button type="submit" label="Login" loading={loading} message="Logging in" />
                   <Link to="/register">
-                    <Button
-                      label="Register"
-                      variant="outlined"
-                      loading={false}
-                      classes="mt-3"
-                    />
+                    <Button label="Register" variant="outlined" loading={false} classes="mt-3" />
                   </Link>
                 </div>
               </Form>

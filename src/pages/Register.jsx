@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import * as Yup from 'yup'
 import { Formik, Form } from 'formik'
@@ -9,14 +9,12 @@ import Input from '../components/Input'
 import AlertBox from '../components/AlertBox'
 
 import api from '../lib/api'
-import checkAuth from '../lib/checkAuth'
 
 import DashXLogo from '../assets/dashx_logo_black.png'
 
 const Register = () => {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const isAuthenticated = checkAuth()
 
   const navigate = useNavigate()
 
@@ -44,10 +42,6 @@ const Register = () => {
     } finally {
       setLoading(false)
     }
-  }
-
-  if (isAuthenticated) {
-    return <Navigate to="/" replace />
   }
 
   return (
@@ -83,35 +77,15 @@ const Register = () => {
               }}
             >
               <Form>
-                <Input
-                  label="First Name"
-                  type="text"
-                  name="firstName"
-                />
-                <Input
-                  label="Last Name"
-                  type="text"
-                  name="lastName"
-                />
-                <Input
-                  label="Email"
-                  type="email"
-                  name="email"
-                />
-                <Input
-                  label="Password"
-                  type="password"
-                  name="password"
-                />
+                <Input label="First Name" type="text" name="firstName" />
+                <Input label="Last Name" type="text" name="lastName" />
+                <Input label="Email" type="email" name="email" />
+                <Input label="Password" type="password" name="password" />
+
                 <div className="mt-7">
                   <Button type="submit" label="Register" loading={loading} message="Signing up" />
                   <Link to="/login">
-                    <Button
-                      label="Login"
-                      variant="outlined"
-                      loading={false}
-                      classes="mt-3"
-                    />
+                    <Button label="Login" variant="outlined" loading={false} classes="mt-3" />
                   </Link>
                 </div>
               </Form>
