@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
 
-const RequireAuth = ({ user, setUser }) => {
+const RequireUser = ({ user, setUser }) => {
   const location = useLocation()
   const userData = localStorage.getItem('user')
 
@@ -18,4 +18,4 @@ const RequireAuth = ({ user, setUser }) => {
   return <Outlet />
 }
 
-export default RequireAuth
+export default RequireUser
