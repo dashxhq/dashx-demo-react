@@ -11,7 +11,9 @@ import Billing from './pages/Billing'
 import Settings from './pages/Settings'
 
 import DashboardLayout from './components/layouts/DashboardLayout'
-import RequireAuth from './components/RequireAuth'
+import RequireUser from './components/authentication/RequireUser'
+import RequireVisitor from './components/authentication/RequireVisitor'
+
 import { useCurrentUserContext } from './contexts/CurrentUserContext'
 
 const App = () => {
@@ -20,7 +22,7 @@ const App = () => {
   return (
     <div className="h-screen font-poppins bg-gray-50">
       <Routes>
-        <Route element={<RequireAuth setUser={setUser} user={user} />}>
+        <Route element={<RequireUser setUser={setUser} user={user} />}>
           <Route element={<DashboardLayout />}>
             <Route index path="/" element={<Home />} />
             <Route path="update-profile" element={<Profile />} />
@@ -30,9 +32,11 @@ const App = () => {
           </Route>
         </Route>
 
-        <Route path="login" element={<Login />} />
-        <Route path="forgot-password" element={<ForgotPassword />} />
-        <Route path="register" element={<Register />} />
+        <Route element={<RequireVisitor />}>
+          <Route path="login" element={<Login />} />
+          <Route path="forgot-password" element={<ForgotPassword />} />
+          <Route path="register" element={<Register />} />
+        </Route>
       </Routes>
     </div>
   )
