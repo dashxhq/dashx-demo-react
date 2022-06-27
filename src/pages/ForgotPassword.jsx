@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Link, Navigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+
 import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
 
@@ -9,7 +10,6 @@ import AlertBox from '../components/AlertBox'
 import SuccessBox from '../components/SuccessBox'
 
 import api from '../lib/api'
-import checkAuth from '../lib/checkAuth'
 
 import DashXLogo from '../assets/dashx_logo_black.png'
 
@@ -17,7 +17,6 @@ const ForgotPassword = () => {
   const [loading, setLoading] = useState(false)
   const [successMessage, setSuccessMessage] = useState('')
   const [error, setError] = useState('')
-  const isAuthenticated = checkAuth()
 
   const handleSubmit = async (values, resetForm) => {
     setLoading(true)
@@ -37,10 +36,6 @@ const ForgotPassword = () => {
     } finally {
       setLoading(false)
     }
-  }
-
-  if (isAuthenticated) {
-    return <Navigate to="/" replace />
   }
 
   return (
