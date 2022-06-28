@@ -1,26 +1,21 @@
 import React, { useState } from 'react'
-import { Link, useNavigate, Navigate, useLocation } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 
 import * as Yup from 'yup'
-import jwtDecode from 'jwt-decode'
 import { Form, Formik } from 'formik'
 
 import Input from '../components/Input'
 import Button from '../components/Button'
 import AlertBox from '../components/AlertBox'
+import FormHeader from '../components/FormHeader'
 import { useCurrentUserContext } from '../contexts/CurrentUserContext'
 
 import api from '../lib/api'
-import dashx from '../lib/dashx'
-import checkAuth from '../lib/checkAuth'
-
-import DashXLogo from '../assets/dashx_logo_black.png'
 
 const Login = () => {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const { setUser } = useCurrentUserContext()
-  const isAuthenticated = checkAuth()
+  const { login } = useCurrentUserContext()
 
   const navigate = useNavigate()
   const location = useLocation()
@@ -35,15 +30,8 @@ const Login = () => {
 
     try {
       const { data: { token } = {}, status } = await api.post('/login', requestBody)
-
       if (status === 200 && token) {
-        const decodedUser = jwtDecode(token)
-        const { dashx_token, user } = decodedUser || {}
-        dashx.setIdentity(String(user.id), dashx_token)
-        setUser(user)
-        localStorage.setItem('jwt-token', token)
-        localStorage.setItem('user', JSON.stringify(user))
-        localStorage.setItem('dashx-token', dashx_token)
+        login(token)
         navigate(redirectPath, { replace: true })
         resetForm()
       }
@@ -55,21 +43,16 @@ const Login = () => {
     }
   }
 
-  if (isAuthenticated) {
-    return <Navigate to={redirectPath} replace />
-  }
-
   return (
     <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="flex justify-center items-center">
-          <img src={DashXLogo} className="h-12 w-12" alt="DashX Logo" />
+      <FormHeader>
+        Login to your account
+      </FormHeader>
+      {error && (
+        <div className="sm:mx-auto sm:w-full sm:max-w-md">
+          <AlertBox alertMessage={error} />
         </div>
-        <h2 className="mt-6 mb-6 text-center text-3xl font-extrabold text-gray-900">
-          Login to your account
-        </h2>
-        {error && <AlertBox alertMessage={error} />}
-      </div>
+      )}
       <div className="sm:mx-auto sm:w-full sm:max-w-md rounded bg-white shadow shadow-md pt-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <div className="py-8 pt-1 px-4 sm:px-10">
@@ -88,16 +71,9 @@ const Login = () => {
               }}
             >
               <Form>
-                <Input
-                  label="Email"
-                  type="email"
-                  name="email"
-                />
-                <Input
-                  label="Password"
-                  type="password"
-                  name="password"
-                />
+                <Input label="Email" type="email" name="email" />
+                <Input label="Password" type="password" name="password" />
+
                 <div className="mt-6 flex items-center justify-between">
                   <div className="flex items-center">
                     <input
@@ -121,19 +97,9 @@ const Login = () => {
                   </div>
                 </div>
                 <div className="mt-7">
-                  <Button
-                    type="submit"
-                    label="Login"
-                    loading={loading}
-                    message="Logging in"
-                  />
+                  <Button type="submit" label="Login" loading={loading} message="Logging in" />
                   <Link to="/register">
-                    <Button
-                      label="Register"
-                      variant="outlined"
-                      loading={false}
-                      classes="mt-3"
-                    />
+                    <Button label="Register" variant="outlined" loading={false} classes="mt-3" />
                   </Link>
                 </div>
               </Form>

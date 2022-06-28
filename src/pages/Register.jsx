@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import * as Yup from 'yup'
 import { Formik, Form } from 'formik'
@@ -7,16 +7,13 @@ import { Formik, Form } from 'formik'
 import Button from '../components/Button'
 import Input from '../components/Input'
 import AlertBox from '../components/AlertBox'
+import FormHeader from '../components/FormHeader'
 
 import api from '../lib/api'
-import checkAuth from '../lib/checkAuth'
-
-import DashXLogo from '../assets/dashx_logo_black.png'
 
 const Register = () => {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const isAuthenticated = checkAuth()
 
   const navigate = useNavigate()
 
@@ -46,21 +43,16 @@ const Register = () => {
     }
   }
 
-  if (isAuthenticated) {
-    return <Navigate to="/" replace />
-  }
-
   return (
     <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="flex justify-center items-center">
-          <img src={DashXLogo} className="h-12 w-12" alt="DashX Logo" />
+      <FormHeader>
+        Register for an account
+      </FormHeader>
+      {error && (
+        <div className="sm:mx-auto sm:w-full sm:max-w-md">
+          <AlertBox alertMessage={error} />
         </div>
-        <h2 className="mt-6 mb-6 text-center text-3xl font-extrabold text-gray-900">
-          Register for an account
-        </h2>
-        {error && <AlertBox alertMessage={error} />}
-      </div>
+      )}
       <div className="sm:mx-auto sm:w-full sm:max-w-md rounded bg-white shadow shadow-md">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <div className="py-8 px-4 sm:px-10">
@@ -83,35 +75,15 @@ const Register = () => {
               }}
             >
               <Form>
-                <Input
-                  label="First Name"
-                  type="text"
-                  name="firstName"
-                />
-                <Input
-                  label="Last Name"
-                  type="text"
-                  name="lastName"
-                />
-                <Input
-                  label="Email"
-                  type="email"
-                  name="email"
-                />
-                <Input
-                  label="Password"
-                  type="password"
-                  name="password"
-                />
+                <Input label="First Name" type="text" name="firstName" />
+                <Input label="Last Name" type="text" name="lastName" />
+                <Input label="Email" type="email" name="email" />
+                <Input label="Password" type="password" name="password" />
+
                 <div className="mt-7">
                   <Button type="submit" label="Register" loading={loading} message="Signing up" />
                   <Link to="/login">
-                    <Button
-                      label="Login"
-                      variant="outlined"
-                      loading={false}
-                      classes="mt-3"
-                    />
+                    <Button label="Login" variant="outlined" loading={false} classes="mt-3" />
                   </Link>
                 </div>
               </Form>
