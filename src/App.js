@@ -14,15 +14,11 @@ import DashboardLayout from './components/layouts/DashboardLayout'
 import RequireUser from './components/authentication/RequireUser'
 import RequireVisitor from './components/authentication/RequireVisitor'
 
-import { useCurrentUserContext } from './contexts/CurrentUserContext'
-
 const App = () => {
-  const { user, setUser } = useCurrentUserContext()
-
   return (
     <div className="h-screen font-poppins bg-gray-50">
       <Routes>
-        <Route element={<RequireUser setUser={setUser} user={user} />}>
+        <Route element={<RequireUser />}>
           <Route element={<DashboardLayout />}>
             <Route index path="/" element={<Home />} />
             <Route path="update-profile" element={<Profile />} />
@@ -34,8 +30,8 @@ const App = () => {
 
         <Route element={<RequireVisitor />}>
           <Route path="login" element={<Login />} />
-          <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="register" element={<Register />} />
+          <Route path="forgot-password" element={<ForgotPassword />} />
         </Route>
       </Routes>
     </div>

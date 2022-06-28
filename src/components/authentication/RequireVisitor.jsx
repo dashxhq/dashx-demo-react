@@ -6,11 +6,11 @@ import checkAuth from '../../lib/checkAuth'
 const RequireVisitor = () => {
   const isAuthenticated = checkAuth()
 
-  if (isAuthenticated) {
-    return <Navigate to="/" replace />
+  if (!isAuthenticated) {
+    return <Outlet />
   }
 
-  return <Outlet />
+  return <Navigate to="/" replace />
 }
 
 export default RequireVisitor

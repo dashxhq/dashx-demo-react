@@ -1,21 +1,16 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
 
-const RequireUser = ({ user, setUser }) => {
+import checkAuth from '../../lib/checkAuth'
+
+const RequireUser = () => {
   const location = useLocation()
-  const userData = localStorage.getItem('user')
+  const isAuthenticated = checkAuth()
 
-  useEffect(() => {
-    if (userData) {
-      setUser(JSON.parse(userData))
-    }
-  }, [])
-
-  if (!userData && !user) {
-    return <Navigate to="/login" state={{ from: location.pathname }} replace />
+  if (isAuthenticated) {
+    return <Outlet />
   }
 
-  return <Outlet />
+  return <Navigate to="/login" state={{ from: location.pathname }} replace />
 }
-
 export default RequireUser
