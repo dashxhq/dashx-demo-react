@@ -22,7 +22,6 @@ const Navbar = ({ setSidebarOpen }) => {
 
   const logOut = () => {
     localStorage.removeItem('jwt-token')
-    localStorage.removeItem('user')
     setUser(null)
     navigate('/')
   }
