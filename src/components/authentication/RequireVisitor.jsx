@@ -1,12 +1,12 @@
 import React from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
 
-import checkAuth from '../../lib/checkAuth'
+import { useCurrentUserContext } from '../../contexts/CurrentUserContext'
 
 const RequireVisitor = () => {
-  const isAuthenticated = checkAuth()
+  const { user } = useCurrentUserContext()
 
-  if (!isAuthenticated) {
+  if (!user) {
     return <Outlet />
   }
 

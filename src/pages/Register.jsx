@@ -48,9 +48,11 @@ const Register = () => {
       <FormHeader>
         Register for an account
       </FormHeader>
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        {error && <AlertBox alertMessage={error} />}
-      </div>
+      {error && (
+        <div className="sm:mx-auto sm:w-full sm:max-w-md">
+          <AlertBox alertMessage={error} />
+        </div>
+      )}
       <div className="sm:mx-auto sm:w-full sm:max-w-md rounded bg-white shadow shadow-md">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <div className="py-8 px-4 sm:px-10">

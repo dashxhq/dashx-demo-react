@@ -13,12 +13,12 @@ import api from '../lib/api'
 
 const Profile = () => {
   const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
   const [successMessage, setSuccessMessage] = useState('')
+  const [loading, setLoading] = useState(false)
 
-  const { user, setUser } = useCurrentUserContext()
+  const { user, setUser, getJwtToken } = useCurrentUserContext()
   const { first_name, last_name, email } = user || {}
-  const jwtToken = localStorage.getItem('jwt-token')
+  const jwtToken = getJwtToken()
 
   const handleUpdate = async (formValues) => {
     setError('')

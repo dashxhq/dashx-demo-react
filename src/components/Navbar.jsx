@@ -18,13 +18,7 @@ function classNames(...classes) {
 
 const Navbar = ({ setSidebarOpen }) => {
   const navigate = useNavigate()
-  const { setUser } = useCurrentUserContext()
-
-  const logOut = () => {
-    localStorage.removeItem('jwt-token')
-    setUser(null)
-    navigate('/')
-  }
+  const { logout } = useCurrentUserContext()
 
   return (
     <div className="md:pl-64 flex flex-col">
@@ -111,7 +105,10 @@ const Navbar = ({ setSidebarOpen }) => {
                   ))}
                   <button
                     className="block px-4 py-2 flex text-sm text-gray-700 w-full text-left hover:bg-gray-100"
-                    onClick={logOut}
+                    onClick={() => {
+                      logout()
+                      navigate('/login')
+                    }}
                   >
                     <Link to="#">Logout</Link>
                   </button>

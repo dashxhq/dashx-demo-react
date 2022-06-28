@@ -42,13 +42,17 @@ const ForgotPassword = () => {
       <FormHeader>
         Forgot Password
       </FormHeader>
-      <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
-        {error && <AlertBox alertMessage={error} />}
-      </div>
-      <div className="sm:mx-auto sm:w-full mb-4 mt-4 sm:max-w-md rounded bg-white shadow shadow-md p-9">
-        <div className="text-center">
-          {successMessage && <SuccessBox successMessage={successMessage} />}
+      {error && (
+        <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
+          <AlertBox alertMessage={error} />
         </div>
+      )}
+      <div className="sm:mx-auto sm:w-full mb-4 mt-4 sm:max-w-md rounded bg-white shadow shadow-md p-9">
+        {successMessage && (
+          <div className="text-center">
+            <SuccessBox successMessage={successMessage} />
+          </div>
+        )}
         {!successMessage && (
           <div>
             <Formik

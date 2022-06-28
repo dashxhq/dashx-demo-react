@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 
 import * as Yup from 'yup'
-import jwtDecode from 'jwt-decode'
 import { Form, Formik } from 'formik'
 
 import Input from '../components/Input'
@@ -12,12 +11,11 @@ import FormHeader from '../components/FormHeader'
 import { useCurrentUserContext } from '../contexts/CurrentUserContext'
 
 import api from '../lib/api'
-import dashx from '../lib/dashx'
 
 const Login = () => {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const { setUser } = useCurrentUserContext()
+  const { login } = useCurrentUserContext()
 
   const navigate = useNavigate()
   const location = useLocation()
@@ -32,13 +30,8 @@ const Login = () => {
 
     try {
       const { data: { token } = {}, status } = await api.post('/login', requestBody)
-
       if (status === 200 && token) {
-        const decodedUser = jwtDecode(token)
-        const { dashx_token, user } = decodedUser || {}
-        dashx.setIdentity(String(user.id), dashx_token)
-        setUser(user)
-        localStorage.setItem('jwt-token', token)
+        login(token)
         navigate(redirectPath, { replace: true })
         resetForm()
       }
@@ -55,9 +48,11 @@ const Login = () => {
       <FormHeader>
         Login to your account
       </FormHeader>
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        {error && <AlertBox alertMessage={error} />}
-      </div>
+      {error && (
+        <div className="sm:mx-auto sm:w-full sm:max-w-md">
+          <AlertBox alertMessage={error} />
+        </div>
+      )}
       <div className="sm:mx-auto sm:w-full sm:max-w-md rounded bg-white shadow shadow-md pt-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <div className="py-8 pt-1 px-4 sm:px-10">
