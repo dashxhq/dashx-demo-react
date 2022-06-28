@@ -7,10 +7,9 @@ import { Formik, Form } from 'formik'
 import Button from '../components/Button'
 import Input from '../components/Input'
 import AlertBox from '../components/AlertBox'
+import FormHeader from '../components/FormHeader'
 
 import api from '../lib/api'
-
-import DashXLogo from '../assets/dashx_logo_black.png'
 
 const Register = () => {
   const [error, setError] = useState('')
@@ -46,13 +45,10 @@ const Register = () => {
 
   return (
     <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <FormHeader>
+        Register for an account
+      </FormHeader>
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="flex justify-center items-center">
-          <img src={DashXLogo} className="h-12 w-12" alt="DashX Logo" />
-        </div>
-        <h2 className="mt-6 mb-6 text-center text-3xl font-extrabold text-gray-900">
-          Register for an account
-        </h2>
         {error && <AlertBox alertMessage={error} />}
       </div>
       <div className="sm:mx-auto sm:w-full sm:max-w-md rounded bg-white shadow shadow-md">

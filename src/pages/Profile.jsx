@@ -45,7 +45,6 @@ const Profile = () => {
       )
       if (status === 200) {
         setUser(user)
-        localStorage.setItem('user', JSON.stringify(user))
         setSuccessMessage(message)
         setTimeout(() => {
           setSuccessMessage('')

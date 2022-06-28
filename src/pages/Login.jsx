@@ -8,12 +8,11 @@ import { Form, Formik } from 'formik'
 import Input from '../components/Input'
 import Button from '../components/Button'
 import AlertBox from '../components/AlertBox'
+import FormHeader from '../components/FormHeader'
 import { useCurrentUserContext } from '../contexts/CurrentUserContext'
 
 import api from '../lib/api'
 import dashx from '../lib/dashx'
-
-import DashXLogo from '../assets/dashx_logo_black.png'
 
 const Login = () => {
   const [error, setError] = useState('')
@@ -40,7 +39,6 @@ const Login = () => {
         dashx.setIdentity(String(user.id), dashx_token)
         setUser(user)
         localStorage.setItem('jwt-token', token)
-        localStorage.setItem('user', JSON.stringify(user))
         navigate(redirectPath, { replace: true })
         resetForm()
       }
@@ -54,13 +52,10 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <FormHeader>
+        Login to your account
+      </FormHeader>
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="flex justify-center items-center">
-          <img src={DashXLogo} className="h-12 w-12" alt="DashX Logo" />
-        </div>
-        <h2 className="mt-6 mb-6 text-center text-3xl font-extrabold text-gray-900">
-          Login to your account
-        </h2>
         {error && <AlertBox alertMessage={error} />}
       </div>
       <div className="sm:mx-auto sm:w-full sm:max-w-md rounded bg-white shadow shadow-md pt-8">
