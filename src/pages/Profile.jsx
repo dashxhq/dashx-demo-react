@@ -69,6 +69,7 @@ const Profile = () => {
           {successMessage && <SuccessBox successMessage={successMessage} />}
           <div className="py-8 pt-0 mb-0">
             <Formik
+              enableReinitialize={true}
               initialValues={{
                 firstName: first_name,
                 lastName: last_name,

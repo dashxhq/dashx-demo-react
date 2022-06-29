@@ -9,8 +9,9 @@ import Button from '../components/Button'
 import FormHeader from '../components/FormHeader'
 import Input from '../components/Input'
 import TextArea from '../components/TextArea'
-import api from '../lib/api'
 import SuccessBox from '../components/SuccessBox'
+
+import api from '../lib/api'
 
 const Contact = () => {
   const [loading, setLoading] = useState(false)
