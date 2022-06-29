@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 
 import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
@@ -11,11 +11,17 @@ import SuccessBox from '../components/SuccessBox'
 import FormHeader from '../components/FormHeader'
 
 import api from '../lib/api'
+import dashx from '../lib/dashx'
 
 const ForgotPassword = () => {
   const [loading, setLoading] = useState(false)
   const [successMessage, setSuccessMessage] = useState('')
   const [error, setError] = useState('')
+  const location = useLocation()
+
+  useEffect(() => {
+    dashx.track('Page Viewed', { path: location.pathname })
+  }, [])
 
   const handleSubmit = async (values, resetForm) => {
     setLoading(true)

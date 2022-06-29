@@ -2,14 +2,15 @@ import React, { Fragment } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 
 import { Dialog, Transition } from '@headlessui/react'
-import { HomeIcon, XIcon, BookmarkIcon, CurrencyDollarIcon } from '@heroicons/react/outline'
+import { HomeIcon, XIcon, BookmarkIcon, CurrencyDollarIcon, DatabaseIcon } from '@heroicons/react/outline'
 
 import DashXLogoWhite from '../assets/dashx_logo_white.png'
 
 const navigation = [
-  { name: 'Home', href: '/', icon: HomeIcon, current: false },
-  { name: 'Bookmarks', href: '/bookmarks', icon: BookmarkIcon, current: false },
-  { name: 'Billing', href: '/billing', icon: CurrencyDollarIcon, current: false }
+  { name: 'Home', href: '/', icon: HomeIcon },
+  { name: 'Store', href: '/store', icon: DatabaseIcon },
+  { name: 'Bookmarks', href: '/bookmarks', icon: BookmarkIcon },
+  { name: 'Billing', href: '/billing', icon: CurrencyDollarIcon }
 ]
 
 function classNames(...classes) {
@@ -97,9 +98,7 @@ const Sidebar = ({ setSidebarOpen, sidebarOpen }) => {
                       >
                         <item.icon
                           className={classNames(
-                            item.current
-                              ? 'text-gray-300'
-                              : 'text-gray-400 group-hover:text-gray-300',
+                            'text-gray-400 group-hover:text-gray-300',
                             'mr-3 flex-shrink-0 h-6 w-6'
                           )}
                           aria-hidden="true"
@@ -141,7 +140,7 @@ const Sidebar = ({ setSidebarOpen, sidebarOpen }) => {
                 >
                   <item.icon
                     className={classNames(
-                      item.current ? 'text-gray-300' : 'text-gray-400 group-hover:text-gray-300',
+                      'text-gray-400 group-hover:text-gray-300',
                       'mr-3 flex-shrink-0 h-6 w-6'
                     )}
                     aria-hidden="true"
