@@ -1,13 +1,14 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 
-import Login from './pages/Login'
-import Register from './pages/Register'
-import ForgotPassword from './pages/ForgotPassword'
-import Home from './pages/Home'
-import Profile from './pages/Profile'
 import Bookmarks from './pages/Bookmarks'
 import Billing from './pages/Billing'
+import Contact from './pages/Contact'
+import ForgotPassword from './pages/ForgotPassword'
+import Home from './pages/Home'
+import Login from './pages/Login'
+import Profile from './pages/Profile'
+import Register from './pages/Register'
 import Settings from './pages/Settings'
 
 import DashboardLayout from './components/layouts/DashboardLayout'
@@ -33,6 +34,8 @@ const App = () => {
           <Route path="register" element={<Register />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
         </Route>
+
+        <Route path="contact" element={<Contact />} />
       </Routes>
     </div>
   )

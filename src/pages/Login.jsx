@@ -4,10 +4,10 @@ import { Link, useNavigate, useLocation } from 'react-router-dom'
 import * as Yup from 'yup'
 import { Form, Formik } from 'formik'
 
-import Input from '../components/Input'
-import Button from '../components/Button'
 import AlertBox from '../components/AlertBox'
+import Button from '../components/Button'
 import FormHeader from '../components/FormHeader'
+import Input from '../components/Input'
 import { useCurrentUserContext } from '../contexts/CurrentUserContext'
 
 import api from '../lib/api'
@@ -45,9 +45,7 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <FormHeader>
-        Login to your account
-      </FormHeader>
+      <FormHeader>Login to your account</FormHeader>
       {error && (
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <AlertBox alertMessage={error} />
@@ -74,7 +72,7 @@ const Login = () => {
                 <Input label="Email" type="email" name="email" />
                 <Input label="Password" type="password" name="password" />
 
-                <div className="mt-6 flex items-center justify-between">
+                <div className="mt-6 flex items-start justify-between">
                   <div className="flex items-center">
                     <input
                       id="remember-me"
@@ -87,12 +85,18 @@ const Login = () => {
                     </label>
                   </div>
 
-                  <div className="text-sm">
+                  <div className="text-sm flex flex-col gap-3 sm:gap-2">
                     <Link
                       to="/forgot-password"
                       className="font-medium text-indigo-600 hover:text-indigo-500"
                     >
                       Forgot your password?
+                    </Link>
+                    <Link
+                      to="/contact"
+                      className="font-medium text-indigo-600 hover:text-indigo-500 self-end"
+                    >
+                      Contact us
                     </Link>
                   </div>
                 </div>
