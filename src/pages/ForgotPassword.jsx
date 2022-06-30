@@ -45,9 +45,7 @@ const ForgotPassword = () => {
 
   return (
     <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8 m-auto">
-      <FormHeader>
-        Forgot Password
-      </FormHeader>
+      <FormHeader>Forgot Password</FormHeader>
       {error && (
         <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
           <AlertBox alertMessage={error} />
@@ -60,25 +58,23 @@ const ForgotPassword = () => {
           </div>
         )}
         {!successMessage && (
-          <div>
-            <Formik
-              initialValues={{
-                email: ''
-              }}
-              validationSchema={Yup.object({
-                email: Yup.string().email('Invalid email address').required('Email is required')
-              })}
-              onSubmit={async (values, { setSubmitting, resetForm }) => {
-                await handleSubmit(values, resetForm)
-                setSubmitting(false)
-              }}
-            >
-              <Form>
-                <Input label="Email" type="email" name="email" />
-                <Button type="submit" label="Submit" loading={loading} />
-              </Form>
-            </Formik>
-          </div>
+          <Formik
+            initialValues={{
+              email: ''
+            }}
+            validationSchema={Yup.object({
+              email: Yup.string().email('Invalid email address').required('Email is required')
+            })}
+            onSubmit={async (values, { setSubmitting, resetForm }) => {
+              await handleSubmit(values, resetForm)
+              setSubmitting(false)
+            }}
+          >
+            <Form>
+              <Input label="Email" type="email" name="email" />
+              <Button type="submit" label="Submit" loading={loading} />
+            </Form>
+          </Formik>
         )}
         <div className="text-sm text-center pt-6">
           <Link to="/login" className="font-medium text-indigo-600 hover:text-indigo-500">
