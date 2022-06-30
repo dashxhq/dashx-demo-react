@@ -10,9 +10,7 @@ const Billing = () => {
     dashx.track('Page Viewed', { path: location.pathname })
   }, [])
 
-  return (
-    <h1 className="text-2xl font-semibold text-gray-900">Billing</h1>
-  )
+  return <h1 className="text-2xl font-semibold text-gray-900">Billing</h1>
 }
 
 export default Billing
