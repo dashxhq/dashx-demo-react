@@ -35,7 +35,7 @@ const ResetPassword = () => {
     setLoading(true)
 
     try {
-      const requestBody = { token: params.get('token'), password: values.password }
+      const requestBody = { token: resetPasswordToken, password: values.password }
 
       const { data: { message } = {}, status } = await api.post('/reset-password', requestBody)
 
