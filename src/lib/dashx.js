@@ -1,4 +1,4 @@
-import DashX from '@dashx/web'
+import DashX from '@dashx/browser'
 
 const dashx = DashX({
   baseUri: process.env.REACT_APP_DASHX_BASE_URI,

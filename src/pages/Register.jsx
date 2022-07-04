@@ -45,9 +45,7 @@ const Register = () => {
 
   return (
     <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <FormHeader>
-        Register for an account
-      </FormHeader>
+      <FormHeader>Register for an account</FormHeader>
       {error && (
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <AlertBox alertMessage={error} />

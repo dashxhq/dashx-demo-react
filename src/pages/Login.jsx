@@ -84,19 +84,12 @@ const Login = () => {
                       Remember me
                     </label>
                   </div>
-
-                  <div className="text-sm flex flex-col gap-3 sm:gap-2">
+                  <div className="text-sm">
                     <Link
                       to="/forgot-password"
                       className="font-medium text-indigo-600 hover:text-indigo-500"
                     >
                       Forgot your password?
-                    </Link>
-                    <Link
-                      to="/contact"
-                      className="font-medium text-indigo-600 hover:text-indigo-500 self-end"
-                    >
-                      Contact us
                     </Link>
                   </div>
                 </div>
@@ -108,6 +101,11 @@ const Login = () => {
                 </div>
               </Form>
             </Formik>
+            <div className="text-sm text-center pt-6">
+              <Link to="/contact" className="font-medium text-indigo-600 hover:text-indigo-500">
+                Contact Us
+              </Link>
+            </div>
           </div>
         </div>
       </div>

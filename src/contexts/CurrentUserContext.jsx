@@ -1,8 +1,7 @@
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, { createContext, useContext, useState } from 'react'
 import jwtDecode from 'jwt-decode'
 
 import dashx from '../lib/dashx'
-import api from '../lib/api'
 
 const jwtToken = localStorage.getItem('jwt-token')
 const decodedUser = jwtToken ? jwtDecode(jwtToken).user : null
@@ -11,21 +10,6 @@ const CurrentUserContext = createContext(null)
 
 const CurrentUserProvider = ({ children }) => {
   const [user, setUser] = useState(decodedUser)
-
-  useEffect(() => {
-    const getProfile = async () => {
-      const { data: { user } = {} } = await api.get('/profile', {
-        headers: {
-          Authorization: `Bearer ${jwtToken}`
-        }
-      })
-      setUser(user)
-    }
-
-    if (jwtToken) {
-      getProfile()
-    }
-  }, [])
 
   const login = (jwtToken) => {
     localStorage.setItem('jwt-token', jwtToken)

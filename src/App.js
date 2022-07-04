@@ -9,6 +9,7 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import Profile from './pages/Profile'
 import Register from './pages/Register'
+import ResetPassword from './pages/ResetPassword'
 import Settings from './pages/Settings'
 import Store from './pages/Store'
 
@@ -35,6 +36,7 @@ const App = () => {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
+          <Route path="reset-password" element={<ResetPassword />} />
         </Route>
 
         <Route path="contact" element={<Contact />} />
