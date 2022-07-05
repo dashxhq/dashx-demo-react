@@ -35,9 +35,12 @@ const ForgotPassword = () => {
         resetForm()
       }
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.message || error?.message || 'Something went wrong, please try later'
-      setError(errorMessage)
+      if (error.response.status === 500) {
+        setError('Something went wrong, please try again later.')
+      } else {
+        const errorMessage = error.message || error.response?.message
+        setError(errorMessage)
+      }
     } finally {
       setLoading(false)
     }
@@ -47,7 +50,7 @@ const ForgotPassword = () => {
     <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8 m-auto">
       <FormHeader>Forgot Password</FormHeader>
       {error && (
-        <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
+        <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <AlertBox alertMessage={error} />
         </div>
       )}

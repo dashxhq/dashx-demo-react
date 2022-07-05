@@ -95,9 +95,11 @@ const Login = () => {
                 </div>
                 <div className="mt-7">
                   <Button type="submit" label="Login" loading={loading} message="Logging in" />
-                  <Link to="/register">
-                    <Button label="Register" variant="outlined" loading={false} classes="mt-3" />
-                  </Link>
+                  <div className="mt-2">
+                    <Link to="/register">
+                      <Button label="Register" variant="outlined" loading={false} />
+                    </Link>
+                  </div>
                 </div>
               </Form>
             </Formik>
