@@ -16,23 +16,16 @@ const Profile = () => {
   const [successMessage, setSuccessMessage] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const { user, setUser, getJwtToken } = useCurrentUserContext()
+  const { user, setUser } = useCurrentUserContext()
   const { first_name, last_name, email } = user || {}
-  const jwtToken = getJwtToken()
 
   useEffect(() => {
     const getProfile = async () => {
-      const { data: { user } = {} } = await api.get('/profile', {
-        headers: {
-          Authorization: `Bearer ${jwtToken}`
-        }
-      })
+      const { data: { user } = {} } = await api.get('/profile')
       setUser(user)
     }
 
-    if (jwtToken) {
-      getProfile()
-    }
+    getProfile()
   }, [])
 
   const handleUpdate = async (formValues) => {

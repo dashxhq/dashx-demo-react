@@ -1,19 +1,15 @@
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, { createContext, useContext, useState } from 'react'
 import jwtDecode from 'jwt-decode'
 
 import dashx from '../lib/dashx'
 
-let jwtToken = localStorage.getItem('jwt-token')
+const jwtToken = localStorage.getItem('jwt-token')
 const decodedUser = jwtToken ? jwtDecode(jwtToken).user : null
 
 const CurrentUserContext = createContext(null)
 
 const CurrentUserProvider = ({ children }) => {
   const [user, setUser] = useState(decodedUser)
-
-  useEffect(() => {
-    jwtToken = localStorage.getItem('jwt-token')
-  }, [user])
 
   const login = (jwtToken) => {
     localStorage.setItem('jwt-token', jwtToken)
@@ -29,10 +25,8 @@ const CurrentUserProvider = ({ children }) => {
     setUser(null)
   }
 
-  const getJwtToken = () => jwtToken
-
   return (
-    <CurrentUserContext.Provider value={{ user, setUser, login, logout, getJwtToken }}>
+    <CurrentUserContext.Provider value={{ user, setUser, login, logout }}>
       {children}
     </CurrentUserContext.Provider>
   )
