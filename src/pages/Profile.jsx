@@ -42,8 +42,7 @@ const Profile = () => {
     try {
       const headers = {
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${jwtToken}`
+          'Content-Type': 'application/json'
         }
       }
       const { data: { message, user } = {}, status } = await api.patch(
