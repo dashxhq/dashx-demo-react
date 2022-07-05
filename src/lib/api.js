@@ -5,10 +5,11 @@ const api = axios.create({
 })
 
 api.interceptors.request.use((config) => {
+  config.headers['Content-Type'] = 'application/json'
+
   const jwtToken = localStorage.getItem('jwt-token')
   if (jwtToken) {
     config.headers['Authorization'] = `Bearer ${jwtToken}`
-    config.headers['Content-Type'] = 'application/json'
   }
 
   return config
