@@ -40,15 +40,9 @@ const Profile = () => {
     }
 
     try {
-      const headers = {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }
       const { data: { message, user } = {}, status } = await api.patch(
         '/update-profile',
-        requestBody,
-        headers
+        requestBody
       )
       if (status === 200) {
         setUser(user)
