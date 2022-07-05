@@ -6,7 +6,7 @@ import Button from '../components/Button'
 const postLists = [
   {
     id: 1,
-    text: 'tesing post feature',
+    text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,',
     user_id: 30,
     created_at: '2022-07-03T18:30:00.000Z',
     updated_at: '2022-07-03T18:30:00.000Z',
@@ -18,7 +18,7 @@ const postLists = [
   },
   {
     id: 2,
-    text: 'tesing post feature 1',
+    text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,',
     user_id: 30,
     created_at: '2022-07-03T18:30:00.000Z',
     updated_at: '2022-07-03T18:30:00.000Z',
@@ -30,7 +30,7 @@ const postLists = [
   },
   {
     id: 3,
-    text: 'tesing post feature 2',
+    text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,',
     user_id: 30,
     created_at: '2022-07-03T18:30:00.000Z',
     updated_at: '2022-07-03T18:30:00.000Z',
@@ -42,7 +42,7 @@ const postLists = [
   },
   {
     id: 4,
-    text: 'tesing post feature 3',
+    text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,',
     user_id: 30,
     created_at: '2022-07-03T18:30:00.000Z',
     updated_at: '2022-07-03T18:30:00.000Z',
@@ -54,7 +54,7 @@ const postLists = [
   },
   {
     id: 5,
-    text: 'tesing post feature 4',
+    text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,',
     user_id: 30,
     created_at: '2022-07-03T18:30:00.000Z',
     updated_at: '2022-07-03T18:30:00.000Z',
@@ -72,6 +72,7 @@ const Post = ({ post }) => {
       <div className="relative flex gap-4">
         <img
           className="h-10 w-10 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white"
+          src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
           alt=""
         />
         <span className="absolute -bottom-0.5 -right-1 bg-white rounded-tl px-0.5 py-px"></span>
@@ -102,7 +103,7 @@ const Home = () => {
   }, [isModalOpen])
 
   return (
-    <div>
+    <div className="m-auto">
       <div className="flex justify-between items-start mb-8">
         <h1 className="text-2xl font-semibold text-gray-900">Posts</h1>
         <div className="max-w-xs mt-0">
