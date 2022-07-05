@@ -72,10 +72,14 @@ const ResetPassword = () => {
         {!successMessage && !error && (
           <Formik
             initialValues={{
-              password: ''
+              password: '',
+              confirmPassword: ''
             }}
             validationSchema={Yup.object({
-              password: Yup.string().required('New Password is required')
+              password: Yup.string().required('New Password is required'),
+              confirmPassword: Yup.string()
+                .required('Confirm Password is required')
+                .oneOf([Yup.ref('password')], 'Your passwords do not match')
             })}
             onSubmit={async (values, { setSubmitting, resetForm }) => {
               await handleSubmit(values, resetForm)
@@ -84,6 +88,7 @@ const ResetPassword = () => {
           >
             <Form>
               <Input label="New Password" type="password" name="password" />
+              <Input label="Confirm Password" type="password" name="confirmPassword" />
               <Button type="submit" label="Submit" loading={loading} />
             </Form>
           </Formik>
