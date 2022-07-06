@@ -38,7 +38,7 @@ const ForgotPassword = () => {
       if (error.response.status === 500) {
         setError('Something went wrong, please try again later.')
       } else {
-        const errorMessage = error.message || error.response?.message
+        const errorMessage = error.message || error.response.data.message
         setError(errorMessage)
       }
     } finally {

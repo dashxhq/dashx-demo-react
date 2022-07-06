@@ -25,10 +25,8 @@ const CurrentUserProvider = ({ children }) => {
     setUser(null)
   }
 
-  const getJwtToken = () => jwtToken
-
   return (
-    <CurrentUserContext.Provider value={{ user, setUser, login, logout, getJwtToken }}>
+    <CurrentUserContext.Provider value={{ user, setUser, login, logout }}>
       {children}
     </CurrentUserContext.Provider>
   )
