@@ -11,13 +11,15 @@ const Button = ({
   label,
   loading,
   message,
-  onClick
+  onClick,
+  classes
 }) => {
   return (
     <button
       className={`
         ${buttonClass}
         ${variant !== 'outlined' ? 'bg-indigo-600' : 'border-indigo-500'}
+        ${classes}
       `}
       type={type}
       onClick={onClick}
