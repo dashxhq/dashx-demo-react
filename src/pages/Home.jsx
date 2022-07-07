@@ -11,6 +11,7 @@ const Home = () => {
   const [postsList, setPostsList] = useState([])
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const fetchPosts = async () => {
     try {
@@ -21,30 +22,32 @@ const Home = () => {
     }
   }
 
-  useEffect(() => {
-    fetchPosts()
-  }, [])
-
   const handleSubmit = async (values, resetForm) => {
     if (error) {
       setError('')
     }
+    setLoading(true)
 
     try {
-      setIsModalOpen(false)
       const { status } = await api.post('/posts', values)
       if (status === 200) {
-        setIsModalOpen(false)
-        await fetchPosts()
         resetForm()
+        await fetchPosts()
       }
     } catch (error) {
       setError('Something went wrong, Please try again later.')
       setTimeout(() => {
         setError('')
-      }, 2000)
+      }, 3000)
+    } finally {
+      setIsModalOpen(false)
+      setLoading(false)
     }
   }
+
+  useEffect(() => {
+    fetchPosts()
+  }, [])
 
   return (
     <>
@@ -60,14 +63,17 @@ const Home = () => {
         </div>
       )}
       <div>
-        {(!postsList.length && !error) && (
-          <h1>No Posts</h1>
-        )}
+        {!postsList.length && !error && <h1 className="font-medium">No Posts</h1>}
         {postsList.map((post) => (
           <Post post={post} key={post.id} />
         ))}
       </div>
-      <Modal open={isModalOpen} setOpen={setIsModalOpen} handleSubmit={handleSubmit} />
+      <Modal
+        open={isModalOpen}
+        setOpen={setIsModalOpen}
+        handleSubmit={handleSubmit}
+        loading={loading}
+      />
     </>
   )
 }

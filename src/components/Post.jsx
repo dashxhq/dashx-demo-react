@@ -1,17 +1,10 @@
 import React from 'react'
+import dayjs from '../lib/dayjs'
 
 const Post = ({ post }) => {
   const { created_at, text, user } = post
   const { first_name, last_name } = user
-
-  const getPublishedDay = () => {
-    const currentDate = new Date().getDate()
-
-    if (currentDate === new Date(created_at).getDate()) {
-      return 'Today'
-    }
-    return `${currentDate - new Date(created_at).getDate()}d ago`
-  }
+  const published = dayjs(created_at).fromNow()
 
   return (
     <div className="relative flex gap-4 mb-4">
@@ -24,9 +17,9 @@ const Post = ({ post }) => {
         <p className="text-sm font-medium">
           {first_name}&nbsp;{last_name}
         </p>
-        <p className="mt-0.5 text-sm text-gray-500">Posted {getPublishedDay()}</p>
+        <p className="mt-0.5 text-sm text-gray-500">Posted {published}</p>
         <div className="mt-2 text-sm text-gray-700">
-          <p>{text}</p>
+          <p className="text-justify">{text}</p>
         </div>
       </div>
     </div>
