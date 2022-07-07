@@ -52,7 +52,7 @@ const Profile = () => {
         }, 2000)
       }
     } catch (error) {
-      const errorMessage = error.response?.data?.message || error.response?.data
+      const errorMessage = error.response?.data?.message || error.response?.data || error.message
       setError(errorMessage)
     } finally {
       setLoading(false)
