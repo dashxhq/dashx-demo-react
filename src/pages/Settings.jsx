@@ -85,7 +85,7 @@ const Settings = () => {
           </Switch.Group>
         </ul>
       </div>
-      <div className="mt-4 py-4 flex justify-end">
+      <div className="mt-4 py-4 flex justify-end gap-3 sm:gap-0">
         <Button
           type="button"
           classes="justify-center rounded-md border border-transparent shadow-sm px-4 py-2 font-medium text-white hover:bg-gray-50 hover:text-gray-800 text-gray-800 bg-transparent border-gray-200 sm:ml-3 sm:w-auto sm:text-sm focus:outline-none"

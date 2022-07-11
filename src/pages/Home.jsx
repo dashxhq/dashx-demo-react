@@ -69,8 +69,10 @@ const Home = () => {
       )}
       <div>
         {fetchingPosts && <Loader />}
-        {postsList.length > 0 && postsList.map((post) => <Post post={post} />)}
-        {!postsList.length && !fetchingPosts && <h1 className="font-medium">No Posts</h1>}
+        {(!postsList.length && !fetchingPosts && !error) && <h1 className="font-medium">No Posts</h1>}
+        {postsList.map((post) => (
+          <Post post={post} />
+        ))}
       </div>
       <Modal
         open={isModalOpen}
