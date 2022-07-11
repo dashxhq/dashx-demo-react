@@ -4,6 +4,7 @@ import Modal from '../components/Modal'
 import Button from '../components/Button'
 import AlertBox from '../components/AlertBox'
 import Post from '../components/Post'
+import Loader from '../components/Loader'
 
 import api from '../lib/api'
 
@@ -11,14 +12,18 @@ const Home = () => {
   const [postsList, setPostsList] = useState([])
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [error, setError] = useState('')
+  const [fetchingPosts, setFetchingPosts] = useState(false)
   const [loading, setLoading] = useState(false)
 
   const fetchPosts = async () => {
     try {
+      setFetchingPosts(true)
       const { data: { posts } = {} } = await api.get('/posts')
       setPostsList(posts)
     } catch (error) {
       setError('Something went wrong, Please try again later.')
+    } finally {
+      setFetchingPosts(false)
     }
   }
 
@@ -63,10 +68,9 @@ const Home = () => {
         </div>
       )}
       <div>
-        {!postsList.length && !error && <h1 className="font-medium">No Posts</h1>}
-        {postsList.map((post) => (
-          <Post post={post} key={post.id} />
-        ))}
+        {fetchingPosts && <Loader />}
+        {postsList.length > 0 && postsList.map((post) => <Post post={post} />)}
+        {!postsList.length && !fetchingPosts && <h1 className="font-medium">No Posts</h1>}
       </div>
       <Modal
         open={isModalOpen}
