@@ -70,8 +70,10 @@ const Home = () => {
       <div>
         {fetchingPosts && <Loader />}
         {(!postsList.length && !fetchingPosts && !error) && <h1 className="font-medium">No Posts</h1>}
+      </div>
+      <div className="grid grid-cols-1  md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
         {postsList.map((post) => (
-          <Post post={post} />
+          <Post post={post} key={post.id} />
         ))}
       </div>
       <Modal

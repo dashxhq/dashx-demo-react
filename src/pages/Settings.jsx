@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Switch } from '@headlessui/react'
 
 import Button from '../components/Button'
 
+import dashx from '../lib/dashx'
+
 const initialPreferences = {
-  notifyPost: false,
-  notifyBookmark: false
+  notifyPost: { enabled: false },
+  notifyBookmark: { enabled: false }
 }
 
 const Settings = () => {
@@ -15,6 +17,14 @@ const Settings = () => {
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
   }
+
+  useEffect(() => {
+    const demo = async () => {
+      console.log(await dashx.fetchStoredPreferences())
+    }
+
+    demo()
+  }, [])
 
   return (
     <div>
@@ -31,22 +41,22 @@ const Settings = () => {
               </Switch.Description>
             </div>
             <Switch
-              checked={notifyPost}
+              checked={notifyPost.enabled}
               onChange={() =>
                 setPreferences(({ notifyPost }) => ({
                   ...preferences,
-                  notifyPost: !notifyPost
+                  notifyPost: { enabled: !notifyPost.enabled }
                 }))
               }
               className={classNames(
-                notifyPost ? 'bg-teal-500' : 'bg-gray-200',
+                notifyPost.enabled ? 'bg-teal-500' : 'bg-gray-200',
                 'ml-4 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none'
               )}
             >
               <span
                 aria-hidden="true"
                 className={classNames(
-                  notifyPost ? 'translate-x-5' : 'translate-x-0',
+                  notifyPost.enabled ? 'translate-x-5' : 'translate-x-0',
                   'inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200'
                 )}
               />
@@ -62,22 +72,22 @@ const Settings = () => {
               </Switch.Description>
             </div>
             <Switch
-              checked={notifyBookmark}
+              checked={notifyBookmark.enabled}
               onChange={() =>
                 setPreferences(({ notifyBookmark }) => ({
                   ...preferences,
-                  notifyBookmark: !notifyBookmark
+                  notifyBookmark: { enabled: !notifyBookmark.enabled }
                 }))
               }
               className={classNames(
-                notifyBookmark ? 'bg-teal-500' : 'bg-gray-200',
+                notifyBookmark.enabled ? 'bg-teal-500' : 'bg-gray-200',
                 'ml-4 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200'
               )}
             >
               <span
                 aria-hidden="true"
                 className={classNames(
-                  notifyBookmark ? 'translate-x-5' : 'translate-x-0',
+                  notifyBookmark.enabled ? 'translate-x-5' : 'translate-x-0',
                   'inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200'
                 )}
               />
@@ -96,7 +106,7 @@ const Settings = () => {
           type="submit"
           classes="inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 font-medium text-white hover:bg-indigo-700 sm:ml-3 sm:w-auto sm:text-sm"
           label="Save"
-          disabled={!notifyPost && !notifyBookmark}
+          disabled={!notifyPost.enabled && !notifyBookmark.enabled}
         />
       </div>
     </div>
