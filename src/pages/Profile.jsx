@@ -52,8 +52,12 @@ const Profile = () => {
         }, 2000)
       }
     } catch (error) {
-      const errorMessage = error.response?.data?.message || error.response?.data || error.message
-      setError(errorMessage)
+      if (error.response.status === 500) {
+        setError('Something went wrong, please try again later.')
+      } else {
+        const errorMessage = error.response.data || error.message
+        setError(errorMessage)
+      }
     } finally {
       setLoading(false)
     }
