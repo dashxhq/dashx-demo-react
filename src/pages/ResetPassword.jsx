@@ -6,7 +6,7 @@ import { Form, Formik } from 'formik'
 import jwtDecode from 'jwt-decode'
 
 import FormHeader from '../components/FormHeader'
-import AlertBox from '../components/AlertBox'
+import ErrorBox from '../components/ErrorBox'
 import SuccessBox from '../components/SuccessBox'
 import Input from '../components/Input'
 import Button from '../components/Button'
@@ -64,11 +64,7 @@ const ResetPassword = () => {
             <SuccessBox successMessage={successMessage} />
           </div>
         )}
-        {error && (
-          <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
-            <AlertBox alertMessage={error} />
-          </div>
-        )}
+        {error && <ErrorBox alertMessage={error} />}
         {!successMessage && !error && (
           <Formik
             initialValues={{

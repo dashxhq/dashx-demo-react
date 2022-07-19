@@ -6,7 +6,7 @@ import { Formik, Form } from 'formik'
 
 import Button from '../components/Button'
 import Input from '../components/Input'
-import AlertBox from '../components/AlertBox'
+import ErrorBox from '../components/ErrorBox'
 import FormHeader from '../components/FormHeader'
 
 import api from '../lib/api'
@@ -46,11 +46,7 @@ const Register = () => {
   return (
     <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <FormHeader>Register for an account</FormHeader>
-      {error && (
-        <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <AlertBox alertMessage={error} />
-        </div>
-      )}
+      {error && <ErrorBox alertMessage={error} />}
       <div className="sm:mx-auto sm:w-full sm:max-w-md rounded bg-white shadow shadow-md">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <div className="py-8 px-4 sm:px-10">

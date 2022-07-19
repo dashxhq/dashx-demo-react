@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 
 import Input from '../components/Input'
 import Button from '../components/Button'
-import AlertBox from '../components/AlertBox'
+import ErrorBox from '../components/ErrorBox'
 import SuccessBox from '../components/SuccessBox'
 import { useCurrentUserContext } from '../contexts/CurrentUserContext'
 
@@ -70,7 +70,7 @@ const Profile = () => {
           Edit Profile
         </h2>
         <div className="sm:w-full sm:max-w-md">
-          {error && <AlertBox alertMessage={error} />}
+          {error && <ErrorBox alertMessage={error} />}
           {successMessage && <SuccessBox successMessage={successMessage} />}
           <div className="py-8 pt-0 mb-0 mt-5">
             <Formik

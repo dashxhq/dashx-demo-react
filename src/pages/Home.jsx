@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import Modal from '../components/Modal'
 import Button from '../components/Button'
-import AlertBox from '../components/AlertBox'
+import ErrorBox from '../components/ErrorBox'
 import Post from '../components/Post'
 import Loader from '../components/Loader'
 
@@ -62,11 +62,7 @@ const Home = () => {
           <Button label="Add Post" loading={false} onClick={() => setIsModalOpen(true)} />
         </div>
       </div>
-      {error && (
-        <div className="max-w-md">
-          <AlertBox alertMessage={error} />
-        </div>
-      )}
+      {error && <ErrorBox alertMessage={error} />}
       <div>
         {fetchingPosts && <Loader />}
         {(!postsList.length && !fetchingPosts && !error) && <h1 className="font-medium">No Posts</h1>}

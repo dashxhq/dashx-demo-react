@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 
+import classNames from 'classnames'
 import { Dialog, Transition } from '@headlessui/react'
 import {
   HomeIcon,
@@ -18,10 +19,6 @@ const navigation = [
   { name: 'Bookmarks', href: '/bookmarks', icon: BookmarkIcon },
   { name: 'Billing', href: '/billing', icon: CurrencyDollarIcon }
 ]
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
 
 const Sidebar = ({ setSidebarOpen, sidebarOpen }) => {
   const navigate = useNavigate()
