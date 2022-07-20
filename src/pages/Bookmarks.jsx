@@ -22,6 +22,15 @@ const Bookmarks = () => {
     setFetchingBookmarks(false)
   }
 
+  const toggleBookmark = async (postId) => {
+    try {
+      setBookmarksList((bookmarksList) => bookmarksList.filter((bookmark) => bookmark.id !== postId))
+      await api.put(`/posts/${postId}/toggle-bookmark`)
+    } catch (error) {
+      setError('Unable to bookmark.')
+    }
+  }
+
   useEffect(() => {
     fetchBookmarks()
   }, [])
@@ -39,7 +48,7 @@ const Bookmarks = () => {
       {bookmarksList.length > 0 && (
         <div className="grid grid-cols-1 gap-3 mt-5">
           {bookmarksList.map((post) => (
-            <Post post={post} key={post.id} />
+            <Post post={post} key={post.id} toggleBookmark={() => toggleBookmark(post.id)} />
           ))}
         </div>
       )}
