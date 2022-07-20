@@ -7,6 +7,7 @@ import Post from '../components/Post'
 import Loader from '../components/Loader'
 
 import api from '../lib/api'
+import dayjs from '../lib/dayjs'
 
 const Home = () => {
   const [postsList, setPostsList] = useState([])
@@ -45,7 +46,13 @@ const Home = () => {
   const toggleBookmark = async (postId) => {
     try {
       await api.put(`/posts/${postId}/toggle-bookmark`)
-      await fetchPosts()
+      setPostsList((postsList) =>
+        postsList.map((post) =>
+          post.id === postId
+            ? { ...post, bookmarked_at: !post.bookmarked_at ? dayjs().toISOString() : null }
+            : post
+        )
+      )
     } catch (error) {
       setError('Unable to bookmark')
     }
