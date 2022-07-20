@@ -42,7 +42,7 @@ const Bookmarks = () => {
       {error && <ErrorBox message={error} />}
       {fetchingBookmarks && <Loader />}
       {!bookmarksList.length && !fetchingBookmarks && !error && (
-        <EmptyPage message="No Bookmarks" />
+        <EmptyPage message="No bookmarks" />
       )}
       {bookmarksList.length > 0 && (
         <div className="grid grid-cols-1 gap-3 mt-5">
