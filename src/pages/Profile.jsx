@@ -40,19 +40,14 @@ const Profile = () => {
     }
 
     try {
-      const { data: { message, user } = {}, status } = await api.patch(
+      const { data: { message, user } = {} } = await api.patch(
         '/update-profile',
         requestBody
       )
-      if (status === 200) {
-        setUser(user)
-        setSuccessMessage(message)
-        setTimeout(() => {
-          setSuccessMessage('')
-        }, 2000)
-      }
+      setUser(user)
+      setSuccessMessage(message)
     } catch (error) {
-      if (error.response.status === 500) {
+      if (error.response.status >= 500) {
         setError('Something went wrong, please try again later.')
       } else {
         const errorMessage = error.response.data || error.message

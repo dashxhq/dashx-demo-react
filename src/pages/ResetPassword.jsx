@@ -37,14 +37,11 @@ const ResetPassword = () => {
     try {
       const requestBody = { token: resetPasswordToken, password: values.password }
 
-      const { data: { message } = {}, status } = await api.post('/reset-password', requestBody)
-
-      if (status === 200) {
-        setSuccessMessage(message)
-      }
+      const { data: { message } = {} } = await api.post('/reset-password', requestBody)
+      setSuccessMessage(message)
     } catch (error) {
       const errorMessage =
-        error?.message || error.response?.message || 'Something went wrong, please try later'
+        error.message || error.response.message || 'Something went wrong, please try later.'
       setError(errorMessage)
     } finally {
       setLoading(false)

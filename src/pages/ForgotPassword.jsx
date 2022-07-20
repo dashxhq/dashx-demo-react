@@ -35,7 +35,7 @@ const ForgotPassword = () => {
         resetForm()
       }
     } catch (error) {
-      if (error.response.status === 500) {
+      if (error.response.status >= 500) {
         setError('Something went wrong, please try again later.')
       } else {
         const errorMessage = error.message || error.response.data.message
