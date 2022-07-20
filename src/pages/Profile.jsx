@@ -65,8 +65,8 @@ const Profile = () => {
           Edit Profile
         </h2>
         <div className="sm:w-full sm:max-w-md">
-          {error && <ErrorBox alertMessage={error} />}
-          {successMessage && <SuccessBox successMessage={successMessage} />}
+          {error && <ErrorBox message={error} />}
+          {successMessage && <SuccessBox message={successMessage} />}
           <div className="py-8 pt-0 mb-0 mt-5">
             <Formik
               enableReinitialize={true}

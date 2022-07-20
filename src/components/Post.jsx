@@ -3,8 +3,8 @@ import { BookmarkIcon } from '@heroicons/react/outline'
 
 import dayjs from '../lib/dayjs'
 
-const Post = ({ post }) => {
-  const { created_at, text, user } = post
+const Post = ({ post, toggleBookmark }) => {
+  const { created_at, bookmarked_at, text, user } = post
   const { first_name, last_name } = user
   const published = dayjs(created_at).fromNow()
 
@@ -20,9 +20,13 @@ const Post = ({ post }) => {
           <p className="text-sm font-medium">
             {first_name}&nbsp;{last_name}
           </p>
-          <div className="h-6 w-6">
-            <BookmarkIcon className="w-full h-full cursor-pointer text-gray-600" />
-          </div>
+          <button onClick={toggleBookmark}>
+            {bookmarked_at ? (
+              <BookmarkIcon className="cursor-pointer text-gray-600 h-6 w-6 fill-gray-600" />
+            ) : (
+               <BookmarkIcon className="cursor-pointer text-gray-600 h-6 w-6" />
+             )}
+          </button>
         </div>
         <p className="mt-0.5 text-sm text-gray-500">Posted {published}</p>
         <div className="mt-2 text-sm text-gray-700">

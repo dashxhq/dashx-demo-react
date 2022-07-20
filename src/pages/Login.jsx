@@ -46,7 +46,7 @@ const Login = () => {
   return (
     <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <FormHeader>Login to your account</FormHeader>
-      {error && <ErrorBox alertMessage={error} />}
+      {error && <ErrorBox message={error} />}
       <div className="sm:mx-auto sm:w-full sm:max-w-md rounded bg-white shadow shadow-md pt-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <div className="py-8 pt-1 px-4 sm:px-10">

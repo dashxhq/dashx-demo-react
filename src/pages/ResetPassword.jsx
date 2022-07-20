@@ -58,10 +58,10 @@ const ResetPassword = () => {
       <div className="sm:mx-auto sm:w-full mb-4 mt-4 sm:max-w-md rounded bg-white shadow shadow-md p-9">
         {successMessage && (
           <div className="text-center">
-            <SuccessBox successMessage={successMessage} />
+            <SuccessBox message={successMessage} />
           </div>
         )}
-        {error && <ErrorBox alertMessage={error} />}
+        {error && <ErrorBox message={error} />}
         {!successMessage && !error && (
           <Formik
             initialValues={{
