@@ -5,6 +5,7 @@ import Button from '../components/Button'
 import ErrorBox from '../components/ErrorBox'
 import Post from '../components/Post'
 import Loader from '../components/Loader'
+import EmptyPage from '../components/EmptyPage'
 
 import api from '../lib/api'
 import dayjs from '../lib/dayjs'
@@ -73,9 +74,7 @@ const Home = () => {
       {error && <ErrorBox message={error} />}
       {fetchingPosts && <Loader />}
       {!postsList.length && !fetchingPosts && !error && (
-        <div className="text-center mt-5">
-          <h1 className="font-medium text-xl">No Posts Found!</h1>
-        </div>
+        <EmptyPage message="No posts" />
       )}
       {postsList.length > 0 && (
         <div className="grid grid-cols-1 gap-3 mt-5">
