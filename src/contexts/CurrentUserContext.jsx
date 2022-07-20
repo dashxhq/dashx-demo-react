@@ -21,6 +21,7 @@ const CurrentUserProvider = ({ children }) => {
   }
 
   const logout = () => {
+    dashx.reset()
     localStorage.removeItem('jwt-token')
     setUser(null)
   }
