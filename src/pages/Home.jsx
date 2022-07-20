@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 
 import Modal from '../components/Modal'
 import Button from '../components/Button'
-import AlertBox from '../components/AlertBox'
+import ErrorBox from '../components/ErrorBox'
 import Post from '../components/Post'
+import Loader from '../components/Loader'
 
 import api from '../lib/api'
 
@@ -11,14 +12,18 @@ const Home = () => {
   const [postsList, setPostsList] = useState([])
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [error, setError] = useState('')
+  const [fetchingPosts, setFetchingPosts] = useState(false)
   const [loading, setLoading] = useState(false)
 
   const fetchPosts = async () => {
     try {
+      setFetchingPosts(true)
       const { data: { posts } = {} } = await api.get('/posts')
       setPostsList(posts)
     } catch (error) {
       setError('Something went wrong, Please try again later.')
+    } finally {
+      setFetchingPosts(false)
     }
   }
 
@@ -57,13 +62,12 @@ const Home = () => {
           <Button label="Add Post" loading={false} onClick={() => setIsModalOpen(true)} />
         </div>
       </div>
-      {error && (
-        <div className="max-w-md">
-          <AlertBox alertMessage={error} />
-        </div>
-      )}
+      {error && <ErrorBox alertMessage={error} />}
       <div>
-        {!postsList.length && !error && <h1 className="font-medium">No Posts</h1>}
+        {fetchingPosts && <Loader />}
+        {(!postsList.length && !fetchingPosts && !error) && <h1 className="font-medium">No Posts</h1>}
+      </div>
+      <div className="grid grid-cols-1  md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
         {postsList.map((post) => (
           <Post post={post} key={post.id} />
         ))}

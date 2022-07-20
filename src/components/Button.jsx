@@ -12,18 +12,20 @@ const Button = ({
   loading,
   message,
   onClick,
-  classes
+  classes,
+  disabled
 }) => {
   return (
     <button
       className={`
         ${buttonClass}
         ${variant !== 'outlined' ? 'bg-indigo-600' : 'border-indigo-500'}
+        ${disabled ? 'pointer-events-none bg-indigo-300' : ''}
         ${classes}
       `}
       type={type}
       onClick={onClick}
-      disabled={loading}
+      disabled={loading || disabled}
     >
       {loading ? (
         <Loader message={message} />

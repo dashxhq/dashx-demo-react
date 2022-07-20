@@ -6,7 +6,7 @@ import * as Yup from 'yup'
 
 import Button from '../components/Button'
 import Input from '../components/Input'
-import AlertBox from '../components/AlertBox'
+import ErrorBox from '../components/ErrorBox'
 import SuccessBox from '../components/SuccessBox'
 import FormHeader from '../components/FormHeader'
 
@@ -35,7 +35,7 @@ const ForgotPassword = () => {
         resetForm()
       }
     } catch (error) {
-      if (error.response.status === 500) {
+      if (error.response.status >= 500) {
         setError('Something went wrong, please try again later.')
       } else {
         const errorMessage = error.message || error.response.data.message
@@ -49,11 +49,7 @@ const ForgotPassword = () => {
   return (
     <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8 m-auto">
       <FormHeader>Forgot Password</FormHeader>
-      {error && (
-        <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <AlertBox alertMessage={error} />
-        </div>
-      )}
+      {error && <ErrorBox alertMessage={error} />}
       <div className="sm:mx-auto sm:w-full mb-4 mt-4 sm:max-w-md rounded bg-white shadow shadow-md p-9">
         {successMessage && (
           <div className="text-center">

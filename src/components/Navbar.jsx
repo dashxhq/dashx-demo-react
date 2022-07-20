@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 
+import classNames from 'classnames'
 import { SearchIcon } from '@heroicons/react/solid'
 import { BellIcon, MenuAlt2Icon } from '@heroicons/react/outline'
 import { Menu, Transition } from '@headlessui/react'
@@ -11,10 +12,6 @@ const userNavigation = [
   { name: 'Profile', href: '/update-profile' },
   { name: 'Settings', href: '/settings' }
 ]
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
 
 const Navbar = ({ setSidebarOpen }) => {
   const navigate = useNavigate()
