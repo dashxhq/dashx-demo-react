@@ -45,7 +45,6 @@ const Home = () => {
 
   const toggleBookmark = async (postId) => {
     try {
-      await api.put(`/posts/${postId}/toggle-bookmark`)
       setPostsList((postsList) =>
         postsList.map((post) =>
           post.id === postId
@@ -53,6 +52,7 @@ const Home = () => {
             : post
         )
       )
+      await api.put(`/posts/${postId}/toggle-bookmark`)
     } catch (error) {
       setError('Unable to bookmark')
     }
