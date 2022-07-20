@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Loader from '../components/Loader'
 import Post from '../components/Post'
 import ErrorBox from '../components/ErrorBox'
+import EmptyPage from '../components/EmptyPage'
 
 import api from '../lib/api'
 
@@ -37,13 +38,11 @@ const Bookmarks = () => {
 
   return (
     <>
-      <h1 className="text-2xl font-semibold text-gray-900">Bookmarks</h1>
+      <h1 className="text-2xl font-semibold text-gray-900 mb-8">Bookmarks</h1>
       {error && <ErrorBox message={error} />}
       {fetchingBookmarks && <Loader />}
       {!bookmarksList.length && !fetchingBookmarks && !error && (
-        <div className="text-center mt-5">
-          <h1 className="font-medium text-xl">No Bookmarks Found!</h1>
-        </div>
+        <EmptyPage message="No bookmarks" />
       )}
       {bookmarksList.length > 0 && (
         <div className="grid grid-cols-1 gap-3 mt-5">
