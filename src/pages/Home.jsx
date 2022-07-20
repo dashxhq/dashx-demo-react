@@ -17,14 +17,12 @@ const Home = () => {
 
   const fetchPosts = async () => {
     setFetchingPosts(true)
-
     try {
       const { data: { posts } = {} } = await api.get('/posts')
       setPostsList(posts)
     } catch (error) {
       setError('Unable to fetch posts.')
     }
-
     setFetchingPosts(false)
   }
 
@@ -65,7 +63,7 @@ const Home = () => {
           <Button label="Add Post" loading={false} onClick={() => setIsModalOpen(true)} />
         </div>
       </div>
-      {error && <ErrorBox alertMessage={error} />}
+      {error && <ErrorBox message={error} />}
       {fetchingPosts && <Loader />}
       {!postsList.length && !fetchingPosts && !error && (
         <div className="text-center mt-5">

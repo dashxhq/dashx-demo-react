@@ -51,8 +51,8 @@ const Settings = () => {
   return (
     <div>
       <h1 className="text-2xl font-semibold text-gray-900">Settings</h1>
-      {error && <ErrorBox alertMessage={error} />}
-      {successMessage && <SuccessBox successMessage={successMessage} />}
+      {error && <ErrorBox message={error} />}
+      {successMessage && <SuccessBox message={successMessage} />}
       {loading ? (
         <Loader />
       ) : (

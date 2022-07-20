@@ -13,14 +13,12 @@ const Bookmarks = () => {
 
   const fetchBookmarks = async () => {
     setFetchingBookmarks(true)
-
     try {
       const { data: { bookmarks } = {} } = await api.get('/posts/bookmarked')
       setBookmarksList(bookmarks)
     } catch (error) {
       setError('Unable to fetch bookmarks.')
     }
-
     setFetchingBookmarks(false)
   }
 
@@ -31,7 +29,7 @@ const Bookmarks = () => {
   return (
     <>
       <h1 className="text-2xl font-semibold text-gray-900">Bookmarks</h1>
-      {error && <ErrorBox alertMessage={error} />}
+      {error && <ErrorBox message={error} />}
       {fetchingBookmarks && <Loader />}
       {!bookmarksList.length && !fetchingBookmarks && !error && (
         <div className="text-center mt-5">

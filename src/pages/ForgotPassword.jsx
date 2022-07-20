@@ -49,11 +49,11 @@ const ForgotPassword = () => {
   return (
     <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8 m-auto">
       <FormHeader>Forgot Password</FormHeader>
-      {error && <ErrorBox alertMessage={error} />}
+      {error && <ErrorBox message={error} />}
       <div className="sm:mx-auto sm:w-full mb-4 mt-4 sm:max-w-md rounded bg-white shadow shadow-md p-9">
         {successMessage && (
           <div className="text-center">
-            <SuccessBox successMessage={successMessage} />
+            <SuccessBox message={successMessage} />
           </div>
         )}
         {!successMessage && (
