@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 
 import Input from '../components/Input'
 import Button from '../components/Button'
-import AlertBox from '../components/AlertBox'
+import ErrorBox from '../components/ErrorBox'
 import SuccessBox from '../components/SuccessBox'
 import { useCurrentUserContext } from '../contexts/CurrentUserContext'
 
@@ -40,20 +40,19 @@ const Profile = () => {
     }
 
     try {
-      const { data: { message, user } = {}, status } = await api.patch(
+      const { data: { message, user } = {} } = await api.patch(
         '/update-profile',
         requestBody
       )
-      if (status === 200) {
-        setUser(user)
-        setSuccessMessage(message)
-        setTimeout(() => {
-          setSuccessMessage('')
-        }, 2000)
-      }
+      setUser(user)
+      setSuccessMessage(message)
     } catch (error) {
-      const errorMessage = error.response?.data?.message || error.response?.data || error.message
-      setError(errorMessage)
+      if (error.response.status >= 500) {
+        setError('Something went wrong, please try again later.')
+      } else {
+        const errorMessage = error.response.data || error.message
+        setError(errorMessage)
+      }
     } finally {
       setLoading(false)
     }
@@ -66,8 +65,8 @@ const Profile = () => {
           Edit Profile
         </h2>
         <div className="sm:w-full sm:max-w-md">
-          {error && <AlertBox alertMessage={error} />}
-          {successMessage && <SuccessBox successMessage={successMessage} />}
+          {error && <ErrorBox message={error} />}
+          {successMessage && <SuccessBox message={successMessage} />}
           <div className="py-8 pt-0 mb-0 mt-5">
             <Formik
               enableReinitialize={true}

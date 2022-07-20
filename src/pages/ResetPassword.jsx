@@ -6,7 +6,7 @@ import { Form, Formik } from 'formik'
 import jwtDecode from 'jwt-decode'
 
 import FormHeader from '../components/FormHeader'
-import AlertBox from '../components/AlertBox'
+import ErrorBox from '../components/ErrorBox'
 import SuccessBox from '../components/SuccessBox'
 import Input from '../components/Input'
 import Button from '../components/Button'
@@ -37,14 +37,11 @@ const ResetPassword = () => {
     try {
       const requestBody = { token: resetPasswordToken, password: values.password }
 
-      const { data: { message } = {}, status } = await api.post('/reset-password', requestBody)
-
-      if (status === 200) {
-        setSuccessMessage(message)
-      }
+      const { data: { message } = {} } = await api.post('/reset-password', requestBody)
+      setSuccessMessage(message)
     } catch (error) {
       const errorMessage =
-        error?.message || error.response?.message || 'Something went wrong, please try later'
+        error.message || error.response.message || 'Something went wrong, please try later.'
       setError(errorMessage)
     } finally {
       setLoading(false)
@@ -61,14 +58,10 @@ const ResetPassword = () => {
       <div className="sm:mx-auto sm:w-full mb-4 mt-4 sm:max-w-md rounded bg-white shadow shadow-md p-9">
         {successMessage && (
           <div className="text-center">
-            <SuccessBox successMessage={successMessage} />
+            <SuccessBox message={successMessage} />
           </div>
         )}
-        {error && (
-          <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
-            <AlertBox alertMessage={error} />
-          </div>
-        )}
+        {error && <ErrorBox message={error} />}
         {!successMessage && !error && (
           <Formik
             initialValues={{

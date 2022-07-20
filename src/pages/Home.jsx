@@ -2,46 +2,59 @@ import React, { useEffect, useState } from 'react'
 
 import Modal from '../components/Modal'
 import Button from '../components/Button'
-import AlertBox from '../components/AlertBox'
+import ErrorBox from '../components/ErrorBox'
 import Post from '../components/Post'
+import Loader from '../components/Loader'
 
 import api from '../lib/api'
+import dayjs from '../lib/dayjs'
 
 const Home = () => {
   const [postsList, setPostsList] = useState([])
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [error, setError] = useState('')
+  const [fetchingPosts, setFetchingPosts] = useState(false)
   const [loading, setLoading] = useState(false)
 
   const fetchPosts = async () => {
+    setFetchingPosts(true)
     try {
       const { data: { posts } = {} } = await api.get('/posts')
       setPostsList(posts)
     } catch (error) {
-      setError('Something went wrong, Please try again later.')
+      setError('Unable to fetch posts.')
     }
+    setFetchingPosts(false)
   }
 
   const handleSubmit = async (values, resetForm) => {
-    if (error) {
-      setError('')
-    }
+    setError('')
     setLoading(true)
 
     try {
-      const { status } = await api.post('/posts', values)
-      if (status === 200) {
-        resetForm()
-        await fetchPosts()
-      }
+      await api.post('/posts', values)
+      resetForm()
+      await fetchPosts()
     } catch (error) {
-      setError('Something went wrong, Please try again later.')
-      setTimeout(() => {
-        setError('')
-      }, 3000)
-    } finally {
-      setIsModalOpen(false)
-      setLoading(false)
+      setError('Unable to create post.')
+    }
+
+    setIsModalOpen(false)
+    setLoading(false)
+  }
+
+  const toggleBookmark = async (postId) => {
+    try {
+      setPostsList((postsList) =>
+        postsList.map((post) =>
+          post.id === postId
+            ? { ...post, bookmarked_at: !post.bookmarked_at ? dayjs().toISOString() : null }
+            : post
+        )
+      )
+      await api.put(`/posts/${postId}/toggle-bookmark`)
+    } catch (error) {
+      setError('Unable to bookmark')
     }
   }
 
@@ -57,17 +70,20 @@ const Home = () => {
           <Button label="Add Post" loading={false} onClick={() => setIsModalOpen(true)} />
         </div>
       </div>
-      {error && (
-        <div className="max-w-md">
-          <AlertBox alertMessage={error} />
+      {error && <ErrorBox message={error} />}
+      {fetchingPosts && <Loader />}
+      {!postsList.length && !fetchingPosts && !error && (
+        <div className="text-center mt-5">
+          <h1 className="font-medium text-xl">No Posts Found!</h1>
         </div>
       )}
-      <div>
-        {!postsList.length && !error && <h1 className="font-medium">No Posts</h1>}
-        {postsList.map((post) => (
-          <Post post={post} key={post.id} />
-        ))}
-      </div>
+      {postsList.length > 0 && (
+        <div className="grid grid-cols-1 gap-3 mt-5">
+          {postsList.map((post) => (
+            <Post post={post} key={post.id} toggleBookmark={() => toggleBookmark(post.id)} />
+          ))}
+        </div>
+      )}
       <Modal
         open={isModalOpen}
         setOpen={setIsModalOpen}
