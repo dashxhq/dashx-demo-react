@@ -1,15 +1,14 @@
 import React, { Fragment } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 
-import classNames from 'classnames'
 import { Dialog, Transition } from '@headlessui/react'
 import {
-  HomeIcon,
-  XIcon,
   BookmarkIcon,
   CurrencyDollarIcon,
-  DatabaseIcon
+  DatabaseIcon, HomeIcon,
+  XIcon
 } from '@heroicons/react/outline'
+import classNames from 'classnames'
 
 import DashXLogoWhite from '../assets/dashx_logo_white.png'
 

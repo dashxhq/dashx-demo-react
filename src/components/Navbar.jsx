@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 
-import classNames from 'classnames'
-import { SearchIcon } from '@heroicons/react/solid'
-import { BellIcon, MenuAlt2Icon } from '@heroicons/react/outline'
 import { Menu, Transition } from '@headlessui/react'
+import { BellIcon, MenuAlt2Icon, ShoppingCartIcon } from '@heroicons/react/outline'
+import { SearchIcon } from '@heroicons/react/solid'
+import classNames from 'classnames'
 
 import { useCurrentUserContext } from '../contexts/CurrentUserContext'
 
@@ -48,18 +48,24 @@ const Navbar = ({ setSidebarOpen }) => {
               </div>
             </form>
           </div>
-          <div className="ml-4 flex items-center md:ml-6">
+          <div className="ml-4 flex items-center md:ml-6 gap-2">
             <button
               type="button"
-              className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500"
+            >
+              <span className="sr-only">View Cart</span>
+              <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
+            </button>
+            <button
+              type="button"
+              className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500"
             >
               <span className="sr-only">View notifications</span>
               <BellIcon className="h-6 w-6" aria-hidden="true" />
             </button>
-
             <Menu as="div" className="ml-3 relative">
               <div>
-                <Menu.Button className="max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <Menu.Button className="max-w-xs bg-white flex items-center text-sm rounded-full">
                   <span className="sr-only">Open user menu</span>
                   <img
                     className="h-8 w-8 rounded-full"

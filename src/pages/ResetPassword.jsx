@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { Link, Navigate, useSearchParams } from 'react-router-dom'
 
-import * as Yup from 'yup'
 import { Form, Formik } from 'formik'
 import jwtDecode from 'jwt-decode'
+import * as Yup from 'yup'
 
-import FormHeader from '../components/FormHeader'
-import ErrorBox from '../components/ErrorBox'
-import SuccessBox from '../components/SuccessBox'
-import Input from '../components/Input'
 import Button from '../components/Button'
+import ErrorBox from '../components/ErrorBox'
+import FormHeader from '../components/FormHeader'
+import Input from '../components/Input'
+import SuccessBox from '../components/SuccessBox'
 
 import api from '../lib/api'
 

@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
 
-import Input from '../components/Input'
 import Button from '../components/Button'
 import ErrorBox from '../components/ErrorBox'
+import Input from '../components/Input'
 import SuccessBox from '../components/SuccessBox'
 import { useCurrentUserContext } from '../contexts/CurrentUserContext'
 
@@ -30,6 +30,7 @@ const Profile = () => {
 
   const handleUpdate = async (formValues) => {
     setError('')
+    setSuccessMessage('')
     setLoading(true)
 
     const { email, firstName, lastName } = formValues
@@ -53,9 +54,9 @@ const Profile = () => {
         const errorMessage = error.response.data || error.message
         setError(errorMessage)
       }
-    } finally {
-      setLoading(false)
     }
+
+    setLoading(false)
   }
 
   return (

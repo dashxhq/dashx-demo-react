@@ -1,8 +1,8 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 
-import Bookmarks from './pages/Bookmarks'
 import Billing from './pages/Billing'
+import Bookmarks from './pages/Bookmarks'
 import Contact from './pages/Contact'
 import ForgotPassword from './pages/ForgotPassword'
 import Home from './pages/Home'
@@ -13,9 +13,9 @@ import ResetPassword from './pages/ResetPassword'
 import Settings from './pages/Settings'
 import Store from './pages/Store'
 
-import DashboardLayout from './components/layouts/DashboardLayout'
 import RequireUser from './components/authentication/RequireUser'
 import RequireVisitor from './components/authentication/RequireVisitor'
+import DashboardLayout from './components/layouts/DashboardLayout'
 
 const App = () => {
   return (
