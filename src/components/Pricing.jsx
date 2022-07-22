@@ -1,14 +1,16 @@
 import React from 'react'
 
+const truncateAmount = (amount) => Math.trunc(amount)
+
 const Pricing = ({ originalAmount, amount }) => (
-  <div className="text-center text-md text-gray-900">
+  <div className="text-md font-medium text-gray-900">
     {originalAmount ? (
       <div className="space-x-2">
-        <del>${originalAmount}</del>
-        <span>${amount}</span>
+        <del>${truncateAmount(originalAmount)}</del>
+        <span>${truncateAmount(amount)}</span>
       </div>
     ): (
-      <span>${amount}</span>
+      <span>${truncateAmount(amount)}</span>
     )}
   </div>
 )
