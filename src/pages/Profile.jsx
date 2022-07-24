@@ -3,9 +3,10 @@ import React, { useState, useEffect } from 'react'
 import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
 
-import Input from '../components/Input'
 import Button from '../components/Button'
 import ErrorBox from '../components/ErrorBox'
+import ImageUpload from '../components/ImageUpload'
+import Input from '../components/Input'
 import SuccessBox from '../components/SuccessBox'
 import { useCurrentUserContext } from '../contexts/CurrentUserContext'
 
@@ -64,16 +65,18 @@ const Profile = () => {
         <h2 className="text-left sm:text-left text-2xl font-semibold text-gray-900">
           Edit Profile
         </h2>
-        <div className="sm:w-full sm:max-w-md">
+        <div className="sm:w-full sm:max-w-2xl">
           {error && <ErrorBox alertMessage={error} />}
           {successMessage && <SuccessBox successMessage={successMessage} />}
+
           <div className="py-8 pt-0 mb-0 mt-5">
             <Formik
               enableReinitialize={true}
               initialValues={{
                 firstName: first_name,
                 lastName: last_name,
-                email
+                email,
+                userImage: ''
               }}
               validationSchema={Yup.object({
                 firstName: Yup.string().required('First Name is required'),
@@ -81,16 +84,31 @@ const Profile = () => {
                 email: Yup.string().email('Invalid email address').required('Email is required')
               })}
               onSubmit={async (values, { setSubmitting, resetForm }) => {
-                await handleUpdate(values, resetForm)
-                setSubmitting(false)
+                // await handleUpdate(values, resetForm)
+                // setSubmitting(false)
+                console.log(values)
               }}
             >
-              <Form>
-                <Input label="First Name" type="text" name="firstName" />
-                <Input label="Last Name" type="text" name="lastName" />
-                <Input label="Email" type="email" name="email" />
-                <Button type="submit" label="Update" loading={loading} message="Updating" />
-              </Form>
+              {({ setFieldValue, values }) => (
+                <Form className="w-full flex sm:flex-row gap-6">
+                  <div className="w-2/3">
+                    <Input label="First Name" type="text" name="firstName" />
+                    <Input label="Last Name" type="text" name="lastName" />
+                    <Input label="Email" type="email" name="email" />
+                    <Button type="submit" label="Update" loading={loading} message="Updating" />
+                  </div>
+                  <div className="w-1/3">
+                    <ImageUpload
+                      classes="rounded-full w-52 h-52"
+                      label="Photo"
+                      name="userImage"
+                      file={values.userImage}
+                      setFieldValue={setFieldValue}
+                      change={true}
+                    />
+                  </div>
+                </Form>
+              )}
             </Formik>
           </div>
         </div>

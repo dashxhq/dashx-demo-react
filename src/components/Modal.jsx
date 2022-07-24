@@ -1,38 +1,15 @@
-import React, { useState, Fragment } from 'react'
+import React, { Fragment } from 'react'
 
 import { Dialog, Transition } from '@headlessui/react'
 
 import * as Yup from 'yup'
 import { Form, Formik } from 'formik'
 
-import TextArea from './TextArea'
 import Button from './Button'
-import Upload from './Upload'
+import ImageUpload from './ImageUpload'
+import TextArea from './TextArea'
 
 const Modal = ({ open, setOpen, handleSubmit, loading }) => {
-  const [image, setImage] = useState(null)
-  const [video, setVideo] = useState(null)
-
-  const handleChange = (event, setFieldValue) => {
-    const file = event.target.files[0]
-
-    if (file) {
-      const reader = new FileReader()
-      reader.onloadend = () => {
-        if (file.type.startsWith('image')) {
-          setImage(reader.result)
-          setFieldValue('image', reader.result)
-        } else {
-          setVideo(reader.result)
-          setFieldValue('video', reader.result)
-        }
-      }
-      reader.readAsDataURL(file)
-    } else {
-      setImage(null)
-      setVideo(null)
-    }
-  }
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -71,35 +48,22 @@ const Modal = ({ open, setOpen, handleSubmit, loading }) => {
                         video: ''
                       }}
                       validationSchema={Yup.object({
-                        text: Yup.string().required('Text is required'),
+                        text: Yup.string().required('Text is required')
                       })}
                       onSubmit={async (values) => {
-                        await handleSubmit(values)
+                        // await handleSubmit(values)
+                        console.log(values)
                       }}
                     >
-                      {({ setFieldValue, resetForm }) => (
+                      {({ setFieldValue, resetForm, values }) => (
                         <Form className="w-full sm:w-3/4 space-y-4">
                           <TextArea label="Text" name="text" rows={6} />
                           <div className="flex justify-start items-center gap-3 mt-1 sm:mt-0 sm:col-span-2">
                             <div className="w-1/2">
-                              <Upload
+                              <ImageUpload
                                 name="image"
                                 label="Image"
-                                accept="image/*"
-                                file={image}
-                                setFile={setImage}
-                                handleChange={(event) => handleChange(event, setFieldValue)}
-                                setFieldValue={setFieldValue}
-                              />
-                            </div>
-                            <div className="w-1/2">
-                              <Upload
-                                name="video"
-                                label="Video"
-                                accept="video/*"
-                                file={video}
-                                setFile={setVideo}
-                                handleChange={(event) => handleChange(event, setFieldValue)}
+                                file={values.image}
                                 setFieldValue={setFieldValue}
                               />
                             </div>
@@ -124,7 +88,6 @@ const Modal = ({ open, setOpen, handleSubmit, loading }) => {
                           </div>
                         </Form>
                       )}
-
                     </Formik>
                   </div>
                 </div>
