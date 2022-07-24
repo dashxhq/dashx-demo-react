@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 
+import EmptyView from '../components/EmptyView'
+import ErrorBox from '../components/ErrorBox'
 import Loader from '../components/Loader'
 import Post from '../components/Post'
-import ErrorBox from '../components/ErrorBox'
-import EmptyPage from '../components/EmptyPage'
 
 import api from '../lib/api'
 
@@ -42,7 +42,7 @@ const Bookmarks = () => {
       {error && <ErrorBox message={error} />}
       {fetchingBookmarks && <Loader />}
       {!bookmarksList.length && !fetchingBookmarks && !error && (
-        <EmptyPage message="No bookmarks" />
+        <EmptyView message="No bookmarks" />
       )}
       {bookmarksList.length > 0 && (
         <div className="grid grid-cols-1 gap-3 mt-5">

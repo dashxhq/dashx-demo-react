@@ -1,21 +1,23 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 
-import Bookmarks from './pages/Bookmarks'
 import Billing from './pages/Billing'
+import Bookmarks from './pages/Bookmarks'
+import Cart from './pages/Cart'
 import Contact from './pages/Contact'
 import ForgotPassword from './pages/ForgotPassword'
 import Home from './pages/Home'
 import Login from './pages/Login'
+import Product from './pages/Product'
 import Profile from './pages/Profile'
 import Register from './pages/Register'
 import ResetPassword from './pages/ResetPassword'
 import Settings from './pages/Settings'
 import Store from './pages/Store'
 
-import DashboardLayout from './components/layouts/DashboardLayout'
 import RequireUser from './components/authentication/RequireUser'
 import RequireVisitor from './components/authentication/RequireVisitor'
+import DashboardLayout from './components/layouts/DashboardLayout'
 
 const App = () => {
   return (
@@ -24,7 +26,10 @@ const App = () => {
         <Route element={<RequireUser />}>
           <Route element={<DashboardLayout />}>
             <Route index path="/" element={<Home />} />
-            <Route path="store" element={<Store />} />
+            <Route path="store" element={<Store />}>
+              <Route path="products/:id" element={<Product />} />
+              <Route path="cart" element={<Cart />} />
+            </Route>
             <Route path="bookmarks" element={<Bookmarks />} />
             <Route path="billing" element={<Billing />} />
             <Route path="update-profile" element={<Profile />} />

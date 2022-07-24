@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 
-import Modal from '../components/Modal'
 import Button from '../components/Button'
+import EmptyView from '../components/EmptyView'
 import ErrorBox from '../components/ErrorBox'
-import Post from '../components/Post'
 import Loader from '../components/Loader'
-import EmptyPage from '../components/EmptyPage'
+import Modal from '../components/Modal'
+import Post from '../components/Post'
 
 import api from '../lib/api'
 import dayjs from '../lib/dayjs'
@@ -74,7 +74,7 @@ const Home = () => {
       {error && <ErrorBox message={error} />}
       {fetchingPosts && <Loader />}
       {!postsList.length && !fetchingPosts && !error && (
-        <EmptyPage message="No posts" />
+        <EmptyView message="No posts" />
       )}
       {postsList.length > 0 && (
         <div className="grid grid-cols-1 gap-3 mt-5">

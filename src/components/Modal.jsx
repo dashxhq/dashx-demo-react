@@ -1,11 +1,11 @@
-import React, { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
+import React, { Fragment } from 'react'
 
-import * as Yup from 'yup'
 import { Form, Formik } from 'formik'
+import * as Yup from 'yup'
 
-import TextArea from './TextArea'
 import Button from './Button'
+import TextArea from './TextArea'
 
 const Modal = ({ open, setOpen, handleSubmit, loading }) => (
   <Transition.Root show={open} as={Fragment}>
