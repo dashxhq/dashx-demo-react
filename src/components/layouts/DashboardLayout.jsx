@@ -11,7 +11,6 @@ export default function DashboardLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [cartDetails, setCartDetails] = useState([])
   const [fetchingCartItems, setFetchingCartItems] = useState(false)
-  const [error, setError] = useState('')
   const location = useLocation()
 
   const fetchCartItems = async () => {
@@ -20,12 +19,10 @@ export default function DashboardLayout() {
       const data = await dashx.fetchCart()
       setCartDetails(data)
     } catch (error) {
-      setError('Error fetching cart items')
+      console.log(error)
     }
     setFetchingCartItems(false)
   }
-
-  const removeCartItem = async (id) => {}
 
   useEffect(() => {
     if (

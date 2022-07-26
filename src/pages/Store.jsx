@@ -14,7 +14,7 @@ const Store = () => {
   const [error, setError] = useState('')
   const navigate = useNavigate()
   const location = useLocation()
-  const { cartDetails = {} } = useOutletContext()
+  const { cartDetails = {}, fetchingCartItems } = useOutletContext()
 
   const fetchProducts = async () => {
     setFetchingProducts(true)
@@ -40,7 +40,7 @@ const Store = () => {
   return (
     <>
       {location.pathname.includes('/store/products/') || location.pathname.includes('/store/cart') ? (
-        <Outlet context={cartDetails} />
+        <Outlet context={{ cartDetails, fetchingCartItems }} />
       ) : (
         <>
           <h1 className="text-2xl font-semibold text-gray-900 mb-4">Store</h1>
@@ -49,6 +49,7 @@ const Store = () => {
           {!productsList.length && !fetchingProducts && !error && (
             <EmptyView message="No products" />
           )}
+
           {productsList.length > 0 && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 sm:grid-cols-2 gap-4">
               {productsList.map((product) => (

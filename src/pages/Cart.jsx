@@ -1,11 +1,10 @@
-import { useState } from 'react'
+import React from 'react'
 import { useOutletContext } from 'react-router-dom'
 
 import { XIcon as XIconSolid } from '@heroicons/react/solid'
 
 import Button from '../components/Button'
 import EmptyView from '../components/EmptyView'
-import ErrorBox from '../components/ErrorBox'
 import Loader from '../components/Loader'
 import Pricing from '../components/Pricing'
 
@@ -14,17 +13,19 @@ import formatCurrency from '../lib/formatCurrency'
 import { productImages } from '../constants/productImages'
 
 const Cart = () => {
-  const [fetchingCartItems, setFetchingCartItems] = useState(false)
-  const [error, setError] = useState('')
-  const { orderItems: cartItems = [], subtotal, total, tax, currencyCode } = useOutletContext()
+  const { cartDetails, fetchingCartItems } = useOutletContext()
+  const {
+    orderItems: cartItems = [],
+    subtotal,
+    total,
+    tax,
+    currencyCode,
+  } = cartDetails
 
   return (
     <div>
-      {error && <ErrorBox message={error} />}
-      {!cartItems.length && <Loader />}
-      {!cartItems.length && !fetchingCartItems && !error && (
-        <EmptyView message="No products in cart" />
-      )}
+      {fetchingCartItems && <Loader />}
+      {!cartItems.length && !fetchingCartItems && <EmptyView message="No products in cart" />}
 
       {cartItems.length > 0 && (
         <div className="max-w-7xl m-auto">
@@ -48,15 +49,13 @@ const Cart = () => {
                       <div className="ml-4 flex-1 flex flex-col sm:ml-6">
                         <div className="relative sm:flex">
                           <div>
-                            <h2 className="font-medium text-gray-700 hover:text-gray-800 cursor-pointer">
+                            <h2 className="font-medium text-black cursor-pointer">
                               {item.name}
                             </h2>
-                            <p className="mt-1 text-sm font-medium text-gray-900">
                               <Pricing
                                 amount={item.pricings[0].amount}
                                 currency={item.pricings[0].currencyCode}
                               />
-                            </p>
                           </div>
                           <div className="absolute top-0 right-0">
                             <button
@@ -86,13 +85,13 @@ const Cart = () => {
 
                   <dl className="mt-6 space-y-4">
                     <div className="flex items-center justify-between">
-                      <dt className="text-sm text-gray-600">Subtotal</dt>
+                      <dt className="text-sm font-medium text-gray-700">Subtotal</dt>
                       <dd className="text-sm font-medium text-gray-900">
                         {formatCurrency(subtotal, currencyCode)}
                       </dd>
                     </div>
                     <div className="border-t border-gray-200 pt-4 flex items-center justify-between">
-                      <dt className="flex text-sm text-gray-600">
+                      <dt className="flex text-sm font-medium text-gray-700">
                         <span>Tax estimate</span>
                       </dt>
                       <dd className="text-sm font-medium text-gray-900">
@@ -101,16 +100,16 @@ const Cart = () => {
                     </div>
                     <div className="border-t border-gray-200 pt-4 flex items-center justify-between">
                       <dt className="text-base font-medium text-gray-900">Order total</dt>
-                      <dd className="text-base font-medium text-gray-900">
+                      <dd className="text-base text-lg font-medium text-gray-900">
                         {formatCurrency(total, currencyCode)}
                       </dd>
                     </div>
                   </dl>
 
-                  <div className="mt-6">
+                  <div className="mt-12">
                     <Button
                       type="button"
-                      classes="mt-12 w-full h-13 rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700"
+                      classes="w-full h-13 rounded-md py-3 px-8 flex items-center justify-center font-medium text-white hover:bg-indigo-700"
                     >
                       Checkout
                     </Button>

@@ -19,7 +19,7 @@ const CartPopover = ({ cartItems }) => {
         {({ open, close }) => (
           <>
             <Popover.Button ref={buttonRef}>
-              <ShoppingCartIcon className="max-w-xs text-gray-600 w-6 h-6 focus:none" />
+              <ShoppingCartIcon className="max-w-xs text-gray-600 w-6 h-6 focus:outline-none" />
             </Popover.Button>
             <Transition
               show={open}
@@ -51,22 +51,26 @@ const CartPopover = ({ cartItems }) => {
                       <ul role="list" className="divide-y divide-gray-200">
                         {cartItems.slice(0, 5).map(({ item }) => (
                           <li key={item.id} className="hover:bg-gray-50 h-20 p-2 cursor-pointer">
-                            <div className="flex justify-between items-center">
-                              <div className="w-16 h-16">
-                                <img
-                                  src={productImages[item.identifier]}
-                                  className="w-full h-full"
-                                  alt={item.name}
-                                />
+                            <Link to="/store/cart" onClick={close}>
+                              <div className="flex justify-between items-center">
+                                <div className="w-16 h-16">
+                                  <img
+                                    src={productImages[item.identifier]}
+                                    className="w-full h-full"
+                                    alt={item.name}
+                                  />
+                                </div>
+                                <div className="min-w-0 flex flex-col items-end text-sm">
+                                  <p className="font-medium text-black truncate text">
+                                    {item.name}
+                                  </p>
+                                  <Pricing
+                                    amount={item.pricings[0].amount}
+                                    currency={item.pricings[0].currencyCode}
+                                  />
+                                </div>
                               </div>
-                              <div className="min-w-0 flex flex-col items-end text-sm">
-                                <p className="font-medium text-gray-900 truncate">{item.name}</p>
-                                <Pricing
-                                  amount={item.pricings[0].amount}
-                                  currency={item.pricings[0].currencyCode}
-                                />
-                              </div>
-                            </div>
+                            </Link>
                           </li>
                         ))}
                       </ul>

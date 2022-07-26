@@ -12,7 +12,7 @@ const NotificationsPopover = ({ notifications }) => {
       {({ open }) => (
         <>
           <Popover.Button ref={buttonRef}>
-            <BellIcon className="max-w-xs text-gray-600 w-6 h-6 focus:none" />
+            <BellIcon className="max-w-xs text-gray-600 w-6 h-6 focus:outline-none" />
           </Popover.Button>
           <Transition
             show={open}
