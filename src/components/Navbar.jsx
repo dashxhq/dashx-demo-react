@@ -15,7 +15,7 @@ const userNavigation = [
   { name: 'Settings', href: '/settings' }
 ]
 
-const Navbar = ({ setSidebarOpen }) => {
+const Navbar = ({ setSidebarOpen, cartItems }) => {
   const navigate = useNavigate()
   const { logout } = useCurrentUserContext()
 
@@ -51,7 +51,7 @@ const Navbar = ({ setSidebarOpen }) => {
             </form>
           </div>
           <div className="ml-4 flex items-center justify-center md:ml-6 gap-5">
-            <CartPopover />
+            <CartPopover cartItems={cartItems} />
             <NotificationsPopover />
             <Menu as="div" className="relative">
               <div>

@@ -4,7 +4,7 @@ import { Popover, Transition } from '@headlessui/react'
 import { BellIcon } from '@heroicons/react/outline'
 import classNames from 'classnames'
 
-const NotificationsPopover = () => {
+const NotificationsPopover = ({ notifications }) => {
   const buttonRef = useRef(null)
 
   return (

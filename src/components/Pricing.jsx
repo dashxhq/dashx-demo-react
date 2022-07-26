@@ -1,18 +1,23 @@
 import React from 'react'
 
-const truncateAmount = (amount) => Math.trunc(amount)
+import formatCurrency from '../lib/formatCurrency'
 
-const Pricing = ({ originalAmount, amount }) => (
-  <div className="text-md font-medium text-gray-900">
+const Pricing = ({ originalAmount, amount, currency }) => {
+  const originalAmountFormatted = formatCurrency(originalAmount, currency)
+  const amountFormatted = formatCurrency(amount, currency)
+
+  return (
+    <div className="text-md font-medium text-gray-900">
     {originalAmount ? (
       <div className="space-x-2">
-        <del>${truncateAmount(originalAmount)}</del>
-        <span>${truncateAmount(amount)}</span>
+        <del>{originalAmountFormatted}</del>
+        <span>{amountFormatted}</span>
       </div>
-    ): (
-      <span>${truncateAmount(amount)}</span>
-    )}
+    ) : (
+       <span>{amountFormatted}</span>
+     )}
   </div>
-)
+  )
+}
 
 export default Pricing

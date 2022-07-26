@@ -5,8 +5,9 @@ import Pricing from '../components/Pricing'
 import { productImages } from '../constants/productImages'
 
 const ProductItem = ({ product, onClickProduct }) => {
-  const originalAmount = product.pricings[0].originalAmount || null
+  const originalAmount = product.pricings[0].originalAmount
   const amount = product.pricings[0].amount
+  const currency = product.pricings[0].currencyCode
 
   return (
     <div className="group relative text-center cursor-pointer" onClick={onClickProduct}>
@@ -19,7 +20,7 @@ const ProductItem = ({ product, onClickProduct }) => {
       </div>
       <div className="mt-6">
         <h3 className="mt-1 mb-2 font-semibold text-gray-900">{product.name}</h3>
-        <Pricing originalAmount={originalAmount} amount={amount} />
+        <Pricing originalAmount={originalAmount} amount={amount} currency={currency} />
       </div>
     </div>
   )

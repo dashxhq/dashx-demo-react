@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Outlet, useNavigate, useLocation } from 'react-router-dom'
+import { Outlet, useNavigate, useLocation, useOutletContext } from 'react-router-dom'
 
 import EmptyView from '../components/EmptyView'
 import ErrorBox from '../components/ErrorBox'
@@ -14,6 +14,7 @@ const Store = () => {
   const [error, setError] = useState('')
   const navigate = useNavigate()
   const location = useLocation()
+  const { cartDetails = {} } = useOutletContext()
 
   const fetchProducts = async () => {
     setFetchingProducts(true)
@@ -39,7 +40,7 @@ const Store = () => {
   return (
     <>
       {location.pathname.includes('/store/products/') || location.pathname.includes('/store/cart') ? (
-        <Outlet />
+        <Outlet context={cartDetails} />
       ) : (
         <>
           <h1 className="text-2xl font-semibold text-gray-900 mb-4">Store</h1>
