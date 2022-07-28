@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Outlet, useNavigate, useLocation, useOutletContext } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate, useOutletContext } from 'react-router-dom'
 
 import EmptyView from '../components/EmptyView'
 import ErrorBox from '../components/ErrorBox'

@@ -74,7 +74,10 @@ const Product = () => {
               <div>
                 <div className="flex justify-between">
                   <h1 className="text-xl font-medium text-gray-900">{product.name}</h1>
-                  <Pricing amount={product.pricings[0].amount} />
+                  <Pricing
+                    amount={product.pricings[0].amount}
+                    currency={product.pricings[0].currencyCode}
+                  />
                 </div>
                 <Button
                   type="submit"
