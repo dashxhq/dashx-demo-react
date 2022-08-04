@@ -17,10 +17,12 @@ export default function DashboardLayout() {
 
   const fetchCartItems = async () => {
     setFetchingCartItems(true)
-
-    const data = await dashx.fetchCart()
-    setCartDetails(data)
-
+    try {
+      const data = await dashx.fetchCart()
+      setCartDetails(data)
+    } catch (error) {
+      console.error(error)
+    }
     setFetchingCartItems(false)
   }
 

@@ -33,7 +33,7 @@ const CartPopover = ({ cartItems }) => {
             >
               <Popover.Panel
                 static
-                className="absolute right-2 top-8 z-10 w-[420px] h-[440px] mx-auto"
+                className="absolute right-[-30px] w-72 sm:right-2 top-8 z-10 sm:w-[420px] sm:h-[440px] mx-auto"
               >
                 <div
                   className={classNames(

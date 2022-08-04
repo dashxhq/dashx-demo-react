@@ -24,7 +24,10 @@ const NotificationsPopover = ({ notifications }) => {
             leaveFrom="opacity-100 translate-y-0"
             leaveTo="opacity-0 translate-y-1"
           >
-            <Popover.Panel static className="absolute right-2 top-8 z-10 w-96 h-96 mx-auto">
+            <Popover.Panel
+              static
+              className="absolute right-0 w-72 sm:right-2 top-8 z-10 sm:w-[420px] sm:h-[440px] mx-auto"
+            >
               <div
                 className={classNames(
                   'relative h-full bg-white',
