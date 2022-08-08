@@ -15,8 +15,8 @@ const Bookmarks = () => {
   const fetchBookmarks = async () => {
     setFetchingBookmarks(true)
     try {
-      const { data: { bookmarks } = {} } = await api.get('/posts/bookmarked')
-      setBookmarksList(bookmarks)
+      const { data: { posts } = {} } = await api.get('/posts/bookmarked')
+      setBookmarksList(posts)
     } catch (error) {
       setError('Unable to fetch bookmarks.')
     }
