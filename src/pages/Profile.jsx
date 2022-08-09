@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
 import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
@@ -20,15 +20,6 @@ const Profile = () => {
   const { user, setUser } = useCurrentUserContext()
   const { avatar, first_name, last_name, email } = user || {}
 
-  useEffect(() => {
-    const getProfile = async () => {
-      const { data: { user } = {} } = await api.get('/profile')
-      setUser(user)
-    }
-
-    getProfile()
-  }, [])
-
   const handleUpdate = async (formValues) => {
     setError('')
     setLoading(true)
@@ -39,15 +30,12 @@ const Profile = () => {
       last_name: lastName,
       email,
       avatar: {
-        url: avatar
+        url: avatar.url
       }
     }
 
     try {
-      const { data: { message, user } = {} } = await api.patch(
-        '/update-profile',
-        requestBody
-      )
+      const { data: { message, user } = {} } = await api.patch('/update-profile', requestBody)
       setUser(user)
       setSuccessMessage(message)
     } catch (error) {
@@ -57,9 +45,9 @@ const Profile = () => {
         const errorMessage = error.response.data || error.message
         setError(errorMessage)
       }
-    } finally {
-      setLoading(false)
     }
+
+    setLoading(false)
   }
 
   return (
@@ -79,7 +67,7 @@ const Profile = () => {
                 lastName: last_name,
                 email,
                 avatar: {
-                  url: avatar?.url || ''
+                  url: avatar.url
                 }
               }}
               validationSchema={Yup.object({
@@ -88,18 +76,23 @@ const Profile = () => {
                 email: Yup.string().email('Invalid email address').required('Email is required')
               })}
               onSubmit={async (values, { setSubmitting, resetForm }) => {
-                // await handleUpdate(values, resetForm)
-                // setSubmitting(false)
-                console.log(values)
+                await handleUpdate(values, resetForm)
+                setSubmitting(false)
               }}
             >
-              {({ setFieldValue, values }) => (
+              {({ setFieldValue, values, isSubmitting, setSubmitting }) => (
                 <Form className="w-full flex sm:flex-row gap-6">
                   <div className="w-2/3">
                     <Input label="First Name" type="text" name="firstName" />
                     <Input label="Last Name" type="text" name="lastName" />
                     <Input label="Email" type="email" name="email" />
-                    <Button type="submit" label="Update" loading={loading} message="Updating" />
+                    <Button
+                      type="submit"
+                      label="Update"
+                      loading={loading}
+                      disabled={isSubmitting}
+                      message="Updating"
+                    />
                   </div>
                   <div className="w-1/3">
                     <UploadAvatar
@@ -107,6 +100,8 @@ const Profile = () => {
                       label="Photo"
                       file={values.avatar.url}
                       setFieldValue={setFieldValue}
+                      setSubmitting={setSubmitting}
+                      isSubmitting={isSubmitting}
                     />
                   </div>
                 </Form>

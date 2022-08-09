@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 
 import classNames from 'classnames'
@@ -16,7 +16,11 @@ const userNavigation = [
 
 const Navbar = ({ setSidebarOpen }) => {
   const navigate = useNavigate()
-  const { logout } = useCurrentUserContext()
+  const { logout, user, getProfile } = useCurrentUserContext()
+
+  useEffect(() => {
+    getProfile()
+  }, [])
 
   return (
     <div className="md:pl-64 flex flex-col">
@@ -62,7 +66,7 @@ const Navbar = ({ setSidebarOpen }) => {
               <div>
                 <Menu.Button className="max-w-xs bg-white flex items-center text-sm rounded-full">
                   <span className="sr-only">Open user menu</span>
-                  <Avatar />
+                  <Avatar user={user} />
                 </Menu.Button>
               </div>
               <Transition

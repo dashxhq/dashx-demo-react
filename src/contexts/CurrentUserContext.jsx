@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState } from 'react'
 import jwtDecode from 'jwt-decode'
 
+import api from '../lib/api'
 import dashx from '../lib/dashx'
 
 const jwtToken = localStorage.getItem('jwt-token')
@@ -26,8 +27,13 @@ const CurrentUserProvider = ({ children }) => {
     setUser(null)
   }
 
+  const getProfile = async () => {
+    const { data: { user } = {} } = await api.get('/profile')
+    setUser(user)
+  }
+
   return (
-    <CurrentUserContext.Provider value={{ user, setUser, login, logout }}>
+    <CurrentUserContext.Provider value={{ user, setUser, login, logout, getProfile }}>
       {children}
     </CurrentUserContext.Provider>
   )
