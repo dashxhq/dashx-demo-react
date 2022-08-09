@@ -91,9 +91,9 @@ const UploadAvatar = ({ label, name, file = '', setFieldValue, setSubmitting, is
                 <button
                   type="button"
                   onClick={() => fileInputRef.current.click()}
-                  className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500"
+                  className="relative cursor-pointer rounded-md font-medium text-indigo-600 hover:text-indigo-500"
                 >
-                  <span>{label}</span>
+                  <span>Upload</span>
                 </button>
               </div>
             )}

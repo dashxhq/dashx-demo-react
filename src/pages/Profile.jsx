@@ -97,7 +97,7 @@ const Profile = () => {
                   <div className="w-1/3">
                     <UploadAvatar
                       name="avatar.url"
-                      label="Photo"
+                      label="Avatar"
                       file={values.avatar.url}
                       setFieldValue={setFieldValue}
                       setSubmitting={setSubmitting}

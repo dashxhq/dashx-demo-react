@@ -9,6 +9,8 @@ import { Menu, Transition } from '@headlessui/react'
 import Avatar from './Avatar'
 import { useCurrentUserContext } from '../contexts/CurrentUserContext'
 
+import api from '../lib/api'
+
 const userNavigation = [
   { name: 'Profile', href: '/update-profile' },
   { name: 'Settings', href: '/settings' }
@@ -16,9 +18,14 @@ const userNavigation = [
 
 const Navbar = ({ setSidebarOpen }) => {
   const navigate = useNavigate()
-  const { logout, user, getProfile } = useCurrentUserContext()
+  const { logout, user, setUser } = useCurrentUserContext()
 
   useEffect(() => {
+    const getProfile = async () => {
+      const { data: { user } = {} } = await api.get('/profile')
+      setUser(user)
+    }
+
     getProfile()
   }, [])
 
