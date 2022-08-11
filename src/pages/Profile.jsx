@@ -81,8 +81,8 @@ const Profile = () => {
               }}
             >
               {({ setFieldValue, values, isSubmitting, setSubmitting }) => (
-                <Form className="w-full flex sm:flex-row gap-6">
-                  <div className="w-2/3">
+                <Form className="w-full flex flex-col sm:flex-row gap-6">
+                  <div className="w-full sm:w-2/3">
                     <Input label="First Name" type="text" name="firstName" />
                     <Input label="Last Name" type="text" name="lastName" />
                     <Input label="Email" type="email" name="email" />
@@ -94,7 +94,7 @@ const Profile = () => {
                       message="Updating"
                     />
                   </div>
-                  <div className="w-1/3">
+                  <div className="w-full sm:w-1/3">
                     <UploadAvatar
                       name="avatar.url"
                       label="Avatar"
