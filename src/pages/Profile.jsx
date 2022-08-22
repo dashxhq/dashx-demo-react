@@ -67,7 +67,7 @@ const Profile = () => {
                 lastName: last_name,
                 email,
                 avatar: {
-                  url: avatar.url
+                  url: avatar?.url
                 }
               }}
               validationSchema={Yup.object({
