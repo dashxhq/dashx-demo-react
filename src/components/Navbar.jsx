@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 
 import classNames from 'classnames'
@@ -6,7 +6,10 @@ import { SearchIcon } from '@heroicons/react/solid'
 import { BellIcon, MenuAlt2Icon } from '@heroicons/react/outline'
 import { Menu, Transition } from '@headlessui/react'
 
+import Avatar from './Avatar'
 import { useCurrentUserContext } from '../contexts/CurrentUserContext'
+
+import api from '../lib/api'
 
 const userNavigation = [
   { name: 'Profile', href: '/update-profile' },
@@ -15,7 +18,16 @@ const userNavigation = [
 
 const Navbar = ({ setSidebarOpen }) => {
   const navigate = useNavigate()
-  const { logout } = useCurrentUserContext()
+  const { logout, user, setUser } = useCurrentUserContext()
+
+  useEffect(() => {
+    const getProfile = async () => {
+      const { data: { user } = {} } = await api.get('/profile')
+      setUser(user)
+    }
+
+    getProfile()
+  }, [])
 
   return (
     <div className="md:pl-64 flex flex-col">
@@ -59,13 +71,9 @@ const Navbar = ({ setSidebarOpen }) => {
 
             <Menu as="div" className="ml-3 relative">
               <div>
-                <Menu.Button className="max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <Menu.Button className="max-w-xs bg-white flex items-center text-sm rounded-full">
                   <span className="sr-only">Open user menu</span>
-                  <img
-                    className="h-8 w-8 rounded-full"
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    alt=""
-                  />
+                  <Avatar user={user} />
                 </Menu.Button>
               </div>
               <Transition
