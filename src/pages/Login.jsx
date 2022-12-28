@@ -11,6 +11,7 @@ import Input from '../components/Input'
 import { useCurrentUserContext } from '../contexts/CurrentUserContext'
 
 import api from '../lib/api'
+import dashx from '../lib/dashx'
 
 const Login = () => {
   const [error, setError] = useState('')
@@ -32,11 +33,13 @@ const Login = () => {
       const { data: { token } = {}, status } = await api.post('/login', requestBody)
       if (status === 200 && token) {
         login(token)
+        dashx.track('Login Succeeded', { email })
         navigate(redirectPath, { replace: true })
         resetForm()
       }
     } catch (error) {
       const errorMessage = error.response?.data?.message || error?.message
+      dashx.track('Login Failed', { email })
       setError(errorMessage)
     } finally {
       setLoading(false)

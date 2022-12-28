@@ -12,6 +12,7 @@ import TextArea from '../components/TextArea'
 import SuccessBox from '../components/SuccessBox'
 
 import api from '../lib/api'
+import dashx from '../lib/dashx'
 
 const Contact = () => {
   const [loading, setLoading] = useState(false)
@@ -22,6 +23,7 @@ const Contact = () => {
     setSuccessMessage('')
     setError('')
     setLoading(true)
+    dashx.identify({ name: formValues.name, email: formValues.email })
 
     try {
       const { data: { message } = {}, status } = await api.post('/contact', formValues)
@@ -42,7 +44,7 @@ const Contact = () => {
       <FormHeader>Contact Us</FormHeader>
       {error && <ErrorBox message={error} />}
       <div className="sm:mx-auto sm:w-full sm:max-w-md rounded bg-white shadow shadow-md pt-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-md pb-8">
+        <div className="sm:mx-auto sm:w-full sm:max-w-md pb-8 p-2">
           {successMessage && <SuccessBox message={successMessage} />}
           {!successMessage && (
             <div className="py-8 pt-1 px-4 sm:px-10">
