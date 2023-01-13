@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
-
 import { Form, Formik } from 'formik'
+import React, { useState } from 'react'
 import * as Yup from 'yup'
 
 import Button from '../components/Button'
@@ -67,7 +66,7 @@ const Profile = () => {
                 lastName: last_name,
                 email,
                 avatar: {
-                  url: avatar.url
+                  url: avatar?.url
                 }
               }}
               validationSchema={Yup.object({
