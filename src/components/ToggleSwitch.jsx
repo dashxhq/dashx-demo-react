@@ -1,7 +1,7 @@
 import React from 'react'
 
-import classNames from 'classnames'
 import { Switch } from '@headlessui/react'
+import classNames from 'classnames'
 
 const ToggleSwitch = (props) => {
   const { field, form } = props

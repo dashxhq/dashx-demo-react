@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 
-import { Field, Form, Formik } from 'formik'
 import { Switch } from '@headlessui/react'
+import { Field, Form, Formik } from 'formik'
 
 import Button from '../components/Button'
-import Loader from '../components/Loader'
 import ErrorBox from '../components/ErrorBox'
+import Loader from '../components/Loader'
 import SuccessBox from '../components/SuccessBox'
 import ToggleSwitch from '../components/ToggleSwitch'
 

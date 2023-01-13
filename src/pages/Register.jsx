@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
+import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
-import { Formik, Form } from 'formik'
 
 import Button from '../components/Button'
-import Input from '../components/Input'
 import ErrorBox from '../components/ErrorBox'
 import FormHeader from '../components/FormHeader'
+import Input from '../components/Input'
 
 import api from '../lib/api'
 
