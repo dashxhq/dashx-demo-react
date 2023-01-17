@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useState } from 'react'
 import jwtDecode from 'jwt-decode'
+import React, { createContext, useContext, useState } from 'react'
 
 import dashx from '../lib/dashx'
 
@@ -11,12 +11,11 @@ const CurrentUserContext = createContext(null)
 const CurrentUserProvider = ({ children }) => {
   const [user, setUser] = useState(decodedUser)
 
-  const login = (jwtToken) => {
-    localStorage.setItem('jwt-token', jwtToken)
-    const decodedToken = jwtDecode(jwtToken)
-    const dashxToken = decodedToken.dashx_token
+  const login = (authToken, dashXToken) => {
+    localStorage.setItem('jwt-token', authToken)
+    const decodedToken = jwtDecode(authToken)
     const decodedUser = decodedToken.user
-    dashx.setIdentity(decodedUser.id, dashxToken)
+    dashx.setIdentity(decodedUser.id, dashXToken)
     setUser(decodedUser)
   }
 
