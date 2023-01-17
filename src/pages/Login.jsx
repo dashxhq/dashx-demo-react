@@ -3,8 +3,8 @@ import React, { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 import * as Yup from 'yup'
-import Button from '../components/Button'
 
+import Button from '../components/Button'
 import ErrorBox from '../components/ErrorBox'
 import FormHeader from '../components/FormHeader'
 import Input from '../components/Input'
