@@ -1,11 +1,11 @@
+import { Form, Formik } from 'formik'
 import React, { useState } from 'react'
-import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 import * as Yup from 'yup'
-import { Form, Formik } from 'formik'
 
-import ErrorBox from '../components/ErrorBox'
 import Button from '../components/Button'
+import ErrorBox from '../components/ErrorBox'
 import FormHeader from '../components/FormHeader'
 import Input from '../components/Input'
 import { useCurrentUserContext } from '../contexts/CurrentUserContext'
@@ -30,9 +30,12 @@ const Login = () => {
     const requestBody = { email, password }
 
     try {
-      const { data: { token } = {}, status } = await api.post('/login', requestBody)
-      if (status === 200 && token) {
-        login(token)
+      const { data: { token: authToken, dashx_token } = {}, status } = await api.post(
+        '/login',
+        requestBody
+      )
+      if (status === 200 && authToken) {
+        login(authToken, dashx_token)
         dashx.track('Login Succeeded', { email })
         navigate(redirectPath, { replace: true })
         resetForm()
