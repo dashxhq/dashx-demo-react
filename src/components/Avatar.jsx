@@ -6,7 +6,7 @@ const Avatar = ({ user }) => {
   const initials = `${first_name.charAt(0)}${last_name.charAt(0)}`
   const emailInitials = `${email.charAt(0)}`
   const avatarUrl =
-    avatar.url || `https://ui-avatars.com/api/?name=${initials || emailInitials}&size=96`
+    avatar?.url || `https://ui-avatars.com/api/?name=${initials || emailInitials}&size=96`
 
   return (
     <div className="flex items-center justify-center">
