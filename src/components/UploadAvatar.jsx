@@ -28,7 +28,7 @@ const UploadAvatar = ({ label, name }) => {
       })
       setValue(url)
     } catch (error) {
-      setValue(null)
+      console.error(error)
     }
 
     setSubmitting(false)
