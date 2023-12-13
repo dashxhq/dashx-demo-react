@@ -1,15 +1,14 @@
-import { Form, Formik } from 'formik'
 import React, { useState } from 'react'
+import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
 
+import api from '../lib/api'
+import AvatarInput from '../components/AvatarInput'
 import Button from '../components/Button'
 import ErrorBox from '../components/ErrorBox'
 import Input from '../components/Input'
 import SuccessBox from '../components/SuccessBox'
-import UploadAvatar from '../components/UploadAvatar'
 import { useCurrentUserContext } from '../contexts/CurrentUserContext'
-
-import api from '../lib/api'
 
 const Profile = () => {
   const [error, setError] = useState('')
@@ -79,7 +78,7 @@ const Profile = () => {
                 setSubmitting(false)
               }}
             >
-              {({ setFieldValue, values, isSubmitting, setSubmitting }) => (
+              {({ setFieldValue, values, isSubmitting }) => (
                 <Form className="w-full flex flex-col sm:flex-row gap-6">
                   <div className="w-full sm:w-2/3">
                     <Input label="First Name" type="text" name="firstName" />
@@ -94,14 +93,7 @@ const Profile = () => {
                     />
                   </div>
                   <div className="w-full sm:w-1/3">
-                    <UploadAvatar
-                      name="avatar.url"
-                      label="Avatar"
-                      file={values.avatar.url}
-                      setFieldValue={setFieldValue}
-                      setSubmitting={setSubmitting}
-                      isSubmitting={isSubmitting}
-                    />
+                    <AvatarInput name="avatar.url" label="Avatar" />
                   </div>
                 </Form>
               )}
