@@ -6,7 +6,7 @@ import Button from '../components/Button'
 import ErrorBox from '../components/ErrorBox'
 import Input from '../components/Input'
 import SuccessBox from '../components/SuccessBox'
-import AvatarInput from '../components/UploadAvatar'
+import AvatarInput from '../components/AvatarInput'
 import { useCurrentUserContext } from '../contexts/CurrentUserContext'
 
 import api from '../lib/api'
