@@ -6,7 +6,7 @@ import Button from '../components/Button'
 import ErrorBox from '../components/ErrorBox'
 import Input from '../components/Input'
 import SuccessBox from '../components/SuccessBox'
-import UploadAvatar from '../components/UploadAvatar'
+import AvatarInput from '../components/UploadAvatar'
 import { useCurrentUserContext } from '../contexts/CurrentUserContext'
 
 import api from '../lib/api'
@@ -94,7 +94,7 @@ const Profile = () => {
                     />
                   </div>
                   <div className="w-full sm:w-1/3">
-                    <UploadAvatar name="avatar.url" label="Avatar" />
+                    <AvatarInput name="avatar.url" label="Avatar" />
                   </div>
                 </Form>
               )}

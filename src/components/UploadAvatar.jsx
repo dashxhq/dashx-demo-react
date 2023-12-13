@@ -6,7 +6,7 @@ import Loader from './Loader'
 
 import dashx from '../lib/dashx'
 
-const UploadAvatar = ({ label, name }) => {
+const AvatarInput = ({ label, name }) => {
   const { setSubmitting, isSubmitting } = useFormikContext()
   const [field, meta, helpers] = useField(name)
   const { setValue } = helpers
@@ -112,4 +112,4 @@ const UploadAvatar = ({ label, name }) => {
   )
 }
 
-export default UploadAvatar
+export default AvatarInput
