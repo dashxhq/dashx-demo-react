@@ -79,7 +79,7 @@ const Profile = () => {
                 setSubmitting(false)
               }}
             >
-              {({ setFieldValue, values, isSubmitting, setSubmitting }) => (
+              {({ setFieldValue, values, isSubmitting }) => (
                 <Form className="w-full flex flex-col sm:flex-row gap-6">
                   <div className="w-full sm:w-2/3">
                     <Input label="First Name" type="text" name="firstName" />
@@ -94,14 +94,7 @@ const Profile = () => {
                     />
                   </div>
                   <div className="w-full sm:w-1/3">
-                    <UploadAvatar
-                      name="avatar.url"
-                      label="Avatar"
-                      file={values.avatar.url}
-                      setFieldValue={setFieldValue}
-                      setSubmitting={setSubmitting}
-                      isSubmitting={isSubmitting}
-                    />
+                    <UploadAvatar name="avatar.url" label="Avatar" />
                   </div>
                 </Form>
               )}

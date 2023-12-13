@@ -1,25 +1,34 @@
 import React, { useRef } from 'react'
-
+import { useField, useFormikContext } from 'formik'
 import { UploadIcon } from '@heroicons/react/outline'
 
 import Loader from './Loader'
 
 import dashx from '../lib/dashx'
 
-const UploadAvatar = ({ label, name, file = '', setFieldValue, setSubmitting, isSubmitting }) => {
+const UploadAvatar = ({ label, name }) => {
+  const { setSubmitting, isSubmitting } = useFormikContext()
+  const [field, meta, helpers] = useField(name)
+  const { setValue } = helpers
+
   const fileInputRef = useRef(null)
 
   const handleChange = async (event) => {
+    const file = event.target.files[0]
+
+    if (!file) return null
+
     setSubmitting(true)
 
-    const file = event.target.files[0]
-    if (file) {
-      const { url = '' } = await dashx.upload({
+    try {
+      const { url } = await dashx.upload({
         file,
         resource: 'user',
         attribute: 'avatar'
       })
-      setFieldValue(name, url)
+      setValue(url)
+    } catch (error) {
+      setValue(null)
     }
 
     setSubmitting(false)
@@ -42,11 +51,11 @@ const UploadAvatar = ({ label, name, file = '', setFieldValue, setSubmitting, is
         onChange={handleChange}
         disabled={isSubmitting}
       />
-      {file ? (
+      {field.value ? (
         <div className="relative w-44 h-44 lg:block">
           <img
             name={name}
-            src={file}
+            src={field.value}
             className={`
                rounded-full w-full h-full m-auto border border-gray-300 object-cover cursor-pointer
                ${isSubmitting ? 'opacity-50' : ''}
@@ -70,7 +79,7 @@ const UploadAvatar = ({ label, name, file = '', setFieldValue, setSubmitting, is
           <button
             type="button"
             onClick={() => {
-              setFieldValue(name, null)
+              setValue(null)
             }}
             className="absolute top-50 bg-gray-100 px-3 mt-3 py-2 border border-transparent rounded-md text-sm font-medium text-black focus:outline-none ml-12"
           >
