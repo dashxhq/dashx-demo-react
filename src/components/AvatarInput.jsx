@@ -1,10 +1,9 @@
 import React, { useRef } from 'react'
-import { useField, useFormikContext } from 'formik'
 import { UploadIcon } from '@heroicons/react/outline'
-
-import Loader from './Loader'
+import { useField, useFormikContext } from 'formik'
 
 import dashx from '../lib/dashx'
+import Loader from './Loader'
 
 const AvatarInput = ({ label, name }) => {
   const { setSubmitting, isSubmitting } = useFormikContext()

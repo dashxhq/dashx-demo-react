@@ -1,15 +1,14 @@
-import { Form, Formik } from 'formik'
 import React, { useState } from 'react'
+import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
 
+import api from '../lib/api'
 import Button from '../components/Button'
 import ErrorBox from '../components/ErrorBox'
 import Input from '../components/Input'
 import SuccessBox from '../components/SuccessBox'
 import AvatarInput from '../components/AvatarInput'
 import { useCurrentUserContext } from '../contexts/CurrentUserContext'
-
-import api from '../lib/api'
 
 const Profile = () => {
   const [error, setError] = useState('')
