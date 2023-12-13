@@ -6,8 +6,6 @@ import Loader from './Loader'
 
 import dashx from '../lib/dashx'
 
-import { externalColumnMapping } from '../constants'
-
 const UploadAvatar = ({ label, name, file = '', setFieldValue, setSubmitting, isSubmitting }) => {
   const fileInputRef = useRef(null)
 
@@ -18,7 +16,8 @@ const UploadAvatar = ({ label, name, file = '', setFieldValue, setSubmitting, is
     if (file) {
       const { url = '' } = await dashx.upload({
         file,
-        externalColumnId: externalColumnMapping['users.avatar']
+        resource: 'user',
+        attribute: 'avatar'
       })
       setFieldValue(name, url)
     }
