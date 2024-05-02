@@ -8,14 +8,12 @@ import {
   XIcon,
   BookmarkIcon,
   CurrencyDollarIcon,
-  DatabaseIcon
 } from '@heroicons/react/outline'
 
 import DashXLogoWhite from '../assets/dashx_logo_white.png'
 
 const navigation = [
   { name: 'Home', href: '/', icon: HomeIcon },
-  { name: 'Store', href: '/store', icon: DatabaseIcon },
   { name: 'Bookmarks', href: '/bookmarks', icon: BookmarkIcon },
   { name: 'Billing', href: '/billing', icon: CurrencyDollarIcon }
 ]

@@ -8,7 +8,7 @@ const Billing = () => {
 
   useEffect(() => {
     dashx.track('Page Viewed', { path: location.pathname })
-  }, [])
+  }, [location.pathname])
 
   return <h1 className="text-2xl font-semibold text-gray-900">Billing</h1>
 }

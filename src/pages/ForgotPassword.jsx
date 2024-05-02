@@ -21,7 +21,7 @@ const ForgotPassword = () => {
 
   useEffect(() => {
     dashx.track('Page Viewed', { path: location.pathname })
-  }, [])
+  }, [location.pathname])
 
   const handleSubmit = async (values, resetForm) => {
     setLoading(true)
