@@ -1,5 +1,6 @@
 import jwtDecode from 'jwt-decode'
 import React, { createContext, useContext, useState } from 'react'
+import { DashXProvider } from '@dashx/react'
 
 import dashx from '../lib/dashx'
 
@@ -27,7 +28,9 @@ const CurrentUserProvider = ({ children }) => {
 
   return (
     <CurrentUserContext.Provider value={{ user, setUser, login, logout }}>
-      {children}
+      <DashXProvider>
+        {children}
+      </DashXProvider>
     </CurrentUserContext.Provider>
   )
 }
