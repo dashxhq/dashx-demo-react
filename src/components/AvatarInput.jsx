@@ -7,7 +7,7 @@ import Loader from './Loader'
 
 const AvatarInput = ({ label, name }) => {
   const { setSubmitting, isSubmitting } = useFormikContext()
-  const [field, meta, helpers] = useField(name)
+  const [field, helpers] = useField(name)
   const { setValue } = helpers
 
   const fileInputRef = useRef(null)
