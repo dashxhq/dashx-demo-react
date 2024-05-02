@@ -7,6 +7,7 @@ import Contact from './pages/Contact'
 import ForgotPassword from './pages/ForgotPassword'
 import Home from './pages/Home'
 import Login from './pages/Login'
+import NotificationPreferences from './pages/NotificationPreferences'
 import Profile from './pages/Profile'
 import Register from './pages/Register'
 import ResetPassword from './pages/ResetPassword'
@@ -25,6 +26,7 @@ const App = () => {
             <Route index path="/" element={<Home />} />
             <Route path="bookmarks" element={<Bookmarks />} />
             <Route path="billing" element={<Billing />} />
+            <Route path="notification-preferences" element={<NotificationPreferences />} />
             <Route path="update-profile" element={<Profile />} />
             <Route path="settings" element={<Settings />} />
           </Route>
