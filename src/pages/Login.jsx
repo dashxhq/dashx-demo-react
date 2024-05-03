@@ -13,7 +13,7 @@ import { useCurrentUserContext } from '../contexts/CurrentUserContext'
 import api from '../lib/api'
 
 const Login = () => {
-  let [dashx] = useDashXProvider()
+  let dashx = useDashXProvider()
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const { login } = useCurrentUserContext()

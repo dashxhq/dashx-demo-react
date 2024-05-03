@@ -7,7 +7,7 @@ import Loader from './Loader'
 
 const AvatarInput = ({ label, name }) => {
   const { setSubmitting, isSubmitting } = useFormikContext()
-  let [dashx] = useDashXProvider()
+  let dashx = useDashXProvider()
   const [field, helpers] = useField(name)
   const { setValue } = helpers
 

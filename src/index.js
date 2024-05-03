@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
+import { DashXProvider } from '@dashx/react'
 
 import App from './App'
 import CurrentUserProvider from './contexts/CurrentUserContext'
@@ -12,9 +13,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
     <BrowserRouter>
+    <DashXProvider>
       <CurrentUserProvider>
         <App />
       </CurrentUserProvider>
+      </DashXProvider>
     </BrowserRouter>
   </React.StrictMode>
 )
