@@ -28,7 +28,7 @@ const ResetPassword = () => {
         setError('Your reset password link has expired.')
       }
     }
-  }, [])
+  }, [resetPasswordToken])
 
   const handleSubmit = async (values) => {
     setError('')

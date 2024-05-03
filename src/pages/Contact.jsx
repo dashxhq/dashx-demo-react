@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-
-import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
+import React, { useState } from 'react'
+import { Form, Formik } from 'formik'
+import { Link } from 'react-router-dom'
+import { useDashXProvider } from '@dashx/react'
 
 import ErrorBox from '../components/ErrorBox'
 import Button from '../components/Button'
@@ -12,9 +12,9 @@ import TextArea from '../components/TextArea'
 import SuccessBox from '../components/SuccessBox'
 
 import api from '../lib/api'
-import dashx from '../lib/dashx'
 
 const Contact = () => {
+  const dashx = useDashXProvider()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [successMessage, setSuccessMessage] = useState('')

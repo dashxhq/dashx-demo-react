@@ -1,8 +1,8 @@
-import { Form, Formik } from 'formik'
-import React, { useState } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-
 import * as Yup from 'yup'
+import React, { useState } from 'react'
+import { Form, Formik } from 'formik'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useDashXProvider } from '@dashx/react'
 
 import Button from '../components/Button'
 import ErrorBox from '../components/ErrorBox'
@@ -11,9 +11,9 @@ import Input from '../components/Input'
 import { useCurrentUserContext } from '../contexts/CurrentUserContext'
 
 import api from '../lib/api'
-import dashx from '../lib/dashx'
 
 const Login = () => {
+  let dashx = useDashXProvider()
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const { login } = useCurrentUserContext()

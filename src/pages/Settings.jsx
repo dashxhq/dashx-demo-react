@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-
 import { Field, Form, Formik } from 'formik'
 import { Switch } from '@headlessui/react'
+import { useDashXProvider } from '@dashx/react'
 
 import Button from '../components/Button'
 import Loader from '../components/Loader'
@@ -9,9 +9,9 @@ import ErrorBox from '../components/ErrorBox'
 import SuccessBox from '../components/SuccessBox'
 import ToggleSwitch from '../components/ToggleSwitch'
 
-import dashx from '../lib/dashx'
 
 const Settings = () => {
+  const dashx = useDashXProvider()
   const [preferences, setPreferences] = useState({})
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -30,7 +30,7 @@ const Settings = () => {
     }
 
     fetchPreferences()
-  }, [])
+  }, [dashx])
 
   const savePreferences = async (values) => {
     setError('')

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
-
-import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
+import React, { useState, useEffect } from 'react'
+import { Form, Formik } from 'formik'
+import { Link, useLocation } from 'react-router-dom'
+import { useDashXProvider } from '@dashx/react'
 
 import Button from '../components/Button'
 import Input from '../components/Input'
@@ -11,9 +11,9 @@ import SuccessBox from '../components/SuccessBox'
 import FormHeader from '../components/FormHeader'
 
 import api from '../lib/api'
-import dashx from '../lib/dashx'
 
 const ForgotPassword = () => {
+  const dashx = useDashXProvider()
   const [loading, setLoading] = useState(false)
   const [successMessage, setSuccessMessage] = useState('')
   const [error, setError] = useState('')
@@ -21,7 +21,7 @@ const ForgotPassword = () => {
 
   useEffect(() => {
     dashx.track('Page Viewed', { path: location.pathname })
-  }, [])
+  }, [dashx, location.pathname])
 
   const handleSubmit = async (values, resetForm) => {
     setLoading(true)

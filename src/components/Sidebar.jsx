@@ -7,17 +7,15 @@ import {
   HomeIcon,
   XIcon,
   BookmarkIcon,
-  CurrencyDollarIcon,
-  DatabaseIcon
+  CogIcon,
 } from '@heroicons/react/outline'
 
 import DashXLogoWhite from '../assets/dashx_logo_white.png'
 
 const navigation = [
   { name: 'Home', href: '/', icon: HomeIcon },
-  { name: 'Store', href: '/store', icon: DatabaseIcon },
   { name: 'Bookmarks', href: '/bookmarks', icon: BookmarkIcon },
-  { name: 'Billing', href: '/billing', icon: CurrencyDollarIcon }
+  { name: 'Notification Preferences', href: '/notification-preferences', icon: CogIcon }
 ]
 
 const Sidebar = ({ setSidebarOpen, sidebarOpen }) => {

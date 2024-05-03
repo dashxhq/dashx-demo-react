@@ -1,10 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
-import reportWebVitals from './reportWebVitals'
+import { DashXProvider } from '@dashx/react'
 
 import App from './App'
 import CurrentUserProvider from './contexts/CurrentUserContext'
+import reportWebVitals from './reportWebVitals'
 
 import './index.css'
 
@@ -12,9 +13,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
     <BrowserRouter>
+    <DashXProvider publicKey={process.env.REACT_APP_DASHX_PUBLIC_KEY} targetEnvironment={process.env.REACT_APP_DASHX_TARGET_ENVIRONMENT}>
       <CurrentUserProvider>
         <App />
       </CurrentUserProvider>
+      </DashXProvider>
     </BrowserRouter>
   </React.StrictMode>
 )

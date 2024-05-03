@@ -27,7 +27,7 @@ const Navbar = ({ setSidebarOpen }) => {
     }
 
     getProfile()
-  }, [])
+  }, [setUser])
 
   return (
     <div className="md:pl-64 flex flex-col">
