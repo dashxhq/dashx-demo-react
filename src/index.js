@@ -13,7 +13,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-    <DashXProvider>
+    <DashXProvider publicKey={process.env.REACT_APP_DASHX_PUBLIC_KEY} targetEnvironment={process.env.REACT_APP_DASHX_TARGET_ENVIRONMENT}>
       <CurrentUserProvider>
         <App />
       </CurrentUserProvider>
