@@ -14,7 +14,7 @@ import SuccessBox from '../components/SuccessBox'
 import api from '../lib/api'
 
 const Contact = () => {
-  const [dashx] = useDashXProvider()
+  const dashx = useDashXProvider()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [successMessage, setSuccessMessage] = useState('')

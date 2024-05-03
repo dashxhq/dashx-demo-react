@@ -11,7 +11,7 @@ import ToggleSwitch from '../components/ToggleSwitch'
 
 
 const Settings = () => {
-  const [dashx] = useDashXProvider()
+  const dashx = useDashXProvider()
   const [preferences, setPreferences] = useState({})
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')

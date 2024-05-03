@@ -5,7 +5,7 @@ import { useDashXProvider } from '@dashx/react'
 
 const NotificationPreferences = () => {
   const location = useLocation()
-  const [dashx] = useDashXProvider()
+  const dashx = useDashXProvider()
 
   useEffect(() => {
     dashx.track('Page Viewed', { path: location.pathname })

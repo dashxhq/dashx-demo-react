@@ -13,7 +13,7 @@ import FormHeader from '../components/FormHeader'
 import api from '../lib/api'
 
 const ForgotPassword = () => {
-  const [dashx] = useDashXProvider()
+  const dashx = useDashXProvider()
   const [loading, setLoading] = useState(false)
   const [successMessage, setSuccessMessage] = useState('')
   const [error, setError] = useState('')
