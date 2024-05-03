@@ -1,7 +1,6 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 
-import Billing from './pages/Billing'
 import Bookmarks from './pages/Bookmarks'
 import Contact from './pages/Contact'
 import ForgotPassword from './pages/ForgotPassword'
@@ -25,7 +24,6 @@ const App = () => {
           <Route element={<DashboardLayout />}>
             <Route index path="/" element={<Home />} />
             <Route path="bookmarks" element={<Bookmarks />} />
-            <Route path="billing" element={<Billing />} />
             <Route path="notification-preferences" element={<NotificationPreferences />} />
             <Route path="update-profile" element={<Profile />} />
             <Route path="settings" element={<Settings />} />

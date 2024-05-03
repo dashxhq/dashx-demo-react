@@ -28,7 +28,7 @@ const CurrentUserProvider = ({ children }) => {
 
   return (
     <CurrentUserContext.Provider value={{ user, setUser, login, logout }}>
-      <DashXProvider publicKey={process.env.REACT_APP_DASHX_PUBLIC_KEY}>
+      <DashXProvider>
         {children}
       </DashXProvider>
     </CurrentUserContext.Provider>

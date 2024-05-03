@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react'
 import { Preferences } from '@dashx/react'
 import { useLocation } from 'react-router-dom'
-
-import dashx from '../lib/dashx'
+import { useDashXProvider } from '@dashx/react'
 
 const NotificationPreferences = () => {
   const location = useLocation()
+  const [dashx] = useDashXProvider()
 
   useEffect(() => {
     dashx.track('Page Viewed', { path: location.pathname })
-  }, [location.pathname])
+  }, [dashx, location.pathname])
 
   return (
     <div>

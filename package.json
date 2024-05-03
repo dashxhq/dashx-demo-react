@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@dashx/browser": "^0.1.29",
-    "@dashx/react": "^0.0.1",
+    "@dashx/react": "^0.0.2",
     "@headlessui/react": "^1.6.4",
     "@heroicons/react": "^1.0.6",
     "@testing-library/jest-dom": "^5.16.4",
