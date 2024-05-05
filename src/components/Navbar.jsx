@@ -1,15 +1,16 @@
-import React, { Fragment, useEffect } from 'react'
-import { Link, NavLink, useNavigate } from 'react-router-dom'
-
 import classNames from 'classnames'
-import { SearchIcon } from '@heroicons/react/solid'
+import React, { Fragment, useEffect, useState } from 'react'
 import { BellIcon, MenuAlt2Icon } from '@heroicons/react/outline'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { Menu, Transition } from '@headlessui/react'
+import { SearchIcon, XIcon } from '@heroicons/react/solid'
+import { usePopper } from 'react-popper'
 
 import Avatar from './Avatar'
 import { useCurrentUserContext } from '../contexts/CurrentUserContext'
 
 import api from '../lib/api'
+import socket from '../lib/socket'
 
 const userNavigation = [
   { name: 'Profile', href: '/update-profile' },
@@ -19,6 +20,32 @@ const userNavigation = [
 const Navbar = ({ setSidebarOpen }) => {
   const navigate = useNavigate()
   const { logout, user, setUser } = useCurrentUserContext()
+  const [referenceElement, setReferenceElement] = useState(null)
+  const [popperElement, setPopperElement] = useState(null)
+  const { styles, attributes } = usePopper(referenceElement, popperElement, {
+    placement: 'bottom-end'
+  })
+  const [isAppInboxOpen, setIsAppInboxOpen] = useState(false)
+  const [isSocketConnected, setIsSocketConnected] = useState(socket.connected)
+
+  useEffect(() => {
+    function onConnect() {
+      setIsSocketConnected(true)
+    }
+
+    function onDisconnect() {
+      setIsSocketConnected(false)
+    }
+
+
+    socket.on('connect', onConnect)
+    socket.on('disconnect', onDisconnect)
+
+    return () => {
+      socket.off('connect', onConnect)
+      socket.off('disconnect', onDisconnect)
+    }
+  }, [])
 
   useEffect(() => {
     const getProfile = async () => {
@@ -66,7 +93,26 @@ const Navbar = ({ setSidebarOpen }) => {
               className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               <span className="sr-only">View notifications</span>
-              <BellIcon className="h-6 w-6" aria-hidden="true" />
+              <BellIcon
+                aria-hidden="true"
+                className="h-6 w-6"
+                onClick={() =>  setIsAppInboxOpen(!isAppInboxOpen)}
+                ref={setReferenceElement}
+              />
+
+              {isAppInboxOpen && (
+                <div
+                  ref={setPopperElement}
+                  style={styles.popper}
+                  {...attributes.popper}
+                  className="bg-gray-800 rounded-xl text-white w-96 h-96"
+                >
+                  <div className="flex justify-between items-center border-y-2 border-white px-4 py-4">
+                    <p>Notifications</p>
+                    <XIcon height={20} width={20} onClick={() =>  setIsAppInboxOpen(false)} />
+                  </div>
+                </div>
+              )}
             </button>
 
             <Menu as="div" className="ml-3 relative">

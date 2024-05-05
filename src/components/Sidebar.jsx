@@ -4,10 +4,11 @@ import { Link, NavLink, useNavigate } from 'react-router-dom'
 import classNames from 'classnames'
 import { Dialog, Transition } from '@headlessui/react'
 import {
-  HomeIcon,
-  XIcon,
+  BellIcon,
   BookmarkIcon,
   CogIcon,
+  HomeIcon,
+  XIcon,
 } from '@heroicons/react/outline'
 
 import DashXLogoWhite from '../assets/dashx_logo_white.png'
@@ -15,7 +16,8 @@ import DashXLogoWhite from '../assets/dashx_logo_white.png'
 const navigation = [
   { name: 'Home', href: '/', icon: HomeIcon },
   { name: 'Bookmarks', href: '/bookmarks', icon: BookmarkIcon },
-  { name: 'Notification Preferences', href: '/notification-preferences', icon: CogIcon }
+  { name: 'Notification Preferences', href: '/notification-preferences', icon: CogIcon },
+  { name: 'Notifications', href: '/notifications', icon: BellIcon }
 ]
 
 const Sidebar = ({ setSidebarOpen, sidebarOpen }) => {
