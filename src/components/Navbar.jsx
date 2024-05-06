@@ -1,5 +1,6 @@
 import classNames from 'classnames'
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useCallback, useEffect, useState } from 'react'
+import useWebSocket, { ReadyState } from 'react-use-websocket'
 import { BellIcon, MenuAlt2Icon } from '@heroicons/react/outline'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { Menu, Transition } from '@headlessui/react'
@@ -10,7 +11,6 @@ import Avatar from './Avatar'
 import { useCurrentUserContext } from '../contexts/CurrentUserContext'
 
 import api from '../lib/api'
-import socket from '../lib/socket'
 
 const userNavigation = [
   { name: 'Profile', href: '/update-profile' },
@@ -26,26 +26,7 @@ const Navbar = ({ setSidebarOpen }) => {
     placement: 'bottom-end'
   })
   const [isAppInboxOpen, setIsAppInboxOpen] = useState(false)
-  const [isSocketConnected, setIsSocketConnected] = useState(socket.connected)
-
-  useEffect(() => {
-    function onConnect() {
-      setIsSocketConnected(true)
-    }
-
-    function onDisconnect() {
-      setIsSocketConnected(false)
-    }
-
-
-    socket.on('connect', onConnect)
-    socket.on('disconnect', onDisconnect)
-
-    return () => {
-      socket.off('connect', onConnect)
-      socket.off('disconnect', onDisconnect)
-    }
-  }, [])
+  const { sendMessage, lastMessage, readyState } = useWebSocket(process.env.REACT_APP_SOCKET_BASE_URL);
 
   useEffect(() => {
     const getProfile = async () => {
