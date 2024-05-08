@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import React, { Fragment, useCallback, useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import useWebSocket, { ReadyState } from 'react-use-websocket'
 import { BellIcon, MenuAlt2Icon } from '@heroicons/react/outline'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
@@ -26,7 +26,9 @@ const Navbar = ({ setSidebarOpen }) => {
     placement: 'bottom-end'
   })
   const [isAppInboxOpen, setIsAppInboxOpen] = useState(false)
-  const { sendMessage, lastMessage, readyState } = useWebSocket(process.env.REACT_APP_SOCKET_BASE_URL);
+  const { readyState } = useWebSocket(process.env.REACT_APP_SOCKET_BASE_URL);
+
+  console.log(readyState)
 
   useEffect(() => {
     const getProfile = async () => {
