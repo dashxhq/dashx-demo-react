@@ -1,13 +1,12 @@
 import classNames from 'classnames'
-import React, { Fragment, useEffect, useState } from 'react'
-import useWebSocket, { ReadyState } from 'react-use-websocket'
-import { BellIcon, MenuAlt2Icon } from '@heroicons/react/outline'
+import React, { Fragment, useEffect } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { Menu, Transition } from '@headlessui/react'
-import { SearchIcon, XIcon } from '@heroicons/react/solid'
-import { usePopper } from 'react-popper'
+import { MenuAlt2Icon } from '@heroicons/react/outline'
+import { SearchIcon } from '@heroicons/react/solid'
 
 import Avatar from './Avatar'
+import NotificationBell from './NotificationBell'
 import { useCurrentUserContext } from '../contexts/CurrentUserContext'
 
 import api from '../lib/api'
@@ -20,15 +19,6 @@ const userNavigation = [
 const Navbar = ({ setSidebarOpen }) => {
   const navigate = useNavigate()
   const { logout, user, setUser } = useCurrentUserContext()
-  const [referenceElement, setReferenceElement] = useState(null)
-  const [popperElement, setPopperElement] = useState(null)
-  const { styles, attributes } = usePopper(referenceElement, popperElement, {
-    placement: 'bottom-end'
-  })
-  const [isAppInboxOpen, setIsAppInboxOpen] = useState(false)
-  const { readyState } = useWebSocket(process.env.REACT_APP_SOCKET_BASE_URL);
-
-  console.log(readyState)
 
   useEffect(() => {
     const getProfile = async () => {
@@ -76,26 +66,7 @@ const Navbar = ({ setSidebarOpen }) => {
               className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               <span className="sr-only">View notifications</span>
-              <BellIcon
-                aria-hidden="true"
-                className="h-6 w-6"
-                onClick={() =>  setIsAppInboxOpen(!isAppInboxOpen)}
-                ref={setReferenceElement}
-              />
-
-              {isAppInboxOpen && (
-                <div
-                  ref={setPopperElement}
-                  style={styles.popper}
-                  {...attributes.popper}
-                  className="bg-gray-800 rounded-xl text-white w-96 h-96"
-                >
-                  <div className="flex justify-between items-center border-y-2 border-white px-4 py-4">
-                    <p>Notifications</p>
-                    <XIcon height={20} width={20} onClick={() =>  setIsAppInboxOpen(false)} />
-                  </div>
-                </div>
-              )}
+              <NotificationBell />
             </button>
 
             <Menu as="div" className="ml-3 relative">
