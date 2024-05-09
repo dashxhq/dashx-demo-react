@@ -1,8 +1,9 @@
 import React, { Fragment, useState } from 'react'
 import useWebSocket, { ReadyState } from 'react-use-websocket'
 import { BellIcon } from '@heroicons/react/outline'
-import { XIcon } from '@heroicons/react/solid'
+import { useDashXProvider } from '@dashx/react'
 import { usePopper } from 'react-popper'
+import { XIcon } from '@heroicons/react/solid'
 
 const CONNECTION_STATUS = {
   [ReadyState.CONNECTING]: 'Connecting',
@@ -13,15 +14,23 @@ const CONNECTION_STATUS = {
 };
 
 const NotificationBell = () => {
+  let dashx = useDashXProvider()
   const [referenceElement, setReferenceElement] = useState(null)
   const [popperElement, setPopperElement] = useState(null)
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
     placement: 'bottom-end'
   })
   const [isAppInboxOpen, setIsAppInboxOpen] = useState(false)
-  const { readyState } = useWebSocket(process.env.REACT_APP_SOCKET_BASE_URL);
+  const { readyState, lastJsonMessage, lastMessage } = useWebSocket("ws://localhost:8082/websocket", {
+    queryParams: {
+      'publicKey': dashx.publicKey
+    },
+    onError: error => {
+      console.log(error)
+    }
+  });
 
-  console.log(CONNECTION_STATUS[readyState])
+  console.log({ readyState: CONNECTION_STATUS[readyState], lastJsonMessage, lastMessage })
 
   return (
     <>
