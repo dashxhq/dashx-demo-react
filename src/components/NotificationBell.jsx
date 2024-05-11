@@ -23,7 +23,8 @@ const NotificationBell = () => {
   const [isAppInboxOpen, setIsAppInboxOpen] = useState(false)
   const { readyState, lastJsonMessage, lastMessage } = useWebSocket("ws://localhost:8082/websocket", {
     queryParams: {
-      'publicKey': dashx.publicKey
+      'publicKey': dashx.publicKey,
+      'targetEnvironment': dashx.targetEnvironment
     },
     onError: error => {
       console.log(error)
