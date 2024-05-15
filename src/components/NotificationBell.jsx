@@ -28,7 +28,6 @@ const NotificationBell = () => {
       'targetEnvironment': dashx.targetEnvironment
     },
     shouldReconnect: (_) => true,
-    onReconnectStop: (numAttempts) => console.error({ numAttempts }),
     onError: errorEvent => console.error({ errorEvent }),
     onClose: closeEvent => console.log({ closeEvent }),
     onMessage: messageEvent => {
