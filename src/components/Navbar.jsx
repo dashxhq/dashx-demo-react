@@ -1,9 +1,9 @@
 import classNames from 'classnames'
 import React, { Fragment, useEffect } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
-import { Menu, Transition } from '@headlessui/react'
-import { MenuAlt2Icon } from '@heroicons/react/outline'
-import { SearchIcon } from '@heroicons/react/solid'
+import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react'
+import { Bars3Icon } from '@heroicons/react/24/outline'
+import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
 
 import Avatar from './Avatar'
 import NotificationBell from './NotificationBell'
@@ -38,7 +38,7 @@ const Navbar = ({ setSidebarOpen }) => {
           onClick={() => setSidebarOpen(true)}
         >
           <span className="sr-only">Open sidebar</span>
-          <MenuAlt2Icon className="h-6 w-6" aria-hidden="true" />
+          <Bars3Icon className="h-6 w-6" aria-hidden="true" />
         </button>
         <div className="flex-1 px-4 flex justify-between">
           <div className="flex-1 flex">
@@ -48,7 +48,7 @@ const Navbar = ({ setSidebarOpen }) => {
               </label>
               <div className="relative w-full text-gray-400 focus-within:text-gray-600">
                 <div className="absolute inset-y-0 left-0 flex items-center pointer-events-none">
-                  <SearchIcon className="h-5 w-5" aria-hidden="true" />
+                  <MagnifyingGlassIcon className="h-5 w-5" aria-hidden="true" />
                 </div>
                 <input
                   id="search-field"
@@ -71,10 +71,10 @@ const Navbar = ({ setSidebarOpen }) => {
 
             <Menu as="div" className="ml-3 relative">
               <div>
-                <Menu.Button className="max-w-xs bg-white flex items-center text-sm rounded-full">
+                <MenuButton className="max-w-xs bg-white flex items-center text-sm rounded-full">
                   <span className="sr-only">Open user menu</span>
                   <Avatar user={user} />
-                </Menu.Button>
+                </MenuButton>
               </div>
               <Transition
                 as={Fragment}
@@ -85,11 +85,11 @@ const Navbar = ({ setSidebarOpen }) => {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
               >
-                <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <MenuItems className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                   {userNavigation.map((item) => (
-                    <Menu.Item
+                    <MenuItem
                       key={item.name}
-                      className="block px-4 py-2 text-sm text-gray-700 w-full text-left hover:bg-gray-100"
+                      className="block px-4 py-2 text-sm text-gray-700 w-full text-left hover:bg-gray-100 first:rounded-t-md last:rounded-b-md"
                     >
                       {() => (
                         <NavLink
@@ -97,16 +97,18 @@ const Navbar = ({ setSidebarOpen }) => {
                           to={item.href}
                           className={({ isActive }) =>
                             classNames(
-                              isActive
-                                ? 'bg-gray-900 text-white'
-                                : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                              'text-gray-300', // Default text color
+                              {
+                                '!bg-gray-900 !text-white': isActive,
+                                'hover:bg-gray-100': !isActive
+                              }
                             )
                           }
                         >
                           {item.name}
                         </NavLink>
                       )}
-                    </Menu.Item>
+                    </MenuItem>
                   ))}
                   <button
                     className="block px-4 py-2 flex text-sm text-gray-700 w-full text-left hover:bg-gray-100"
@@ -117,7 +119,7 @@ const Navbar = ({ setSidebarOpen }) => {
                   >
                     <Link to="#">Logout</Link>
                   </button>
-                </Menu.Items>
+                </MenuItems>
               </Transition>
             </Menu>
           </div>

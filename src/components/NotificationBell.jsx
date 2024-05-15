@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import useWebSocket from 'react-use-websocket'
-import { BellIcon } from '@heroicons/react/outline'
+import { BellIcon } from '@heroicons/react/24/solid'
 import { useDashXProvider } from '@dashx/react'
 import { usePopper } from 'react-popper'
 import { XIcon } from '@heroicons/react/solid'
@@ -22,7 +22,7 @@ const NotificationBell = () => {
   const [isAppInboxOpen, setIsAppInboxOpen] = useState(false)
   const [connectWebsocket, setConnectWebsocket] = useState(false)
 
-  let { sendJsonMessage } = useWebSocket("ws://localhost:8082/websocket", {
+  let { sendJsonMessage } = useWebSocket('ws://localhost:8082/websocket', {
     queryParams: {
       'publicKey': dashx.publicKey,
       'targetEnvironment': dashx.targetEnvironment

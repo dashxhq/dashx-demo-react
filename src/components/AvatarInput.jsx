@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { UploadIcon } from '@heroicons/react/outline'
+import { ArrowUpTrayIcon } from '@heroicons/react/24/outline'
 import { useDashXProvider } from '@dashx/react'
 import { useField, useFormikContext } from 'formik'
 
@@ -95,7 +95,7 @@ const AvatarInput = ({ label, name }) => {
               </div>
             ) : (
               <div className="flex flex-col text-sm text-gray-600">
-                <UploadIcon className="w-8 h-8 text-gray-400 m-auto" />
+                <ArrowUpTrayIcon className="w-8 h-8 text-gray-400 m-auto" />
                 <button
                   type="button"
                   onClick={() => fileInputRef.current.click()}

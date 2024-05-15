@@ -2,14 +2,14 @@ import React, { Fragment } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 
 import classNames from 'classnames'
-import { Dialog, Transition } from '@headlessui/react'
+import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react'
 import {
   BellIcon,
   BookmarkIcon,
   CogIcon,
   HomeIcon,
-  XIcon,
-} from '@heroicons/react/outline'
+  XMarkIcon,
+} from '@heroicons/react/24/outline'
 
 import DashXLogoWhite from '../assets/dashx_logo_white.png'
 
@@ -25,9 +25,9 @@ const Sidebar = ({ setSidebarOpen, sidebarOpen }) => {
 
   return (
     <div>
-      <Transition.Root show={sidebarOpen} as={Fragment}>
+      <Transition show={sidebarOpen} as={Fragment}>
         <Dialog as="div" className="relative z-40 md:hidden" onClose={setSidebarOpen}>
-          <Transition.Child
+          <TransitionChild
             as={Fragment}
             enter="transition-opacity ease-linear duration-300"
             enterFrom="opacity-0"
@@ -37,10 +37,10 @@ const Sidebar = ({ setSidebarOpen, sidebarOpen }) => {
             leaveTo="opacity-0"
           >
             <div className="fixed inset-0 bg-gray-600 bg-opacity-75" />
-          </Transition.Child>
+          </TransitionChild>
 
           <div className="fixed inset-0 flex z-40">
-            <Transition.Child
+            <TransitionChild
               as={Fragment}
               enter="transition ease-in-out duration-300 transform"
               enterFrom="-translate-x-full"
@@ -49,8 +49,8 @@ const Sidebar = ({ setSidebarOpen, sidebarOpen }) => {
               leaveFrom="translate-x-0"
               leaveTo="-translate-x-full"
             >
-              <Dialog.Panel className="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-gray-800">
-                <Transition.Child
+              <DialogPanel className="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-gray-800">
+                <TransitionChild
                   as={Fragment}
                   enter="ease-in-out duration-300"
                   enterFrom="opacity-0"
@@ -66,10 +66,10 @@ const Sidebar = ({ setSidebarOpen, sidebarOpen }) => {
                       onClick={() => setSidebarOpen(false)}
                     >
                       <span className="sr-only">Close sidebar</span>
-                      <XIcon className="h-6 w-6 text-white" aria-hidden="true" />
+                      <XMarkIcon className="h-6 w-6 text-white" aria-hidden="true" />
                     </button>
                   </div>
-                </Transition.Child>
+                </TransitionChild>
                 <div
                   onClick={() => {
                     navigate('/')
@@ -111,12 +111,12 @@ const Sidebar = ({ setSidebarOpen, sidebarOpen }) => {
                     ))}
                   </nav>
                 </div>
-              </Dialog.Panel>
-            </Transition.Child>
+              </DialogPanel>
+            </TransitionChild>
             <div className="flex-shrink-0 w-14" aria-hidden="true"></div>
           </div>
         </Dialog>
-      </Transition.Root>
+      </Transition>
       <div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
         <div className="flex-1 flex flex-col min-h-0 bg-gray-800">
           <Link

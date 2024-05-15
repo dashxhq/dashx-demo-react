@@ -1,6 +1,6 @@
+import * as Yup from 'yup'
 import React, { useState } from 'react'
 import { Form, Formik } from 'formik'
-import * as Yup from 'yup'
 
 import api from '../lib/api'
 import AvatarInput from '../components/AvatarInput'
