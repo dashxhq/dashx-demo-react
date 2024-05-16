@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Outlet } from 'react-router-dom'
+import { Toast } from '@dashx/react'
 
 import Content from '../../pages/Content'
 import Sidebar from '../Sidebar'
@@ -12,6 +13,7 @@ export default function DashboardLayout() {
     <div>
       <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
       <Navbar setSidebarOpen={setSidebarOpen} />
+      <Toast />
       <Content>
         <Outlet />
       </Content>

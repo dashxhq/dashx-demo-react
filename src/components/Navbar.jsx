@@ -1,12 +1,12 @@
 import classNames from 'classnames'
 import React, { Fragment, useEffect } from 'react'
-import { Link, NavLink, useNavigate } from 'react-router-dom'
-import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react'
 import { Bars3Icon } from '@heroicons/react/24/outline'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
+import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react'
+import { NotificationBell } from '@dashx/react'
 
 import Avatar from './Avatar'
-import NotificationBell from './NotificationBell'
 import { useCurrentUserContext } from '../contexts/CurrentUserContext'
 
 import api from '../lib/api'
