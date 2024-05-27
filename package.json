@@ -46,6 +46,9 @@
       "last 1 safari version"
     ]
   },
+  "resolutions": {
+    "strip-ansi": "6.0.1"
+  },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@tailwindcss/forms": "^0.5.2",
