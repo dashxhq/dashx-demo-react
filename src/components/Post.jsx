@@ -1,5 +1,5 @@
 import React from 'react'
-import { BookmarkIcon } from '@heroicons/react/outline'
+import { BookmarkIcon } from '@heroicons/react/24/outline'
 
 import dayjs from '../lib/dayjs'
 

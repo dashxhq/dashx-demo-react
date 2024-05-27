@@ -20,7 +20,7 @@ const Button = ({
       className={`
         ${buttonClass}
         ${variant !== 'outlined' ? 'bg-indigo-600' : 'border-indigo-500'}
-        ${disabled ? 'pointer-events-none bg-indigo-300' : ''}
+        ${disabled ? '!pointer-events-none !bg-indigo-300' : ''}
         ${classes}
       `}
       type={type}

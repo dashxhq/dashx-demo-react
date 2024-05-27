@@ -1,8 +1,8 @@
+import * as Yup from 'yup'
 import React, { useState } from 'react'
 import { Form, Formik } from 'formik'
-import * as Yup from 'yup'
 
-import api from '../lib/api'
+import api, { INTERNAL_SERVER_ERROR } from '../lib/api'
 import AvatarInput from '../components/AvatarInput'
 import Button from '../components/Button'
 import ErrorBox from '../components/ErrorBox'
@@ -38,7 +38,7 @@ const Profile = () => {
       setSuccessMessage(message)
     } catch (error) {
       if (error.response.status >= 500) {
-        setError('Something went wrong, please try again later.')
+        setError(INTERNAL_SERVER_ERROR)
       } else {
         const errorMessage = error.response.data || error.message
         setError(errorMessage)

@@ -8,12 +8,18 @@ import CurrentUserProvider from './contexts/CurrentUserContext'
 import reportWebVitals from './reportWebVitals'
 
 import './index.css'
+import '@dashx/react/dist/style.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-    <DashXProvider publicKey={process.env.REACT_APP_DASHX_PUBLIC_KEY} targetEnvironment={process.env.REACT_APP_DASHX_TARGET_ENVIRONMENT}>
+    <DashXProvider
+      baseUri={process.env.REACT_APP_DASHX_BASE_URI}
+      realtimeBaseUri={process.env.REACT_APP_DASHX_REALTIME_URI}
+      publicKey={process.env.REACT_APP_DASHX_PUBLIC_KEY}
+      targetEnvironment={process.env.REACT_APP_DASHX_TARGET_ENVIRONMENT}
+    >
       <CurrentUserProvider>
         <App />
       </CurrentUserProvider>

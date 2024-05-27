@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+const INTERNAL_SERVER_ERROR = 'Something went wrong, please try again later.'
 const api = axios.create({
   baseURL: process.env.REACT_APP_API_BASE_URL || 'https://node.dashxdemo.com',
   headers: {
@@ -17,3 +18,4 @@ api.interceptors.request.use((config) => {
 })
 
 export default api
+export { INTERNAL_SERVER_ERROR }
