@@ -3,13 +3,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom'
 
 import classNames from 'classnames'
 import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react'
-import {
-  BellIcon,
-  BookmarkIcon,
-  CogIcon,
-  HomeIcon,
-  XMarkIcon,
-} from '@heroicons/react/24/outline'
+import { BellIcon, BookmarkIcon, CogIcon, HomeIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
 import DashXLogoWhite from '../assets/dashx_logo_white.png'
 

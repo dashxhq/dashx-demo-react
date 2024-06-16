@@ -19,13 +19,13 @@ const ToggleSwitch = (props) => {
         'ml-4 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-50 focus:outline-none'
       )}
     >
-        <span
-          aria-hidden="true"
-          className={classNames(
-            field.value?.enabled ? 'translate-x-5' : 'translate-x-0',
-            'inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200'
-          )}
-        />
+      <span
+        aria-hidden="true"
+        className={classNames(
+          field.value?.enabled ? 'translate-x-5' : 'translate-x-0',
+          'inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200'
+        )}
+      />
     </Switch>
   )
 }

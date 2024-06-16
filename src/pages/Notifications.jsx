@@ -51,11 +51,7 @@ const Notifications = () => {
           {({ isSubmitting }) => (
             <Form>
               <Input label="Body" type="text" name="body" />
-              <Button
-                type="submit"
-                label="Submit"
-                disabled={isSubmitting}
-              />
+              <Button type="submit" label="Submit" disabled={isSubmitting} />
             </Form>
           )}
         </Formik>

@@ -10,7 +10,7 @@ const Avatar = ({ user }) => {
 
   return (
     <div className="flex items-center justify-center">
-      <img src={avatarUrl} className="rounded-full w-10 h-10" alt="Avatar" />
+      <img src={avatarUrl} className="rounded-full w-full h-full" alt="Avatar" />
     </div>
   )
 }

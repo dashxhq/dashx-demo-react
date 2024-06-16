@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Preferences } from '@dashx/react'
+import { Preferences } from '@dashx/react/widgets'
 import { useLocation } from 'react-router-dom'
 import { useDashXProvider } from '@dashx/react'
 
