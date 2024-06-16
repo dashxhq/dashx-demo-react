@@ -16,6 +16,7 @@ import Settings from './pages/Settings'
 import DashboardLayout from './components/layouts/DashboardLayout'
 import RequireUser from './components/authentication/RequireUser'
 import RequireVisitor from './components/authentication/RequireVisitor'
+import Logout from './pages/Logout'
 
 const App = () => {
   return (
@@ -30,6 +31,9 @@ const App = () => {
             <Route path="update-profile" element={<Profile />} />
             <Route path="settings" element={<Settings />} />
           </Route>
+        </Route>
+        <Route element={<RequireUser />}>
+          <Route path="logout" element={<Logout />} />
         </Route>
 
         <Route element={<RequireVisitor />}>

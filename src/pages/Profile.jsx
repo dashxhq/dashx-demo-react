@@ -50,11 +50,11 @@ const Profile = () => {
 
   return (
     <div className="min-h-full w-full pb-12">
-      <div className="flex-col sm:flex">
+      <div className="flex flex-col flex sm:flex-row">
         <h2 className="text-left sm:text-left text-2xl font-semibold text-gray-900">
           Edit Profile
         </h2>
-        <div className="sm:w-full sm:max-w-2xl">
+        <div>
           {error && <ErrorBox message={error} />}
           {successMessage && <SuccessBox message={successMessage} />}
           <div className="py-8 pt-0 mb-0 mt-5">
@@ -79,8 +79,8 @@ const Profile = () => {
               }}
             >
               {({ setFieldValue, values, isSubmitting }) => (
-                <Form className="w-full flex flex-col sm:flex-row gap-6">
-                  <div className="w-full sm:w-2/3">
+                <Form className="w-full flex flex-wrap gap-6">
+                  <div className="w-96">
                     <Input label="First Name" type="text" name="firstName" />
                     <Input label="Last Name" type="text" name="lastName" />
                     <Input label="Email" type="email" name="email" />
@@ -92,7 +92,7 @@ const Profile = () => {
                       message="Updating"
                     />
                   </div>
-                  <div className="w-full sm:w-1/3">
+                  <div className="sm:w-1/3">
                     <AvatarInput name="avatar.url" label="Avatar" />
                   </div>
                 </Form>

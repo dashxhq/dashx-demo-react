@@ -9,7 +9,6 @@ import ErrorBox from '../components/ErrorBox'
 import SuccessBox from '../components/SuccessBox'
 import ToggleSwitch from '../components/ToggleSwitch'
 
-
 const Settings = () => {
   const dashx = useDashXProvider()
   const [preferences, setPreferences] = useState({})
@@ -56,10 +55,7 @@ const Settings = () => {
       {loading ? (
         <Loader />
       ) : (
-        <Formik
-          initialValues={preferences}
-          onSubmit={onSubmit}
-        >
+        <Formik initialValues={preferences} onSubmit={onSubmit}>
           {({ resetForm }) => (
             <Form>
               <ul className="mt-2 divide-y divide-gray-200">

@@ -73,9 +73,7 @@ const Home = () => {
       </div>
       {error && <ErrorBox message={error} />}
       {fetchingPosts && <Loader />}
-      {!postsList.length && !fetchingPosts && !error && (
-        <EmptyPage message="No posts" />
-      )}
+      {!postsList.length && !fetchingPosts && !error && <EmptyPage message="No posts" />}
       {postsList.length > 0 && (
         <div className="grid grid-cols-1 gap-3 mt-5">
           {postsList.map((post) => (

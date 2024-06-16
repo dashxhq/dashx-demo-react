@@ -3,7 +3,7 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom'
 
 import { useCurrentUserContext } from '../../contexts/CurrentUserContext'
 
-const RequireUser = () => {
+const RequireUser = ({ withRedirect = false }) => {
   const location = useLocation()
   const { user } = useCurrentUserContext()
 
@@ -11,6 +11,6 @@ const RequireUser = () => {
     return <Outlet />
   }
 
-  return <Navigate to="/login" state={{ from: location.pathname }} replace />
+  return <Navigate to="/login" state={withRedirect ? { from: location.pathname } : {}} replace />
 }
 export default RequireUser

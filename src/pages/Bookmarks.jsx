@@ -25,7 +25,9 @@ const Bookmarks = () => {
 
   const toggleBookmark = async (postId) => {
     try {
-      setBookmarksList((bookmarksList) => bookmarksList.filter((bookmark) => bookmark.id !== postId))
+      setBookmarksList((bookmarksList) =>
+        bookmarksList.filter((bookmark) => bookmark.id !== postId)
+      )
       await api.put(`/posts/${postId}/toggle-bookmark`)
     } catch (error) {
       setError('Unable to bookmark.')

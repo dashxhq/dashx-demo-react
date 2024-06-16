@@ -1,28 +1,30 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
-import { DashXProvider } from '@dashx/react'
+import { DashXProvider, Theme } from '@dashx/react'
 
 import App from './App'
 import CurrentUserProvider from './contexts/CurrentUserContext'
 import reportWebVitals from './reportWebVitals'
 
 import './index.css'
-import '@dashx/react/dist/style.css';
+import '@dashx/react/styles.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-    <DashXProvider
-      baseUri={process.env.REACT_APP_DASHX_BASE_URI}
-      realtimeBaseUri={process.env.REACT_APP_DASHX_REALTIME_URI}
-      publicKey={process.env.REACT_APP_DASHX_PUBLIC_KEY}
-      targetEnvironment={process.env.REACT_APP_DASHX_TARGET_ENVIRONMENT}
-    >
-      <CurrentUserProvider>
-        <App />
-      </CurrentUserProvider>
+      <DashXProvider
+        baseUri={process.env.REACT_APP_DASHX_BASE_URI}
+        realtimeBaseUri={process.env.REACT_APP_DASHX_REALTIME_URI}
+        publicKey={process.env.REACT_APP_DASHX_PUBLIC_KEY}
+        targetEnvironment={process.env.REACT_APP_DASHX_TARGET_ENVIRONMENT}
+      >
+        <Theme>
+          <CurrentUserProvider>
+            <App />
+          </CurrentUserProvider>
+        </Theme>
       </DashXProvider>
     </BrowserRouter>
   </React.StrictMode>
