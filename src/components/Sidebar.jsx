@@ -111,7 +111,7 @@ const Sidebar = ({ setSidebarOpen, sidebarOpen }) => {
           </div>
         </Dialog>
       </Transition>
-      <div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
+      <div className="md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
         <div className="flex-1 flex flex-col min-h-0 bg-gray-800">
           <Link
             to="/"
