@@ -20,7 +20,8 @@ import RequireVisitor from './components/authentication/RequireVisitor'
 import Logout from './pages/Logout'
 
 const App = () => {
-  const productRelease = useProductRelease()
+  const { productVariantReleaseRule } = useProductRelease()
+  console.log(productVariantReleaseRule)
 
   return (
     <div className="h-screen font-poppins bg-gray-50">
