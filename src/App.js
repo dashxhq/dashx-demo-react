@@ -1,5 +1,6 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
+import { useProductRelease } from '@dashx/react'
 
 import Bookmarks from './pages/Bookmarks'
 import Contact from './pages/Contact'
@@ -19,6 +20,9 @@ import RequireVisitor from './components/authentication/RequireVisitor'
 import Logout from './pages/Logout'
 
 const App = () => {
+  const { productVariantReleaseRule } = useProductRelease()
+  console.log(productVariantReleaseRule)
+
   return (
     <div className="h-screen font-poppins bg-gray-50">
       <Routes>

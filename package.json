@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@dashx/react": "^0.1.1",
+    "@dashx/react": "^0.1.2",
     "@headlessui/react": "^2.2.4",
     "@heroicons/react": "^2.2.0",
     "axios": "^1.10.0",
@@ -54,7 +54,7 @@
     "@tailwindcss/forms": "^0.5.10",
     "eslint": "^9.29.0",
     "eslint-config-react-app": "^7.0.1",
-    "prettier": "^3.6.0",
-    "tailwindcss": "^4.1.10"
+    "prettier": "^3.6.2",
+    "tailwindcss": "^4.1.11"
   }
 }
