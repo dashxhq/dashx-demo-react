@@ -19,6 +19,7 @@ root.render(
         realtimeBaseUri={process.env.REACT_APP_DASHX_REALTIME_URI}
         publicKey={process.env.REACT_APP_DASHX_PUBLIC_KEY}
         targetEnvironment={process.env.REACT_APP_DASHX_TARGET_ENVIRONMENT}
+        targetProduct={process.env.REACT_APP_DASHX_TARGET_PRODUCT}
       >
         <Theme>
           <CurrentUserProvider>

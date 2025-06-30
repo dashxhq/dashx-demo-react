@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@dashx/react": "^0.1.1",
+    "@dashx/react": "^0.1.2",
     "@headlessui/react": "^2.0.4",
     "@heroicons/react": "^2.1.3",
     "axios": "^1.7.2",
@@ -15,7 +15,6 @@
     "react-dom": "^18.1.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
-    "react-use-websocket": "4.8.1",
     "web-vitals": "^4.0.1",
     "yup": "^1.4.0"
   },
