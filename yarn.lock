@@ -1226,22 +1226,22 @@
   resolved "https://registry.yarnpkg.com/@csstools/selector-specificity/-/selector-specificity-2.2.0.tgz#2cbcf822bf3764c9658c4d2e568bd0c0cb748016"
   integrity sha512-+OJ9konv95ClSTOJCmMZqpd5+YGsB2S+x6w3E1oaM8UuR5j8nTNHYSz8c9BEPGDOCMQYIEEGlVPj/VY64iTbGw==
 
-"@dashx/browser@^0.4.0":
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/@dashx/browser/-/browser-0.4.0.tgz#0564ddfca4363f169b175901108146b44b251f06"
-  integrity sha512-pIF1QmnjkeaHAF97nL/SZA8/wCVsr4irpKjWSQawftDAFIByPYn7OY6QQFe1veDLWZyRuyqZGKH7ZcsTqQDzVg==
+"@dashx/browser@^0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@dashx/browser/-/browser-0.4.1.tgz#cb8d2d8f93b0cc424daa0d7ed0699ff136d391ce"
+  integrity sha512-Ki8qHbITGhEGHulqTGOc7zdVrtot/k2+4RH55Kcr6jRyoU4ULEWi57lQVw2zabkJe8RPhgZLEeyadAAIIhBcmQ==
   dependencies:
     "@apollo/client" "^3.13.8"
     "@graphql-typed-document-node/core" "^3.2.0"
     graphql "^16.11.0"
     uuid-random "^1.3.2"
 
-"@dashx/react@^0.1.2":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@dashx/react/-/react-0.1.2.tgz#ca61a79a8687e3be8646bdbfbd2e43c6e5aa9998"
-  integrity sha512-TW13LizeHNSLLzZLgTpVF7qDQ7iI4K7mi3Dlzlw49n2/FsfbU1Ai5UMwmsTlodDMAMNSrU7a0dS/ROzwDYvIjQ==
+"@dashx/react@^0.1.3":
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/@dashx/react/-/react-0.1.3.tgz#96ea92af2bb5843124f2226d0cdafe7f0fe8871b"
+  integrity sha512-k6Jvr8UWtmiQVc+bgjP1Vy9RbuYRHpMJiqKhHICO0iaKlOJ9rkTq+B78DVd7geWHEOaHF9GoZUg5wxM6YC4gpA==
   dependencies:
-    "@dashx/browser" "^0.4.0"
+    "@dashx/browser" "^0.4.1"
     "@radix-ui/colors" "^3.0.0"
     "@radix-ui/primitive" "^1.0.1"
     "@radix-ui/react-accessible-icon" "^1.0.3"
